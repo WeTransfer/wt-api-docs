@@ -1,0 +1,33 @@
+body {
+  font-family: 'Fakt Pro Normal', sans-serif;
+  font-size: 14px;
+}
+
+p {
+  line-height: 18px;
+  color: $gray-dark;
+  margin-bottom: 18px;
+}
+
+a {
+  color: $gray-medium;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 42px;
+  color: $gray-dark;
+
+  @media(max-width: 768px) {
+   font-size: 22px;
+   line-height: 32px;
+  }
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 16px;
+  color: $gray-dark;
+  margin-bottom: 10px;
+}
