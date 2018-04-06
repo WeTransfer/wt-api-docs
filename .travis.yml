@@ -1,0 +1,18 @@
+dist: trusty
+sudo: false
+
+cache:
+  bundler: true
+
+stages:
+  - name: Build docs
+    if: (type IN (push, pull_request)) OR branch = master
+
+jobs:
+  include:
+    - stage: Build docs
+      language: ruby
+      rvm:
+        - 2.3.1
+      script:
+        - bundle exec middleman build --clean
