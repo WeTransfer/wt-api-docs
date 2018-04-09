@@ -6,15 +6,15 @@
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: #2D2F2D !default;
+$nav-bg: #fff !default;
 $examples-bg: #2D2F2D !default;
 $code-bg: #2D2F2D !default;
 $code-annotation-bg: #191D1F !default;
 $nav-subitem-bg: #F8F8F8 !default;
 $nav-active-bg: #F8F8F8 !default;
 $nav-active-parent-bg: #F8F8F8 !default; // parent links of the current section
-$lang-select-border: #4A4A4A !default;
-$lang-select-bg: #4A4A4A !default;
+$lang-select-border: #353535 !default;
+$lang-select-bg: #353535 !default;
 $lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
 $lang-select-pressed-bg: #111 !default; // color of language tab bg when mouse is pressed
 $main-bg: #ffffff !default;
@@ -53,7 +53,7 @@ $phone-width: $tablet-width - $nav-width !default; // min width before reverting
 ////////////////////
 %default-font {
   font-family: "Fakt Pro", sans-serif;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 %header-font {

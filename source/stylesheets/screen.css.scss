@@ -1,11 +1,9 @@
 @charset "utf-8";
-
-@import "variables";
-
-@import "init/normalize";
-@import "init/slate";
-@import "init/fonts";
-@import "init/typography";
+@import 'variables';
+@import 'init/normalize';
+@import 'init/slate';
+@import 'init/fonts';
+@import 'init/typography';
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
@@ -26,8 +24,8 @@ under the License.
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL STUFF
 ////////////////////////////////////////////////////////////////////////////////
-html,
-body {
+
+html, body {
   color: $main-text;
   padding: 0;
   margin: 0;
@@ -36,20 +34,20 @@ body {
   @extend %default-font;
   background-color: $main-bg;
   height: 100%;
-  -webkit-text-size-adjust: none;
-  /* Never autoresize text */
+  -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
+
 .documentation {
   height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
 }
 
-#toc>ul>li>a>span {
+#toc > ul > li > a > span {
   float: right;
   background-color: #2484FF;
   border-radius: 40px;
@@ -66,24 +64,30 @@ body {
   left: 0;
   bottom: 0;
   width: $nav-width;
-  background-color: $main-bg;
+  background-color: $nav-bg;
   font-size: 14px;
   font-weight: 500;
-  border-right: 1px solid $gray-light; // language selector for mobile devices
+  border-right: 1px solid $gray-light;
+
+  // language selector for mobile devices
   .lang-selector {
     display: none;
     a {
       padding-top: 0.5em;
       padding-bottom: 0.5em;
     }
-  } // This is the logo at the top of the ToC
+  }
+
+  // This is the logo at the top of the ToC
   .logo {
     display: block;
     max-width: 100%;
     margin-bottom: $logo-margin;
   }
+
   &>.search {
     position: relative;
+
     input {
       background: #fff;
       border-width: 0 0 1px 0;
@@ -94,9 +98,9 @@ body {
       width: $nav-width - 30;
       outline: none;
       color: $nav-text;
-      border-radius: 0;
-      /* ios has a default border radius */
+      border-radius: 0; /* ios has a default border radius */
     }
+
     &:before {
       position: absolute;
       top: 17px;
@@ -104,6 +108,7 @@ body {
       color: $nav-text;
     }
   }
+
   .search-results {
     margin-top: 0;
     box-sizing: border-box;
@@ -118,70 +123,93 @@ body {
       height: 30%;
       margin-bottom: 1em;
     }
+
     li {
       margin: 1em $nav-padding;
       line-height: 1;
     }
+
     a {
       color: $nav-text;
       text-decoration: none;
+
       &:hover {
         text-decoration: underline;
       }
     }
   }
-  #toc>li {
+
+
+  #toc > li {
+
     a {
       padding: 10px 30px;
+
       &:hover {
         color: #111;
       }
     }
+
     ul li a {
       padding: 0 30px;
       text-decoration: underline;
+
     }
-  } // The Table of Contents is composed of multiple nested
+  }
+
+
+  // The Table of Contents is composed of multiple nested
   // unordered lists.  These styles remove the default
   // styling of an unordered list because it is ugly.
-  ul,
-  li {
+  ul, li {
     list-style: none;
     margin: 0;
     padding: 0;
   }
+
+
+
   li {
     color: $nav-text;
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 200ms;
-  } // This is the currently selected ToC entry
+  }
+
+  // This is the currently selected ToC entry
   .toc-link.active {
     background-color: $nav-active-bg;
     color: $nav-active-text;
-  } // this is parent links of the currently selected ToC entry
+  }
+
+  // this is parent links of the currently selected ToC entry
   .toc-link.active-parent {
     background-color: $nav-active-parent-bg;
     color: $nav-active-parent-text;
   }
+
   .toc-list-h2 {
     display: none;
     background-color: $nav-subitem-bg;
+    font-size: 12px;
     font-weight: 400;
     padding-bottom: 12px;
   }
+
   .toc-footer {
     padding: 1em 0;
     margin-top: 1em;
     border-top: 1px dashed $nav-footer-border-color;
-    li,
-    a {
+
+    li,a {
       color: $nav-text;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     li {
       font-size: 0.8em;
       line-height: 1.7;
@@ -190,8 +218,7 @@ body {
   }
 }
 
-.toc-link,
-.toc-footer li {
+.toc-link, .toc-footer li {
   padding: 0 $nav-padding 0 $nav-padding;
   display: block;
   overflow-x: hidden;
@@ -224,30 +251,33 @@ body {
   color: #000;
   text-decoration: none;
   font-weight: 500;
+  font-size: 12px;
   line-height: 16px;
   img {
     height: 16px;
     vertical-align: middle;
   }
+
   transition: left 0.3s ease-in-out;
-  &:hover {
-    opacity: 1;
-  }
-  &.open {
-    left: $nav-width
-  }
+
+  &:hover { opacity: 1; }
+  &.open {left: $nav-width}
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
 ////////////////////////////////////////////////////////////////////////////////
+
 .page-wrapper {
   margin-left: $nav-width;
   position: relative;
   z-index: 10;
   background-color: $main-bg;
   min-height: 100%;
+
   padding-bottom: 1px; // prevent margin overflow
+
   // The dark box is what gives the code samples their dark background.
   // It sits essentially under the actual content block, which has a
   // transparent background.
@@ -261,6 +291,7 @@ body {
     top: 0;
     bottom: 0;
   }
+
   .lang-selector {
     position: fixed;
     z-index: 50;
@@ -271,24 +302,29 @@ body {
 .lang-selector {
   background-color: $lang-select-bg;
   width: 100%;
+
   a {
+    font-size: 12px;
     padding: 0 10px;
     line-height: 30px;
     display: block;
-    float: left;
+    float:left;
     color: $lang-select-text;
     text-decoration: none;
+
     outline: 0;
-    &:active,
-    &:focus {
+
+    &:active, &:focus {
       background-color: $lang-select-pressed-bg;
       color: $lang-select-pressed-text;
     }
+
     &.active {
       background-color: $lang-select-active-bg;
       color: $lang-select-active-text;
     }
   }
+
   &:after {
     content: '';
     clear: both;
@@ -300,57 +336,53 @@ body {
 // CONTENT STYLES
 ////////////////////////////////////////////////////////////////////////////////
 // This is all the stuff with the light background in the left half of the page
+
 .content {
   // fixes webkit rendering bug for some: see #538
-  -webkit-transform: translateZ(0); // to place content above the dark box
+  -webkit-transform: translateZ(0);
+  // to place content above the dark box
   position: relative;
   z-index: 30;
+
   &:after {
     content: '';
     display: block;
     clear: both;
   }
-  &>h1,
-  &>h2,
-  &>h3,
-  &>h4,
-  &>h5,
-  &>h6,
-  &>p,
-  &>table,
-  &>ul,
-  &>ol,
-  &>aside,
-  &>dl {
+
+  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
     margin-right: $examples-width;
     padding: 0 $main-padding;
     box-sizing: border-box;
     display: block;
+
     @extend %left-col;
   }
-  &>ul,
-  &>ol {
+
+  &>ul, &>ol {
     padding-left: $main-padding + 15px;
-  } // the div is the tocify hidden div for placeholding stuff
-  &>h1,
-  &>h2,
-  &>div {
-    clear: both;
   }
+
+  // the div is the tocify hidden div for placeholding stuff
+  &>h1, &>h2, &>div {
+    clear:both;
+  }
+
   h1 {
     @extend %header-font;
     font-size: 25px;
-    padding-top: 0.5em;
-    margin-bottom: 0.5em;
+    padding-top: 1em;
+    margin-bottom: 0;
     margin-top: 2em;
     border-top: 1px solid $gray-light;
     position: relative;
   }
-  h1:first-child,
-  div:first-child+h1 {
+
+  h1:first-child, div:first-child + h1 {
     border-top-width: 0;
     margin-top: 0;
   }
+
   h2 {
     @extend %header-font;
     font-size: 16px;
@@ -359,79 +391,86 @@ body {
     padding-top: 15px;
     margin-left: 30px;
     padding-left: 0;
-  } // h2s right after h1s should bump right up
+  }
+
+  // h2s right after h1s should bump right up
   // against the h1s.
-  h1+h2,
-  h1+div+h2 {
+  h1 + h2, h1 + div + h2 {
     margin-top: 0;
     border-top: none;
   }
-  h1,
-  h2,
-  h3,
-  h4 {
+
+  h1, h2, h3, h4 {
     font-weight: 500;
   }
+
   h1 {
     font-size: 20px;
   }
-  h3 {
-    font-size: 14px;
+
+  h3, h4 {
+    font-size: 13px;
+    margin-bottom: 5px;
   }
-  h4 {
-    font-size: 14px;
-  }
+
   hr {
     margin: 2em 0;
     border-top: 2px solid $examples-bg;
     border-bottom: 2px solid $main-bg;
   }
+
   table {
     margin-bottom: 1em;
     overflow: auto;
-    th,
-    td {
+    th,td {
       text-align: left;
       padding: 5px 20px 5px 0px;
       border-bottom: 1px solid $gray-light;
+      font-size: 12px;
       code {
         white-space: nowrap;
       }
     }
+
     tr td:last-child,
     tr th:last-child {
       padding-right: 0;
     }
+
     th {
       vertical-align: bottom;
       font-weight: 500;
     }
+
     tr:nth-child(odd)>td {
-      background-color: lighten($main-bg, 4.2%);
+      background-color: lighten($main-bg,4.2%);
     }
+
     tr:nth-child(even)>td {
-      background-color: lighten($main-bg, 2.4%);
+      background-color: lighten($main-bg,2.4%);
     }
   }
+
   dt {
     font-weight: bold;
   }
+
   dd {
     margin-left: 15px;
   }
-  p,
-  li,
-  dt,
-  dd {
-    line-height: 1.6;
+
+  p, li, dt, dd {
     margin-top: 0;
   }
+
   strong {
     font-weight: 500;
   }
+
   img {
     max-width: 100%;
   }
+
   code {
     background-color: $gray-light;
     color: $gray-dark;
@@ -440,11 +479,13 @@ body {
     @extend %break-words;
     @extend %code-font;
   }
+
   pre>code {
     background-color: transparent;
     padding: 0;
     color: $gray-light;
   }
+
   aside {
     padding-top: 1em;
     padding-bottom: 1em;
@@ -452,21 +493,26 @@ body {
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
     line-height: 1.6;
+
     &.warning {
       background-color: $aside-warning-bg;
     }
+
     &.success {
       background-color: $aside-success-bg;
     }
+
     code {
       background-color: rgba(232, 232, 232, 0.4);
     }
   }
+
   aside:before {
     vertical-align: middle;
     padding-right: 0.5em;
     font-size: 14px;
   }
+
   .search-highlight {
     padding: 2px;
     margin: -3px;
@@ -480,26 +526,28 @@ body {
 // CODE SAMPLE STYLES
 ////////////////////////////////////////////////////////////////////////////////
 // This is all the stuff that appears in the right half of the page
+
 .content {
-  pre,
-  blockquote {
+  pre, blockquote {
     background-color: none;
     color: #fff;
     margin: 0;
     width: $examples-width;
-    float: right;
-    clear: right;
+    float:right;
+    clear:right;
     box-sizing: border-box;
+
     @extend %right-col;
-    &>p {
-      margin: 0;
-    }
+
+    &>p { margin: 0; }
+
     a {
       color: #fff;
       text-decoration: none;
       border-bottom: dashed 1px #ccc;
     }
   }
+
   pre {
     @extend %code-font;
     padding-top: 2em;
@@ -507,8 +555,10 @@ body {
     padding: 2em $main-padding;
     margin-top: -24px;
   }
+
   blockquote {
     &>p {
+      font-size: 12px;
       padding: $code-annotation-padding 30px;
       color: #F7F9FA;
     }
@@ -520,20 +570,25 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // These are the styles for phones and tablets
 // There are also a couple styles disperesed
+
 @media (max-width: $tablet-width) {
   .toc-wrapper {
     left: -$nav-width;
     padding: 0;
+
     &.open {
       left: 0;
     }
   }
+
   .page-wrapper {
     margin-left: 0;
   }
+
   #nav-button {
     display: block;
   }
+
   .toc-link {
     padding-top: 0.3em;
     padding-bottom: 0.3em;
@@ -544,37 +599,38 @@ body {
   .dark-box {
     display: none;
   }
+
   %left-col {
     margin-right: 0;
   }
+
   .toc-wrapper .lang-selector {
     display: block;
   }
+
   .page-wrapper .lang-selector {
     display: none;
   }
+
   %right-col {
     width: auto;
     float: none;
     background: $code-bg;
+
     .hightlight {
       background: $code-bg;
     }
   }
-  %right-col+%left-col {
+
+  %right-col + %left-col {
     margin-top: $main-padding;
   }
 }
 
-.highlight .c,
-.highlight .cm,
-.highlight .c1,
-.highlight .cs {
+.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
   color: #909090;
 }
 
-.highlight,
-.highlight .w {
+.highlight, .highlight .w {
   background-color: $code-bg;
 }
-
