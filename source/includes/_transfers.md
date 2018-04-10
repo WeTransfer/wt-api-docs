@@ -49,7 +49,7 @@ Creates a new empty transfer. The `shortened_url` property contains a URL for We
 
 ## Send items to a transfer
 
-Once a transfer has been created it is possible to add more items to it. This is an API-only functionality for transfers. (It is not yet possible through the "classic" web app.)
+Once a transfer has been created you can then add items to it.
 
 ```shell
 curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
@@ -98,16 +98,16 @@ name | type | required | description
   "name": "kittie.gif",
   "size": 195906,
   "upload_id": "more.random-ids--",
-  "upload_expires_at": 1520410633 // You have 24 hours to upload the file
+  "upload_expires_at": 1520410633
 }]
 
 ```
 
-It will return an object for each item you want to add to the transfer. Each item must be splitted in chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
+It will return an object for each item you want to add to the transfer. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
 
 ## Request upload URL
 
-To be able to upload a file, it must be splited in chunks, and uploaded to different presigned URLs. This route is being used to fetch presigned upload URLs for each file in a transfer (owned by the current user).
+To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts.
 
 ```shell
 curl "https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
