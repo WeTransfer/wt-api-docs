@@ -93,7 +93,7 @@
 }
     </style>
 
-    <link href="stylesheets/screen-ecb05500.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-40043e4f.css" rel="stylesheet" media="screen" />
   </head>
 
   <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;]">
@@ -107,6 +107,29 @@
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
           </li>
+          <li>
+            <a href="#authorization" class="toc-h1 toc-link" data-title="authorization">Authorization</a>
+          </li>
+          <li>
+            <a href="#transfering" class="toc-h1 toc-link" data-title="transfering">Transfering</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-new-transfer" class="toc-h2 toc-link" data-title="create-a-new-transfer">Create a new transfer</a>
+                  </li>
+                  <li>
+                    <a href="#send-items-to-a-transfer" class="toc-h2 toc-link" data-title="send-items-to-a-transfer">Send items to a transfer</a>
+                  </li>
+                  <li>
+                    <a href="#request-upload-url" class="toc-h2 toc-link" data-title="request-upload-url">Request upload URL</a>
+                  </li>
+                  <li>
+                    <a href="#file-upload" class="toc-h2 toc-link" data-title="file-upload">File upload</a>
+                  </li>
+                  <li>
+                    <a href="#complete-a-file-upload" class="toc-h2 toc-link" data-title="complete-a-file-upload">Complete a file upload</a>
+                  </li>
+              </ul>
+          </li>
       </div>
     </div>
     <div class="page-wrapper">
@@ -116,6 +139,340 @@
 <p>Welcome to WeTransfer&#39;s open APIs! You can use our API to create transfer links and share some files and love all over the world.</p>
 
 <p>We have language bindings in Ruby and JavaScript for now. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+
+<aside class="warning">
+  This API is under active development, so functionality or endpoints may change between now and the official release. It is current as of 2018/04/05. Changelog to come.
+</aside>
+<h1 id='authorization'>Authorization</h1>
+<p>To be able to use our APIs, you must provide a secret api key on every request. You can create a key on our <a href="https://developers.wetransfer.com/">Developer Portal</a>. Please make sure that you keep your API key in a secret place, and it&#39;s not shared on CVS repositories or client side code.</p>
+
+<p>Our APIs expect the API key to be included as a header on every API requests. Please provide the API key using <code>x-api-key</code> header, like in the following examples:</p>
+
+<aside class="notice">
+You must replace <code>your_api_key</code> with your secret API key.
+</aside>
+
+<p>Besides the API Key, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request, including your API token to the following endpoint:</p>
+<h4 id='http-request'>HTTP Request</h4><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+  https://dev.wetransfer.com/v1/authorize <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span>
+</code></pre>
+<p><code>POST https://dev.wetransfer.com/v1/authorize</code></p>
+<h4 id='headers'>Headers</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>x-api-key</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+</tbody></table>
+<h4 id='response'>Response</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A valid JWT token here"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>success</code></td>
+<td><em>Boolean</em></td>
+<td>Successful request, or not.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td><em>String</em></td>
+<td>A one year valid JWT token, if authorization went well</td>
+</tr>
+</tbody></table>
+<h1 id='transfering'>Transfering</h1><h2 id='create-a-new-transfer'>Create a new transfer</h2>
+<p>Create an empty link transfer.</p>
+<pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v1/transfers <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
+  -d <span class="s1">'{"name": "Little kittens"}'</span>
+</code></pre><h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://dev.wetransfer.com/v1/transfers</code></p>
+<h3 id='headers'>Headers</h3>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>x-api-key</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table>
+<h3 id='parameters'>Parameters</h3>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>name</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Something about cats or coffee, most probably</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><em>String</em></td>
+<td>No</td>
+<td>A description, if needed</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"version_identifier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uploading"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"shortened_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/s-random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little kittens"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Creates a new empty transfer. The <code>shortened_url</code> property contains a URL for WeTransfer, where you can access the resulting transfer.</p>
+<h2 id='send-items-to-a-transfer'>Send items to a transfer</h2>
+<p>Once a transfer has been created you can then add items to it.</p>
+<pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v1/transfers/<span class="o">{</span>transfer_id<span class="o">}</span>/items <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
+  -d <span class="s1">'{"items": [{"local_dentifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'</span>
+</code></pre><h4 id='http-request-2'>HTTP Request</h4>
+<p><code>POST https://dev.wetransfer.com/v1/transfers/{transfer_id}/items</code></p>
+<h4 id='headers-2'>Headers</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>x-api-key</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table>
+<h4 id='parameters-2'>Parameters</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>items</code></td>
+<td><em>Array(Item)</em></td>
+<td>Yes</td>
+<td>A list of items to send to an existing transfer</td>
+</tr>
+</tbody></table>
+<h4 id='item-object'>Item object</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>filename</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>The name of the file you want to show on items list</td>
+</tr>
+<tr>
+<td><code>filesize</code></td>
+<td><em>Integer</em></td>
+<td>Yes</td>
+<td>File size in bytes. Must be accurate. No fooling. Don&#39;t let us down.</td>
+</tr>
+<tr>
+<td><code>content_identifier</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Mandatory but must read &quot;file&quot;.</td>
+</tr>
+<tr>
+<td><code>local_identifier</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Unique identifier to identify the item locally (to your system).</td>
+</tr>
+</tbody></table>
+<h4 id='response-2'>Response</h4><pre class="highlight json tab-json"><code><span class="p">[{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"local_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kittie.gif"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"multipart_parts"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"multipart_upload_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some.random-id--"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kittie.gif"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"upload_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"more.random-ids--"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"upload_expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1520410633</span><span class="w">
+</span><span class="p">}]</span><span class="w">
+
+</span></code></pre>
+<p>It will return an object for each item you want to add to the transfer. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.</p>
+<h2 id='request-upload-url'>Request upload URL</h2>
+<p>To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file&#39;s parts.</p>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multipart_upload_id}"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><h4 id='http-request-3'>HTTP Request</h4>
+<p><code>GET https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multipart_upload_id}</code></p>
+<h4 id='headers-3'>Headers</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>x-api-key</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table>
+<h4 id='parameters-3'>Parameters</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>file_id</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>The public ID of the file to upload, returned when adding items.</td>
+</tr>
+<tr>
+<td><code>part_number</code></td>
+<td><em>Number</em></td>
+<td>Yes</td>
+<td>Which part number of the file you want to upload. It will be limited to the maximum <code>multipart_parts</code> response.</td>
+</tr>
+<tr>
+<td><code>multipart_upload_id</code></td>
+<td><em>Number</em></td>
+<td>Yes</td>
+<td>The upload ID issued by AWS S3.</td>
+</tr>
+</tbody></table>
+<h4 id='responses'>Responses</h4><h5 id='200-ok'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"upload_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://presigned-s3-put-url"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"part_number"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"upload_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"an-s3-issued-multipart-upload-id"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"upload_expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1519988329</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The Response Body contains the <code>upload_url</code>, <code>part_number</code>, <code>upload_id</code>, and <code>upload_expires_at</code>.</p>
+<h5 id='401-unauthorized'>401 (Unauthorized)</h5>
+<p>If the requester tries to request an upload URL for a file that is not in one of the requester&#39;s transfers, we will respond with 401 UNAUTHORIZED.</p>
+<h5 id='400-bad-request'>400 (Bad request)</h5>
+<p>If a request is made for a part, but no <code>multipart_upload_id</code> is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same <code>multipart_upload_id</code>.</p>
+<h2 id='file-upload'>File upload</h2><pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> https://dev.wetransfer.com/a-very-long-signed-endpoint
+</code></pre><h2 id='complete-a-file-upload'>Complete a file upload</h2>
+<p>After the file upload is successful, the file must be marked as complete.</p>
+<pre class="highlight shell tab-shell"><code>curl -X https://dev.wetransfer.com/v1/files/<span class="o">{</span>file_id<span class="o">}</span>/uploads/complete <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><h4 id='http-request-4'>HTTP Request</h4>
+<p><code>POST https://dev.wetransfer.com/v1/files/{file_id}/uploads/complete</code></p>
+<h4 id='headers-4'>Headers</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>x-api-key</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table>
+<h4 id='parameters-4'>Parameters</h4>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>file_id</code></td>
+<td><em>String</em></td>
+<td>Yes</td>
+<td>The public ID of the file to upload, returned when adding items.</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
