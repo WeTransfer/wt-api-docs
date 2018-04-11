@@ -10,6 +10,7 @@ search: false
 
 includes:
 #  - transfer-flow
+ - flow-diagram
  - authorization
  - transfers
 #  - errors
