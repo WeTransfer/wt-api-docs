@@ -4,6 +4,20 @@
 
   ul {
     padding: 0;
+
+    li {
+      code {
+        font-size: 10px;
+        background: none;
+        padding: 0 10px 0 0;
+        white-space: nowrap;
+
+        em {
+          font-style: normal;
+          font-weight: 700;
+        }
+      }
+    }
   }
 
   &__section,
@@ -13,16 +27,39 @@
     border-radius: 4px;
     display: block;
     list-style: none;
-    margin: 0;
+    margin: 0 0 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__section {
     background: $gray-ultralight;
-    margin-bottom: 10px;
   }
 
   &__item {
     background: #fff;
+    overflow-x: scroll;
+  }
+
+  .for-each {
+    padding: 10px;
+    border: 1px dashed $gray-medium;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    position: relative;
+
+    &:before {
+      background: $gray-ultralight;
+      content: 'for each part';
+      padding: 0 3px;
+      position: absolute;
+      font-size: 12px;
+      font-weight: 500;
+      left: 7px;
+      top: -6px;
+    }
   }
 
 
