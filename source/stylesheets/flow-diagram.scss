@@ -23,7 +23,7 @@
   &__section,
   &__item {
     padding: 20px;
-    border: 1px solid #D3D3D3;
+    border: 1px solid $gray-light;
     border-radius: 4px;
     display: block;
     list-style: none;
@@ -69,12 +69,12 @@
 
   h3 {
     font-size: 16px;
-    color: #3C3C3C;
+    color: $gray-dark;
   }
 
   h4 {
     font-size: 14px;
-    color: #3C3C3C;
+    color: $gray-dark;
   }
 
   p {
