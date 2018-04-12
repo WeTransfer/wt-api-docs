@@ -4,7 +4,9 @@
 @import 'init/slate';
 @import 'init/fonts';
 @import 'init/typography';
-@import 'flow-diagram';
+
+@import 'component/flow-diagram';
+@import 'component/sdks';
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
@@ -25,6 +27,9 @@ under the License.
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL STUFF
 ////////////////////////////////////////////////////////////////////////////////
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   color: $main-text;
@@ -32,7 +37,6 @@ html, body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @extend %default-font;
   background-color: $main-bg;
   height: 100%;
   -webkit-text-size-adjust: none; /* Never autoresize text */
@@ -117,7 +121,7 @@ html, body {
     overflow-y: auto;
     overflow-x: hidden;
     transition-property: height, margin;
-    transition-duration: 180ms;
+    transition-duration: 400ms;
     transition-timing-function: ease-in-out;
     background: $nav-subitem-bg;
     &.visible {
@@ -144,19 +148,34 @@ html, body {
   #toc > li {
 
     a {
-      padding: 10px 30px;
+      padding: 10px $main-padding;
 
       &:hover {
-        color: #111;
+        color: $gray-dark;
       }
     }
 
     ul li a {
-      padding: 0 30px;
+      padding: 0 $main-padding;
       text-decoration: underline;
+      transition: padding .2s;
+      position: relative;
+        &:before {
+          content: '>';
+          position: absolute;
+          left: 26px;
+          opacity: 0;
+          transition: .2s;
+        }
 
       &.active {
         font-weight: 500;
+        padding-left: 40px;
+
+        &:before {
+          opacity: 1;
+          left: 30px;
+        }
       }
     }
   }
@@ -173,7 +192,7 @@ html, body {
 
   li {
     color: $nav-text;
-    transition: background .2s;
+    transition: background .4s;
     line-height: 16px;
   }
 
@@ -243,6 +262,7 @@ html, body {
     transform: rotate(-90deg) translate(-100%, 0);
     box-shadow: -1px 1px 0 $gray-light;
   }
+
   padding: 0 1.5em 5em 0; // increase touch size area
   display: none;
   position: fixed;
@@ -254,6 +274,7 @@ html, body {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+
   img {
     height: 16px;
     vertical-align: middle;
@@ -272,11 +293,9 @@ html, body {
 
 .page-wrapper {
   margin-left: $nav-width;
-  position: relative;
   z-index: 10;
   background-color: $main-bg;
   min-height: 100%;
-
   padding-bottom: 1px; // prevent margin overflow
 
   // The dark box is what gives the code samples their dark background.
@@ -285,44 +304,48 @@ html, body {
   // I know, it's hackish, but it's the simplist way to make the left
   // half of the content always this background color.
   .dark-box {
-    width: $examples-width;
-    background-color: $examples-bg;
+    width: $nav-width;
     position: absolute;
-    right: 0;
-    top: 0;
+    left: 0;
     bottom: 0;
   }
 
   .lang-selector {
-    position: fixed;
     z-index: 50;
-    border-bottom: 5px solid $lang-select-active-bg;
   }
 }
 
 .lang-selector {
-  background-color: $lang-select-bg;
+  background-color: #fff;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: $nav-width - 1;
+  border-top: 1px solid $gray-light;
+  text-align: center;
 
   a {
     font-size: 12px;
-    padding: 0 10px;
+    padding: 0 5px;
     line-height: 30px;
-    display: block;
-    float:left;
-    color: $lang-select-text;
+    display: inline-block;
+    color: $gray-medium;
     text-decoration: none;
-
     outline: 0;
 
+    &:hover {
+      text-decoration: underline;
+    }
+
     &:active, &:focus {
-      background-color: $lang-select-pressed-bg;
-      color: $lang-select-pressed-text;
+      color: $gray-medium;
     }
 
     &.active {
-      background-color: $lang-select-active-bg;
-      color: $lang-select-active-text;
+      color: $gray-dark;
+      font-weight: 500;
+      text-decoration: underline;
     }
   }
 
@@ -339,26 +362,9 @@ html, body {
 // This is all the stuff with the light background in the left half of the page
 
 .content {
-  // fixes webkit rendering bug for some: see #538
-  -webkit-transform: translateZ(0);
-  // to place content above the dark box
-  position: relative;
   z-index: 30;
-
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-
-  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
-    margin-right: $examples-width;
-    padding: 0 $main-padding;
-    box-sizing: border-box;
-    display: block;
-
-    @extend %left-col;
-  }
+  max-width: 740px;
+  padding: 50px;
 
   &>ul, &>ol {
     padding-left: $main-padding + 15px;
@@ -370,48 +376,51 @@ html, body {
   }
 
   h1 {
-    @extend %header-font;
-    font-size: 25px;
-    padding-top: 1em;
-    margin-bottom: 0;
-    margin-top: 2em;
-    border-top: 1px solid $gray-light;
+    margin-top: 50px;
+    padding-top: 50px;
+    margin-bottom: 10px;
+    border-top: 2px solid $gray-light;
     position: relative;
   }
 
-  h1:first-child, div:first-child + h1 {
+  h1 + p {
+    @extend .intro;
+  }
+
+  h1:first-child,
+  div:first-child + h1 {
     border-top-width: 0;
     margin-top: 0;
+    padding-top: 0;
   }
 
   h2 {
-    @extend %header-font;
-    font-size: 16px;
-    margin-bottom: 0.5em;
-    border-top: 1px solid $gray-light;
-    padding-top: 15px;
-    margin-left: 30px;
-    padding-left: 0;
+    margin-top: 40px;
+    padding-top: 10px;
+    margin-bottom: 20px;
   }
 
-  // h2s right after h1s should bump right up
-  // against the h1s.
-  h1 + h2, h1 + div + h2 {
-    margin-top: 0;
-    border-top: none;
+  h1 + h2 {
+    margin-top: 20px;
   }
 
-  h1, h2, h3, h4 {
-    font-weight: 500;
-  }
+  h3.call {
+    margin-top: 10px;
+    padding-top: 10px;
 
-  h1 {
-    font-size: 20px;
-  }
-
-  h3, h4 {
-    font-size: 13px;
-    margin-bottom: 5px;
+    span {
+      @extend %code-font;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-block;
+      padding: 3px;
+      border: 1px solid #000;
+      line-height: 9px;
+      border-radius: 4px;
+      position: relative;
+      top: -2px;
+    }
   }
 
   hr {
@@ -423,11 +432,14 @@ html, body {
   table {
     margin-bottom: 1em;
     overflow: auto;
+
     th,td {
       text-align: left;
-      padding: 5px 20px 5px 0px;
+      padding: 5px 20px 5px 0;
+      line-height: 18px;
       border-bottom: 1px solid $gray-light;
-      font-size: 12px;
+      font-size: 14px;
+
       code {
         white-space: nowrap;
       }
@@ -488,19 +500,17 @@ html, body {
   }
 
   aside {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    background: $aside-notice-bg;
+    margin: $main-padding 0;
+    padding: 5px 10px;
+    border-left: 3px solid $aside-notice-bg;
     line-height: 1.6;
 
     &.warning {
-      background-color: $aside-warning-bg;
+      border-color: $aside-warning-bg;
     }
 
     &.success {
-      background-color: $aside-success-bg;
+      border-color: $aside-success-bg;
     }
 
     code {
@@ -532,12 +542,7 @@ html, body {
   pre, blockquote {
     background-color: none;
     color: #fff;
-    margin: 0;
-    width: $examples-width;
-    float:right;
-    clear:right;
-    box-sizing: border-box;
-
+    margin: 0 0 20px;
     @extend %right-col;
 
     &>p { margin: 0; }
@@ -551,17 +556,14 @@ html, body {
 
   pre {
     @extend %code-font;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    padding: 2em $main-padding;
-    margin-top: -24px;
+    padding: 20px;
   }
 
   blockquote {
     &>p {
       font-size: 12px;
       padding: $code-annotation-padding 30px;
-      color: #F7F9FA;
+      color: $gray-ultralight;
     }
   }
 }
@@ -573,6 +575,10 @@ html, body {
 // There are also a couple styles disperesed
 
 @media (max-width: $tablet-width) {
+  .content {
+    padding: 20px;
+  }
+
   .toc-wrapper {
     left: -$nav-width;
     padding: 0;
@@ -580,6 +586,15 @@ html, body {
     &.open {
       left: 0;
     }
+
+    #toc > li a {
+      padding: 10px 15px;
+    }
+
+    #toc > li ul li a {
+      padding: 0px 15px;
+    }
+
   }
 
   .page-wrapper {
@@ -593,6 +608,14 @@ html, body {
   .toc-link {
     padding-top: 0.3em;
     padding-bottom: 0.3em;
+  }
+
+  .lang-selector {
+    position: static;
+    border-top: 0;
+    border-bottom: 1px solid $gray-light;
+    text-align: left;
+    padding: 0 10px;
   }
 }
 
@@ -615,7 +638,6 @@ html, body {
 
   %right-col {
     width: auto;
-    float: none;
     background: $code-bg;
 
     .hightlight {

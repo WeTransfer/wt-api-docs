@@ -1,23 +1,28 @@
 body {
-  font-family: 'Fakt Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
+  color: $gray-dark;
 }
 
 p {
+  font-size: 14px;
   line-height: 20px;
-  color: $gray-dark;
   margin-bottom: 20px;
 }
 
-a {
-  color: $gray-medium;
+.intro {
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 23px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
 }
 
 h1 {
-  font-weight: 500;
   font-size: 28px;
   line-height: 42px;
-  color: $gray-dark;
 
   @media(max-width: 768px) {
    font-size: 22px;
@@ -25,9 +30,15 @@ h1 {
   }
 }
 
+h2 {
+  font-size: 20px;
+}
+
 h3 {
-  font-weight: 500;
   font-size: 16px;
-  color: $gray-dark;
   margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 14px;
 }

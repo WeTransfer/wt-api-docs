@@ -99,8 +99,8 @@
         }, 0);
       });
 
-      $(window).scroll(debounce(refreshToc, 200));
-      $(window).resize(debounce(recacheHeights, 200));
+      $(window).scroll(debounce(refreshToc, 400));
+      $(window).resize(debounce(recacheHeights, 400));
     };
 
     makeToc();
