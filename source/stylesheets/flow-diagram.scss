@@ -20,6 +20,19 @@
     }
   }
 
+  fieldset {
+    border: 1px dashed $gray-medium;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    legend {
+      padding: 0 3px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
   &__section,
   &__item {
     padding: 20px;
@@ -42,26 +55,6 @@
     background: #fff;
     overflow-x: scroll;
   }
-
-  .for-each {
-    padding: 10px;
-    border: 1px dashed $gray-medium;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    position: relative;
-
-    &:before {
-      background: $gray-ultralight;
-      content: 'for each part';
-      padding: 0 3px;
-      position: absolute;
-      font-size: 12px;
-      font-weight: 500;
-      left: 7px;
-      top: -6px;
-    }
-  }
-
 
   h3, h4 {
     margin: 0;

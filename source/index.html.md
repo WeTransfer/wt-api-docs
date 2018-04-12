@@ -9,7 +9,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
 search: false
 
 includes:
-#  - transfer-flow
  - flow-diagram
  - authorization
  - transfers

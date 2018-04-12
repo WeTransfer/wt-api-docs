@@ -29,16 +29,19 @@
     <li class="flow-diagram__section">
       <h3>3 - Upload each file to Transfer Object</h3>
       <p>Then for each file part you request an upload URL that will show you where on Amazon to put it. Repeat until you’ve uploaded all parts and move on to next file.</p>
-      <ul class="for-each">
-        <li class="flow-diagram__item">
-          <h4>3.1 - Request upload URL for part</h4>
-          <code><em>GET</em> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</code>
-        </li>
-        <li class="flow-diagram__item">
-          <h4>3.2 - Upload part</h4>
-          <code><em>PUT</em> {aws_slot}</code>
-        </li>
-      </ul>
+      <fieldset>
+        <legend>for each part</legend>
+        <ul>
+          <li class="flow-diagram__item">
+            <h4>3.1 - Request upload URL for part</h4>
+            <code><em>GET</em> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</code>
+          </li>
+          <li class="flow-diagram__item">
+            <h4>3.2 - Upload part</h4>
+            <code><em>PUT</em> {aws_slot}</code>
+          </li>
+        </ul>
+      </fieldset>
       <ul>
         <li class="flow-diagram__item">
           <h4>3.3 - Complete file upload</h4>
