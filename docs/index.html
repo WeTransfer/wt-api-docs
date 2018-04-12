@@ -93,7 +93,7 @@
 }
     </style>
 
-    <link href="stylesheets/screen-40043e4f.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-b085f877.css" rel="stylesheet" media="screen" />
   </head>
 
   <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;]">
@@ -106,6 +106,11 @@
       <div id="toc" class="toc-list-h1">
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#flow-diagram" class="toc-h2 toc-link" data-title="flow-diagram">Flow Diagram</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#authorization" class="toc-h1 toc-link" data-title="authorization">Authorization</a>
@@ -143,6 +148,58 @@
 <aside class="warning">
   This API is under active development, so functionality or endpoints may change between now and the official release. It is current as of 2018/04/05. Changelog to come.
 </aside>
+<h2 id='flow-diagram'>Flow Diagram</h2>
+<section class="flow-diagram">
+  <ul>
+    <li class="flow-diagram__section">
+      <h3>1 - Authorize</h3>
+      <p>First, we have to make sure you’re fully authorized to create a new transfer. You do this by sending two authentication headers with the authorize request.</p>
+      <ul>
+        <li class="flow-diagram__item">
+          <h4>1.1 - Send authorization request</h4>
+          <code><em>POST</em> /authorize</code>
+        </li>
+      </ul>
+    </li>
+    <li class="flow-diagram__section">
+      <h3>2 - Create a Transfer Object</h3>
+      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step.</p>
+      <ul>
+        <li class="flow-diagram__item">
+          <h4>2.1 - Create an empty transfer object</h4>
+          <code><em>POST</em> /transfers</code>
+        </li>
+        <li class="flow-diagram__item">
+          <h4>2.2 - Send list of items to transfer object</h4>
+          <code><em>POST</em> /transfers/{transfer_id}/items</code>
+        </li>
+      </ul>
+    </li>
+    <li class="flow-diagram__section">
+      <h3>3 - Upload each file to Transfer Object</h3>
+      <p>Then for each file part you request an upload URL that will show you where on Amazon to put it. Repeat until you’ve uploaded all parts and move on to next file.</p>
+      <fieldset>
+        <legend>for each part</legend>
+        <ul>
+          <li class="flow-diagram__item">
+            <h4>3.1 - Request upload URL for part</h4>
+            <code><em>GET</em> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</code>
+          </li>
+          <li class="flow-diagram__item">
+            <h4>3.2 - Upload part</h4>
+            <code><em>PUT</em> {aws_slot}</code>
+          </li>
+        </ul>
+      </fieldset>
+      <ul>
+        <li class="flow-diagram__item">
+          <h4>3.3 - Complete file upload</h4>
+          <code><em>POST</em> /files/{file_id}/uploads/complete</code>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
 <h1 id='authorization'>Authorization</h1>
 <p>To be able to use our APIs, you must provide a secret api key on every request. You can create a key on our <a href="https://developers.wetransfer.com/">Developer Portal</a>. Please make sure that you keep your API key in a secret place, and it&#39;s not shared on CVS repositories or client side code.</p>
 
@@ -339,7 +396,7 @@ You must replace <code>your_api_key</code> with your secret API key.
 <td><code>local_identifier</code></td>
 <td><em>String</em></td>
 <td>Yes</td>
-<td>Can be no longer than 36 characters! Unique identifier to identify the item locally (to your system).</td>
+<td>Unique identifier to identify the item locally (to your system).</td>
 </tr>
 </tbody></table>
 <h4 id='response-2'>Response</h4><pre class="highlight json tab-json"><code><span class="p">[{</span><span class="w">

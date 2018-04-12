@@ -1,24 +1,39 @@
 /*
-Error: Undefined variable: "$gray-dark".
-        on line 8 of /Users/offinga/Development/wt-api-docs/source/stylesheets/init/typography.scss
+Error: Undefined variable: "$gray-medium".
+        on line 24 of /Users/offinga/Development/wt-api-docs/source/stylesheets/flow-diagram.scss
 
-3:   font-size: 14px;
-4: }
-5: 
-6: p {
-7:   line-height: 20px;
-8:   color: $gray-dark;
-9:   margin-bottom: 20px;
-10: }
-11: 
-12: a {
-13:   color: $gray-medium;
+19:       }
+20:     }
+21:   }
+22: 
+23:   fieldset {
+24:     border: 1px dashed $gray-medium;
+25:     padding: 10px;
+26:     border-radius: 4px;
+27:     margin-bottom: 10px;
+28: 
+29:     legend {
 
 Backtrace:
-/Users/offinga/Development/wt-api-docs/source/stylesheets/init/typography.scss:8
+/Users/offinga/Development/wt-api-docs/source/stylesheets/flow-diagram.scss:24
 /Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/script/tree/node.rb:58:in `perform'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/script/tree/list_literal.rb:63:in `block in _perform'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/script/tree/list_literal.rb:63:in `map'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/script/tree/list_literal.rb:63:in `_perform'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/script/tree/node.rb:58:in `perform'
 /Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:398:in `visit_prop'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `with_base'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block (2 levels) in visit_rule'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `map'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block in visit_rule'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:432:in `visit_rule'
 /Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
 /Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
 /Users/offinga/.rbenv/versions/2.4.2/lib/ruby/gems/2.4.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
@@ -157,4 +172,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$gray-dark\".\A         on line 8 of /Users/offinga/Development/wt-api-docs/source/stylesheets/init/typography.scss\A \A 3:   font-size: 14px;\A 4: }\A 5: \A 6: p {\A 7:   line-height: 20px;\A 8:   color: $gray-dark;\A 9:   margin-bottom: 20px;\A 10: }\A 11: \A 12: a {\A 13:   color: $gray-medium;"; }
+  content: "Error: Undefined variable: \"$gray-medium\".\A         on line 24 of /Users/offinga/Development/wt-api-docs/source/stylesheets/flow-diagram.scss\A \A 19:       }\A 20:     }\A 21:   }\A 22: \A 23:   fieldset {\A 24:     border: 1px dashed $gray-medium;\A 25:     padding: 10px;\A 26:     border-radius: 4px;\A 27:     margin-bottom: 10px;\A 28: \A 29:     legend {"; }
