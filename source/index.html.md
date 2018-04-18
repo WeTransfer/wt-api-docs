@@ -10,6 +10,7 @@ search: false
 
 includes:
  - flow-diagram
+ - sdks
  - authorization
  - transfers
 #  - errors
@@ -21,6 +22,4 @@ Welcome to WeTransfer's open APIs! You can use our API to create transfer links 
 
 We have language bindings in Ruby and JavaScript for now. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-<aside class="warning">
-  This API is under active development, so functionality or endpoints may change between now and the official release. It is current as of 2018/04/05. Changelog to come.
-</aside>
+<aside class="warning"><strong>Note:</strong> This API is under active development, so functionality or endpoints may change between now and the official release. It is current as of 2018/04/05. Changelog to come.</aside>

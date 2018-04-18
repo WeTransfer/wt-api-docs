@@ -1,22 +1,50 @@
 /*
 Error: Undefined variable: "$gray-dark".
-        on line 4 of /Users/arkaitz/workspace/wetransfer/wt-api-docs/source/stylesheets/init/typography.scss
+        on line 37 of /Users/arkaitz/workspace/wetransfer/wt-api-docs/source/stylesheets/component/sdks.scss
 
-1: body {
-2:   font-family: 'Roboto', sans-serif;
-3:   font-size: 14px;
-4:   color: $gray-dark;
-5: }
-6: 
-7: p {
-8:   font-size: 14px;
-9:   line-height: 20px;
+32:     .button {
+33:       display: block;
+34:       padding: 0 20px;
+35:       text-decoration: none;
+36:       background: #fff;
+37:       border: 1px solid $gray-dark;
+38:       border-radius: 4px;
+39:       color: $gray-dark;
+40:       font-size: 12px;
+41:       font-weight: 500;
+42:       line-height: 32px;
 
 Backtrace:
-/Users/arkaitz/workspace/wetransfer/wt-api-docs/source/stylesheets/init/typography.scss:4
+/Users/arkaitz/workspace/wetransfer/wt-api-docs/source/stylesheets/component/sdks.scss:37
 /Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/script/tree/node.rb:58:in `perform'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/script/tree/list_literal.rb:63:in `block in _perform'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/script/tree/list_literal.rb:63:in `map'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/script/tree/list_literal.rb:63:in `_perform'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/script/tree/node.rb:58:in `perform'
 /Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:398:in `visit_prop'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `with_base'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block (2 levels) in visit_rule'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `map'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block in visit_rule'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:432:in `visit_rule'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:115:in `with_frame'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `with_base'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block (2 levels) in visit_rule'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `map'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:434:in `block in visit_rule'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:432:in `visit_rule'
 /Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/base.rb:36:in `visit'
 /Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
 /Users/arkaitz/.rbenv/versions/2.3.4/lib/ruby/gems/2.3.0/gems/sass-3.4.25/lib/sass/stack.rb:79:in `block in with_base'
@@ -155,4 +183,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$gray-dark\".\A         on line 4 of /Users/arkaitz/workspace/wetransfer/wt-api-docs/source/stylesheets/init/typography.scss\A \A 1: body {\A 2:   font-family: 'Roboto', sans-serif;\A 3:   font-size: 14px;\A 4:   color: $gray-dark;\A 5: }\A 6: \A 7: p {\A 8:   font-size: 14px;\A 9:   line-height: 20px;"; }
+  content: "Error: Undefined variable: \"$gray-dark\".\A         on line 37 of /Users/arkaitz/workspace/wetransfer/wt-api-docs/source/stylesheets/component/sdks.scss\A \A 32:     .button {\A 33:       display: block;\A 34:       padding: 0 20px;\A 35:       text-decoration: none;\A 36:       background: #fff;\A 37:       border: 1px solid $gray-dark;\A 38:       border-radius: 4px;\A 39:       color: $gray-dark;\A 40:       font-size: 12px;\A 41:       font-weight: 500;\A 42:       line-height: 32px;"; }
