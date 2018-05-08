@@ -19,6 +19,21 @@ curl -X POST \
   -H "x-api-key: your_api_key"
 ```
 
+```ruby
+# Please keep in mind that authorization is performed when the client is initialized.
+@client = WeTransfer::Client.new(api_key: '# YOUR PRIVATE API KEY GOES HERE')
+```
+
+```javascript
+const createWTClient = require('@wetransfer/js-sdk');
+// Please keep in mind that authorization is performed when the client is initialized.
+const apiClient = await createWTClient('/* YOUR PRIVATE API KEY GOES HERE */');
+
+// When using the SDK, there is no need to call authorize manually.
+// The method is available though, in case you need to access the JWT.
+const auth = await apiClient.authorize();
+```
+
 #### Headers
 
 name | type | required | description
