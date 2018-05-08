@@ -9,10 +9,11 @@ In order to make your life a little bit easier when building applications in Rub
     <a href="https://www.npmjs.com/package/@wetransfer/js-sdk"><img src="https://badge.fury.io/js/%40wetransfer%2Fjs-sdk.svg" class="badge"></a>
     <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="blank">View Repository</a>
   </article>
-  <article class="sdk sdk-ruby coming-soon">
+  <article class="sdk sdk-ruby">
     <img src="images/sdks/ruby.svg" class="logo">
     <h4>Ruby</h4>
-    <span>Coming soon</span>
+    <a href="https://rubygems.org/gems/wetransfer"><img src="https://img.shields.io/gem/v/wetransfer.svg" class="badge"></a>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">View Repository</a>
   </article>
   <article class="sdk sdk-swift coming-soon">
     <img src="images/sdks/swift.svg" class="logo">
