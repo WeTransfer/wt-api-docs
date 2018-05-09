@@ -154,7 +154,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 <h3 id="upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
 ```shell
-curl -T "./path/to/kittie.gif" https://dev.wetransfer.com/a-very-long-signed-endpoint
+curl -T "./path/to/kittie.gif" https://signed-s3-upload-url
 ```
 
 ## Complete a file upload

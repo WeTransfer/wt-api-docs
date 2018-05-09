@@ -636,7 +636,7 @@ You must replace <code>your_api_key</code> with your secret API key.
 <p>If a request is made for a part, but no <code>multipart_upload_id</code> is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same <code>multipart_upload_id</code>.</p>
 <h2 id='file-upload'>File upload</h2>
 <h3 id="upload-part" class="call"><span>PUT</span> {signed_url}</h3>
-<pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> https://dev.wetransfer.com/a-very-long-signed-endpoint
+<pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> https://signed-s3-upload-url
 </code></pre><h2 id='complete-a-file-upload'>Complete a file upload</h2>
 <h3 id="complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
