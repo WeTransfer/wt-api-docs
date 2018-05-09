@@ -18,8 +18,6 @@ includes:
 
 # Introduction
 
-Welcome to WeTransfer's open APIs! You can use our API to create transfer links and share some files and love all over the world.
+Welcome to WeTransfer's public API! You can use our API to create transfer links and share files and love all over the world.
 
-We have language bindings in Ruby and JavaScript for now. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-<aside class="warning"><strong>Note:</strong> This API is under active development, so functionality or endpoints may change between now and the official release. It is current as of 2018/04/05. Changelog to come.</aside>
+<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now. These docs are current as of 2018/04/05. Changelog to come.</aside>
