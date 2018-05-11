@@ -23,7 +23,7 @@ curl -X POST \
 require 'we_transfer_client'
 
 # Please keep in mind that authorization is performed when the client is initialized.
-@client = WeTransfer::Client.new(api_key: '# YOUR PRIVATE API KEY GOES HERE')
+client = WeTransferClient.new(api_key: '# YOUR PRIVATE API KEY GOES HERE'))
 ```
 
 ```javascript
