@@ -13,9 +13,12 @@ curl https://dev.wetransfer.com/v1/transfers \
 
 ```ruby
 transfer = @client.create_transfer(
-  name: "My very first transfer!",
-  description: "Something about cats, most probably."
-)
+  title: "My very first transfer!",
+  message: "Something about cats, most probably."
+) do |builder|
+  builder.add_file_at(path: '/path/to/local/file.jpg')
+  builder.add_file(name: 'README.txt', io: StringIO.new("This is the contents of the file"))
+end
 ```
 
 ```javascript
@@ -70,17 +73,6 @@ curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
   -d '{"items": [{"local_dentifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
-```
-
-```ruby
-@client.add_items(
-  transfer: transfer,
-  items: [
-    "/path/to/local/file_1.jpg",
-    "/path/to/local/file_2.png",
-    "/path/to/local/file_3.key"
-  ]
-)
 ```
 
 ```javascript

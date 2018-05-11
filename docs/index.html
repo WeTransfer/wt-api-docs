@@ -366,9 +366,12 @@ You must replace <code>your_api_key</code> with your secret API key.
 <pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
   https://dev.wetransfer.com/v1/authorize <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span>
-</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># Please keep in mind that authorization is performed when the client is initialized.</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'we_transfer_client'</span>
+
+<span class="c1"># Please keep in mind that authorization is performed when the client is initialized.</span>
 <span class="vi">@client</span> <span class="o">=</span> <span class="no">WeTransfer</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">api_key: </span><span class="s1">'# YOUR PRIVATE API KEY GOES HERE'</span><span class="p">)</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">createWTClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@wetransfer/js-sdk'</span><span class="p">);</span>
+
 <span class="c1">// Please keep in mind that authorization is performed when the client is initialized.</span>
 <span class="kr">const</span> <span class="nx">apiClient</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">createWTClient</span><span class="p">(</span><span class="s1">'/* YOUR PRIVATE API KEY GOES HERE */'</span><span class="p">);</span>
 
@@ -421,9 +424,12 @@ You must replace <code>your_api_key</code> with your secret API key.
   -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
   -d <span class="s1">'{"name": "My very first transfer!"}'</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="n">transfer</span> <span class="o">=</span> <span class="vi">@client</span><span class="p">.</span><span class="nf">create_transfer</span><span class="p">(</span>
-  <span class="ss">name: </span><span class="s2">"My very first transfer!"</span><span class="p">,</span>
-  <span class="ss">description: </span><span class="s2">"Something about cats, most probably."</span>
-<span class="p">)</span>
+  <span class="ss">title: </span><span class="s2">"My very first transfer!"</span><span class="p">,</span>
+  <span class="ss">message: </span><span class="s2">"Something about cats, most probably."</span>
+<span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_file_at</span><span class="p">(</span><span class="ss">path: </span><span class="s1">'/path/to/local/file.jpg'</span><span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_file</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'README.txt'</span><span class="p">,</span> <span class="ss">io: </span><span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"This is the contents of the file"</span><span class="p">))</span>
+<span class="k">end</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">transfer</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
   <span class="na">name</span><span class="p">:</span> <span class="s1">'My very first transfer!'</span><span class="p">,</span>
   <span class="na">description</span><span class="p">:</span> <span class="s1">'Something about cats, most probably.'</span>
@@ -495,14 +501,6 @@ You must replace <code>your_api_key</code> with your secret API key.
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
   -d <span class="s1">'{"items": [{"local_dentifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'</span>
-</code></pre><pre class="highlight ruby tab-ruby"><code><span class="vi">@client</span><span class="p">.</span><span class="nf">add_items</span><span class="p">(</span>
-  <span class="ss">transfer: </span><span class="n">transfer</span><span class="p">,</span>
-  <span class="ss">items: </span><span class="p">[</span>
-    <span class="s2">"/path/to/local/file_1.jpg"</span><span class="p">,</span>
-    <span class="s2">"/path/to/local/file_2.png"</span><span class="p">,</span>
-    <span class="s2">"/path/to/local/file_3.key"</span>
-  <span class="p">]</span>
-<span class="p">)</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">transferItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">addItems</span><span class="p">(</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">[{</span>
   <span class="na">content_identifier</span><span class="p">:</span> <span class="s1">'file'</span><span class="p">,</span>
   <span class="na">local_identifier</span><span class="p">:</span> <span class="s1">'delightful-cat'</span><span class="p">,</span>
@@ -667,17 +665,13 @@ You must replace <code>your_api_key</code> with your secret API key.
 <p>If a request is made for a part, but no <code>multipart_upload_id</code> is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same <code>multipart_upload_id</code>.</p>
 <h2 id='file-upload'>File upload</h2>
 <h3 id="upload-part" class="call"><span>PUT</span> {signed_url}</h3>
-<<<<<<< HEAD
 <pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> https://signed-s3-upload-url
-=======
-<pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> https://dev.wetransfer.com/a-very-long-signed-endpoint
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// Depending on your application, you will read the file using fs.readFile</span>
 <span class="c1">// or it will be a file uploaded to your service.</span>
 <span class="kr">const</span> <span class="nx">files</span> <span class="o">=</span> <span class="p">[[</span><span class="cm">/* Buffer */</span><span class="p">],</span> <span class="p">[</span><span class="cm">/* Buffer */</span><span class="p">]];</span>
 <span class="nx">await</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">transferItems</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">uploadFile</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">files</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
 <span class="p">}));</span>
->>>>>>> Build docs
 </code></pre><h2 id='complete-a-file-upload'>Complete a file upload</h2>
 <h3 id="complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
