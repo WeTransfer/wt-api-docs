@@ -71,7 +71,7 @@ Once a transfer has been created you can then add items to it.
 curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"items": [{"local_dentifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
+  -d '{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
 ```
 
 ```javascript
