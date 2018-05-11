@@ -2,13 +2,29 @@
 
 ## Create a new transfer
 
-Create an empty link transfer.
+Transfers can be created with or without items. Once the transfer has been created, items can be added at any time.
 
 ```shell
 curl https://dev.wetransfer.com/v1/transfers \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"name": "Little kittens"}'
+  -d '{"name": "My very first transfer!"}'
+```
+
+```ruby
+transfer = client.create_transfer(title: 'My very first transfer!', message: 'Something about cats, most probably.') do |builder|
+  builder.add_file(name: File.basename(__FILE__), io: File.open(__FILE__, 'rb'))
+  builder.add_file(name: 'cat-picture.jpg', io: StringIO.new('cat-picture'))
+  builder.add_file(name: 'README.txt', io: File.open('/path/to/local/readme.txt', 'rb'))
+  builder.add_file_at(path: __FILE__)
+end
+```
+
+```javascript
+const transfer = await apiClient.transfer.create({
+  name: 'My very first transfer!',
+  description: 'Something about cats, most probably.'
+});
 ```
 
 <h3 id="create-object" class="call"><span>POST</span> /transfers</h3>
@@ -45,7 +61,7 @@ name | type | required | description
 
 Creates a new empty transfer. The `shortened_url` property contains a URL for WeTransfer, where you can access the resulting transfer.
 
-## Send items to a transfer
+## Add items to a transfer
 
 <h3 id="send-items" class="call"><span>POST</span> /transfers/{transfer_id}/items</h3>
 
@@ -56,6 +72,15 @@ curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
   -d '{"items": [{"local_dentifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
+```
+
+```javascript
+const transferItems = await apiClient.transfer.addItems(transfer.id, [{
+  content_identifier: 'file',
+  local_identifier: 'delightful-cat',
+  filename: 'kittie.gif',
+  filesize: 1024
+}]);
 ```
 
 #### Headers
@@ -86,7 +111,7 @@ name | type | required | description
 [{
   "id": "random-hash",
   "content_identifier": "file",
-  "local_identifier": "kittie.gif",
+  "local_identifier": "delightful-cat",
   "meta": {
     "multipart_parts": 3,
     "multipart_upload_id": "some.random-id--"
@@ -111,8 +136,6 @@ curl "https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multi
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
-
-
 
 #### Headers
 
@@ -155,6 +178,15 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 
 ```shell
 curl -T "./path/to/kittie.gif" https://signed-s3-upload-url
+```
+
+```javascript
+// Depending on your application, you will read the file using fs.readFile
+// or it will be a file uploaded to your service.
+const files = [[/* Buffer */], [/* Buffer */]];
+await Promise.all(transferItems.map((item, index) => {
+  return apiClient.transfer.uploadFile(item, files[index]);
+}));
 ```
 
 ## Complete a file upload
