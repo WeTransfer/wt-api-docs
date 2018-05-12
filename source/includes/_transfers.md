@@ -98,12 +98,23 @@ name | type | required | description
 
 #### Item object
 
+An item can be either a file or an URL.
+
+**File object**
+
 name | type | required | description
 ---- | ---- | -------- | -----------
 `filename` | String | Yes | The name of the file you want to show on items list
 `filesize` | _Integer_ | Yes | File size in bytes. Must be accurate. No fooling. Don't let us down.
 `content_identifier` |	String | Yes | Mandatory but must read "file".
 `local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system).
+
+**URL object**
+
+name | type | required | description
+---- | ---- | -------- | -----------
+`content_identifier` |	String | Yes | Mandatory but must read "web_content".
+`url` | String | Yes | A complete URL.
 
 #### Response
 
@@ -120,6 +131,14 @@ name | type | required | description
   "size": 195906,
   "upload_id": "more.random-ids--",
   "upload_expires_at": 1520410633
+},
+{
+  "id": "random-hash",
+  "content_identifier": "web_content",
+  "meta": {
+    "title": "WeTransfer"
+  },
+  "url": "https://wetransfer.com"
 }]
 ```
 
