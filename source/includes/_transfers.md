@@ -12,7 +12,7 @@ curl https://dev.wetransfer.com/v1/transfers \
 ```
 
 ```ruby
-transfer = client.create_transfer(title: 'My very first transfer!', message: 'Something about cats, most probably.') do |builder|
+transfer = client.create_transfer(name: 'My very first transfer!', description: 'Something about cats, most probably.') do |builder|
   builder.add_file(name: File.basename(__FILE__), io: File.open(__FILE__, 'rb'))
   builder.add_file(name: 'cat-picture.jpg', io: StringIO.new('cat-picture'))
   builder.add_file(name: 'README.txt', io: File.open('/path/to/local/readme.txt', 'rb'))

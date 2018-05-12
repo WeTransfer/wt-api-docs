@@ -423,7 +423,7 @@ You must replace <code>your_api_key</code> with your secret API key.
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
   -d <span class="s1">'{"name": "My very first transfer!"}'</span>
-</code></pre><pre class="highlight ruby tab-ruby"><code><span class="n">transfer</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">create_transfer</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'My very first transfer!'</span><span class="p">,</span> <span class="ss">message: </span><span class="s1">'Something about cats, most probably.'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="n">transfer</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">create_transfer</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'My very first transfer!'</span><span class="p">,</span> <span class="ss">description: </span><span class="s1">'Something about cats, most probably.'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
   <span class="n">builder</span><span class="p">.</span><span class="nf">add_file</span><span class="p">(</span><span class="ss">name: </span><span class="no">File</span><span class="p">.</span><span class="nf">basename</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">),</span> <span class="ss">io: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="kp">__FILE__</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">))</span>
   <span class="n">builder</span><span class="p">.</span><span class="nf">add_file</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'cat-picture.jpg'</span><span class="p">,</span> <span class="ss">io: </span><span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'cat-picture'</span><span class="p">))</span>
   <span class="n">builder</span><span class="p">.</span><span class="nf">add_file</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'README.txt'</span><span class="p">,</span> <span class="ss">io: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s1">'/path/to/local/readme.txt'</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">))</span>
@@ -545,6 +545,10 @@ You must replace <code>your_api_key</code> with your secret API key.
 </tr>
 </tbody></table>
 <h4 id='item-object'>Item object</h4>
+<p>An item can be either a file or an URL.</p>
+
+<p><strong>File object</strong></p>
+
 <table><thead>
 <tr>
 <th>name</th>
@@ -578,6 +582,30 @@ You must replace <code>your_api_key</code> with your secret API key.
 <td>Unique identifier to identify the item locally (to your system).</td>
 </tr>
 </tbody></table>
+
+<p><strong>URL object</strong></p>
+
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>content_identifier</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Mandatory but must read &quot;web_content&quot;.</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>A complete URL.</td>
+</tr>
+</tbody></table>
 <h4 id='response-2'>Response</h4><pre class="highlight json tab-json"><code><span class="p">[{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"content_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
@@ -590,6 +618,14 @@ You must replace <code>your_api_key</code> with your secret API key.
   </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
   </span><span class="s2">"upload_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"more.random-ids--"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"upload_expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1520410633</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"content_identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web_content"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WeTransfer"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://wetransfer.com"</span><span class="w">
 </span><span class="p">}]</span><span class="w">
 </span></code></pre>
 <p>It will return an object for each item you want to add to the transfer. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.</p>
