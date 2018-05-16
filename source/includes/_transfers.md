@@ -80,6 +80,14 @@ const transferItems = await apiClient.transfer.addItems(transfer.id, [{
   local_identifier: 'delightful-cat',
   filename: 'kittie.gif',
   filesize: 1024
+},
+{
+  content_identifier: 'web_content',
+  local_identifier: 'wetransfer-com-link',
+  url: 'https://wetransfer.com',
+  meta: {
+    title: 'WeTransfer'
+  },
 }]);
 ```
 
