@@ -637,6 +637,9 @@ You must replace <code>your_api_key</code> with your secret API key.
 </span><span class="p">}]</span><span class="w">
 </span></code></pre>
 <p>It will return an object for each item you want to add to the transfer. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.</p>
+
+<p><strong>Important</strong>
+Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.</p>
 <h2 id='request-upload-url'>Request upload URL</h2>
 <h3 id="request-upload-url" class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
 
