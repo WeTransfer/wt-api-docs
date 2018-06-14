@@ -1,4 +1,4 @@
-# Transfering
+# Transferring
 
 ## Create a new transfer
 
