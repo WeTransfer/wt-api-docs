@@ -4,18 +4,21 @@
 
 To be able to use our APIs, you must provide a secret api key on every request. You can create a key on our [Developer Portal](https://developers.wetransfer.com/). Please make sure that you keep your API key in a secret place, and it's not shared on CVS repositories or client side code.
 
-Our APIs expect the API key to be included as a header on every API requests. Please provide the API key using `x-api-key` header, like in the following examples:
+Our APIs expect the API key to be included as a header on every API requests. Please provide the API key using `x-api-key` header, like in the following example:
 
 <aside class="notice">
 You must replace <code>your_api_key</code> with your secret API key.
 </aside>
 
-Besides the API Key, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request, including your API token to the following endpoint:
+We also require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
+
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request, including your API token to the following endpoint:
 
 
 ```shell
 curl -X POST \
   https://dev.wetransfer.com/v1/authorize \
+  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key"
 ```
 
@@ -42,6 +45,7 @@ const auth = await apiClient.authorize();
 name | type | required | description
 ---- | ---- | -------- | -----------
 `x-api-key` | String | Yes | Private API key
+`Content-Type` | String | Yes | must be application/json
 
 #### Response
 
@@ -55,4 +59,4 @@ name | type | required | description
 name | type | description
 ---- | ---- | -----------
 `success` | Boolean | Successful request, or not.
-`token` | String | A one year valid JWT token, if authorization went well
+`token` | String | A JWT token valid for one year, if authorization went well
