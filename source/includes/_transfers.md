@@ -6,6 +6,7 @@ Transfers can be created with or without items. Once the transfer has been creat
 
 ```shell
 curl https://dev.wetransfer.com/v1/transfers \
+  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
   -d '{"name": "My very first transfer!"}'
@@ -35,6 +36,7 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `x-api-key` | String | Yes | Private API key
 `Authorization` | String | Yes | Bearer JWT authorization token
+`Content-Type` | String | Yes | must be application/json
 
 #### Parameters
 
@@ -70,6 +72,7 @@ Once a transfer has been created you can then add items to it.
 ```shell
 curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
   -H "x-api-key: your_api_key" \
+  -H "Content-Type: application/json" \
   -H "Authorization: Bearer jwt_token" \
   -d '{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
 ```
@@ -97,6 +100,7 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `x-api-key` | String | Yes | Private API key
 `Authorization` | String | Yes | Bearer JWT authorization token
+`Content-Type` | String | Yes | must be application/json
 
 #### Parameters
 
@@ -163,6 +167,7 @@ To be able to upload a file, it must be split into chunks, and uploaded to diffe
 
 ```shell
 curl "https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
+  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
@@ -173,6 +178,7 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `x-api-key` | String | Yes | Private API key
 `Authorization` | String | Yes | Bearer JWT authorization token
+`Content-Type` | String | Yes | must be application/json
 
 #### Parameters
 
@@ -226,6 +232,7 @@ After the file upload is successful, the file must be marked as complete.
 
 ```shell
 curl -X https://dev.wetransfer.com/v1/files/{file_id}/uploads/complete \
+  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
@@ -237,6 +244,7 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `x-api-key` | String | Yes | Private API key
 `Authorization` | String | Yes | Bearer JWT authorization token
+`Content-Type` | String | Yes | must be application/json
 
 #### Parameters
 

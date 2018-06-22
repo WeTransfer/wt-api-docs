@@ -356,15 +356,18 @@
 
 <p>To be able to use our APIs, you must provide a secret api key on every request. You can create a key on our <a href="https://developers.wetransfer.com/">Developer Portal</a>. Please make sure that you keep your API key in a secret place, and it&#39;s not shared on CVS repositories or client side code.</p>
 
-<p>Our APIs expect the API key to be included as a header on every API requests. Please provide the API key using <code>x-api-key</code> header, like in the following examples:</p>
+<p>Our APIs expect the API key to be included as a header on every API requests. Please provide the API key using <code>x-api-key</code> header, like in the following example:</p>
 
 <aside class="notice">
 You must replace <code>your_api_key</code> with your secret API key.
 </aside>
 
-<p>Besides the API Key, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request, including your API token to the following endpoint:</p>
+<p>We also require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an &quot;Unsupported Media Type&quot; error.</p>
+
+<p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request, including your API token to the following endpoint:</p>
 <pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
   https://dev.wetransfer.com/v1/authorize <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'we_transfer_client'</span>
 
@@ -393,6 +396,12 @@ You must replace <code>your_api_key</code> with your secret API key.
 <td>Yes</td>
 <td>Private API key</td>
 </tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
+</tr>
 </tbody></table>
 <h4 id='response'>Response</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -414,12 +423,13 @@ You must replace <code>your_api_key</code> with your secret API key.
 <tr>
 <td><code>token</code></td>
 <td>String</td>
-<td>A one year valid JWT token, if authorization went well</td>
+<td>A JWT token valid for one year, if authorization went well</td>
 </tr>
 </tbody></table>
 <h1 id='transferring'>Transferring</h1><h2 id='create-a-new-transfer'>Create a new transfer</h2>
 <p>Transfers can be created with or without items. Once the transfer has been created, items can be added at any time.</p>
 <pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v1/transfers <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
   -d <span class="s1">'{"name": "My very first transfer!"}'</span>
@@ -455,6 +465,12 @@ You must replace <code>your_api_key</code> with your secret API key.
 <td>String</td>
 <td>Yes</td>
 <td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
 </tr>
 </tbody></table>
 <h4 id='parameters'>Parameters</h4>
@@ -498,6 +514,7 @@ You must replace <code>your_api_key</code> with your secret API key.
 <p>Once a transfer has been created you can then add items to it.</p>
 <pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v1/transfers/<span class="o">{</span>transfer_id<span class="o">}</span>/items <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
   -d <span class="s1">'{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">transferItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">addItems</span><span class="p">(</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">[{</span>
@@ -534,6 +551,12 @@ You must replace <code>your_api_key</code> with your secret API key.
 <td>String</td>
 <td>Yes</td>
 <td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
 </tr>
 </tbody></table>
 <h4 id='parameters-2'>Parameters</h4>
@@ -645,6 +668,7 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 
 <p>To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file&#39;s parts.</p>
 <pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multipart_upload_id}"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre><h4 id='headers-3'>Headers</h4>
@@ -667,6 +691,12 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <td>String</td>
 <td>Yes</td>
 <td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
 </tr>
 </tbody></table>
 <h4 id='parameters-3'>Parameters</h4>
@@ -723,6 +753,7 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 
 <p>After the file upload is successful, the file must be marked as complete.</p>
 <pre class="highlight shell tab-shell"><code>curl -X https://dev.wetransfer.com/v1/files/<span class="o">{</span>file_id<span class="o">}</span>/uploads/complete <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre><h4 id='headers-4'>Headers</h4>
@@ -745,6 +776,12 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <td>String</td>
 <td>Yes</td>
 <td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
 </tr>
 </tbody></table>
 <h4 id='parameters-4'>Parameters</h4>
