@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Fakt Pro', sans-serif;
   font-size: 14px;
   color: $gray-dark;
 }
@@ -16,7 +16,10 @@ p {
   margin-bottom: 23px;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: 500;
 }
 
@@ -24,9 +27,9 @@ h1 {
   font-size: 28px;
   line-height: 42px;
 
-  @media(max-width: 768px) {
-   font-size: 22px;
-   line-height: 32px;
+  @media (max-width: 768px) {
+    font-size: 22px;
+    line-height: 32px;
   }
 }
 
