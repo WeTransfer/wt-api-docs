@@ -1,1 +1,11 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:300i,400,500");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,700");
+@font-face {
+  font-family: 'Fakt Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/FaktProWeb-Normal.woff") format("woff"); }
+@font-face {
+  font-family: 'Fakt Pro';
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/FaktProWeb-Medium.woff") format("woff"); }
