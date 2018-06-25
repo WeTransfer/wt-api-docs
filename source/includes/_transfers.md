@@ -119,7 +119,7 @@ name | type | required | description
 `filename` | String | Yes | The name of the file you want to show on items list
 `filesize` | _Integer_ | Yes | File size in bytes. Must be accurate. No fooling. Don't let us down.
 `content_identifier` |	String | Yes | Mandatory but must read "file".
-`local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system).
+`local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 characters!
 
 **URL object**
 
