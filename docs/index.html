@@ -253,6 +253,9 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#changelog" class="toc-h1 toc-link" data-title="changelog">Changelog</a>
+          </li>
       </div>
     </div>
     <div class="page-wrapper">
@@ -261,7 +264,7 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to WeTransfer&#39;s public API! You can use our API to create transfer links and share files and love all over the world.</p>
 
-<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now. These docs are current as of 2018/04/05. Changelog to come.</aside>
+<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now. These docs are current as of 2018/07/04.</aside>
 <h2 id='flow-diagram'>Flow Diagram</h2>
 <section class="flow-diagram">
   <ol>
@@ -798,6 +801,35 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <td>String</td>
 <td>Yes</td>
 <td>The public ID of the file to upload, returned when adding items.</td>
+</tr>
+</tbody></table>
+<h1 id='changelog'>Changelog</h1>
+<table><thead>
+<tr>
+<th>date</th>
+<th>change</th>
+<th>api / portal</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>2018-07-06</td>
+<td>Add changelog to documentation</td>
+<td>portal</td>
+</tr>
+<tr>
+<td>2018-06-22</td>
+<td>Add ability for users to create multiple keys</td>
+<td>portal</td>
+</tr>
+<tr>
+<td>2018-05-30</td>
+<td>Add HSTS header to API endpoints</td>
+<td>api and portal</td>
+</tr>
+<tr>
+<td>2018-05-14</td>
+<td>Release initial version of API to the world</td>
+<td>api and portal</td>
 </tr>
 </tbody></table>
 
