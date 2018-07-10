@@ -2,6 +2,7 @@
 
 date | change | api / portal
 ---- | -------| -----------
+2018-07-10 | Deprecate TLS 1.0 and 1.1 on developers portal | portal
 2018-07-06 | Add changelog to documentation | portal
 2018-06-22 | Add ability for users to create multiple keys | portal
 2018-05-30 | Add HSTS header to API endpoints | api and portal
