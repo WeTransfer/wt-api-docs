@@ -254,6 +254,17 @@
               </ul>
           </li>
           <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#most-common-errors" class="toc-h2 toc-link" data-title="most-common-errors">Most common errors</a>
+                  </li>
+                  <li>
+                    <a href="#error-codes" class="toc-h2 toc-link" data-title="error-codes">Error codes</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#changelog" class="toc-h1 toc-link" data-title="changelog">Changelog</a>
           </li>
       </div>
@@ -803,6 +814,104 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <td>The public ID of the file to upload, returned when adding items.</td>
 </tr>
 </tbody></table>
+<h1 id='errors'>Errors</h1>
+<p>In working with the WeTransfer API you might come across some errors. Here are some of the most common, and what you can do about them.</p>
+<h2 id='most-common-errors'>Most common errors</h2>
+<table><thead>
+<tr>
+<th>Error</th>
+<th>Message</th>
+<th>Explanation</th>
+<th>Solution</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Missing Authentication Token</td>
+<td><code>{&quot;message&quot;:&quot;Missing Authentication Token&quot;}</code></td>
+<td>Despite what you might think, this actually just means that you&#39;re hitting an endpoint that doesn&#39;t exist.</td>
+<td>Check that you&#39;ve spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won&#39;t work, but dev.wetransfer.com/v1/authorize will.</td>
+</tr>
+<tr>
+<td>Forbidden</td>
+<td><code>{&quot;message&quot;:&quot;Forbidden&quot;}</code></td>
+<td>You&#39;ve forgotten to send us your API key, or it&#39;s being improperly sent.</td>
+<td>Make sure that you&#39;re sending your API key with each request - see the example code, or add a header like so: <code>X-API-KEY: &lt;your api key&gt;</code>.</td>
+</tr>
+<tr>
+<td>Unsupported Media Type</td>
+<td><code>{&quot;message&quot;:&quot;Unsupported Media Type&quot;}</code></td>
+<td>You&#39;ve sent a request to the API without a <code>Content-Type</code> set, or incorrectly set.</td>
+<td>Make sure that you&#39;re sending a <code>Content-Type: application/json</code> header with each request.</td>
+</tr>
+<tr>
+<td>Unsupported HTTP Method</td>
+<td><code>{&quot;message&quot;:&quot;Unsupported HTTP method&quot;}</code></td>
+<td>You&#39;ve sent a request to an endpoint using the wrong HTTP method. For example, you&#39;ve sent a POST request to an endpoint that expects a GET.</td>
+<td>Make sure that you&#39;re using the correct HTTP verb for each endpoint.</td>
+</tr>
+<tr>
+<td>API Rate Limit</td>
+<td><code>{&quot;message&quot;:&quot;Limit Exceeded Exception&quot;}</code> or a 429 response</td>
+<td>You&#39;ve exceeded your rate limit.</td>
+<td>Try again but with fewer requests in a given time period, wait until tomorrow, or even better: email us (developers@wetransfer.com) and we can talk extending the limit.</td>
+</tr>
+<tr>
+<td>Expected X to be Y</td>
+<td><code>{&quot;message&quot;:&quot;Expected 1200 to be 3243214&quot;}</code></td>
+<td>If the size of the file you send does not match the size of the file you told us to expect, you&#39;ll see this message when you send a /complete request.</td>
+<td>Check that you&#39;re properly computing the size of the file, or that you&#39;re uploading all the required chunks (before sending the complete call).</td>
+</tr>
+</tbody></table>
+<h2 id='error-codes'>Error codes</h2>
+<p>The WeTransfer API uses the following conventional error codes:</p>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>400</code></td>
+<td>Bad Request -- Your request is invalid.</td>
+</tr>
+<tr>
+<td><code>403</code></td>
+<td>Forbidden -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td>Not Found -- The specified resource could not be found.</td>
+</tr>
+<tr>
+<td><code>405</code></td>
+<td>Method Not Allowed -- You tried to access a transfer with an invalid method.</td>
+</tr>
+<tr>
+<td><code>406</code></td>
+<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td><code>410</code></td>
+<td>Gone -- The transfer requested has been removed from our servers.</td>
+</tr>
+<tr>
+<td><code>418</code></td>
+<td>I&#39;m a teapot.</td>
+</tr>
+<tr>
+<td><code>429</code></td>
+<td>Too Many Requests -- You&#39;re requesting too many things! Slow down!</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td><code>503</code></td>
+<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
 <h1 id='changelog'>Changelog</h1>
 <table><thead>
 <tr>
@@ -811,6 +920,11 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <th>api / portal</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>2018-07-18</td>
+<td>Clarify a couple of required params and add errors documentation</td>
+<td>portal</td>
+</tr>
 <tr>
 <td>2018-07-10</td>
 <td>Deprecate TLS 1.0 and 1.1 on developers portal</td>
