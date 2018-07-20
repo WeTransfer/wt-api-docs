@@ -212,6 +212,8 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 ## File upload
 <h3 id="upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
+Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' [S3 error documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html) for more details about specific responses.
+
 ```shell
 curl -T "./path/to/kittie.gif" https://signed-s3-upload-url
 ```
