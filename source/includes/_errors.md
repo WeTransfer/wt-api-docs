@@ -15,7 +15,7 @@ Expected X to be Y | `{"message":"Expected 1200 to be 3243214"}`| If the size of
 
 ## A note about file upload errors
 
-Because file uploads go directly to S3, any errors during this step of the process will be returned in XML. Please see the [S3 error documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html) for details of individual AWS S3 responses.
+Because file uploads go directly to S3, any errors during this step of the process will be returned in XML. Please see the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">official S3 documentation</a> for details of individual AWS S3 responses.
 
 ## Error codes
 
