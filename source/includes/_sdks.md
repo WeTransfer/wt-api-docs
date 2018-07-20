@@ -21,3 +21,21 @@ In order to make your life a little bit easier when building applications in Rub
     <span>Coming soon</span>
   </article>
 </section>
+
+## Community SDKs
+
+Our lovely community is also contributing with some SDKs:
+
+<section class="sdks">
+  <article class="sdk sdk-php">
+    <img src="images/sdks/php.svg" class="logo">
+    <h4>PHP</h4>
+    <a href="https://packagist.org/packages/wetransfer/php-sdk" target="_blank"><img src="https://badge.fury.io/ph/wetransfer%2Fphp-sdk.svg" alt="Node Version" class="badge"></a>
+    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View Repository</a>
+  </article>
+  <article class="sdk sdk-python coming-soon">
+    <img src="images/sdks/python.svg" class="logo">
+    <h4>Python</h4>
+    <span>Coming soon</span>
+  </article>
+</section>
