@@ -13,8 +13,8 @@ includes:
  - sdks
  - authorization
  - transfers
+ - errors
  - changelog
-#  - errors
 ---
 
 # Introduction

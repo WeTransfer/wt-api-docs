@@ -118,14 +118,14 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `filename` | String | Yes | The name of the file you want to show on items list
 `filesize` | _Integer_ | Yes | File size in bytes. Must be accurate. No fooling. Don't let us down.
-`content_identifier` |	String | Yes | Mandatory but must read "file".
+`content_identifier` |	String | Yes | _Must_ be "file".
 `local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 characters!
 
 **URL object**
 
 name | type | required | description
 ---- | ---- | -------- | -----------
-`content_identifier` |	String | Yes | Mandatory but must read "web_content".
+`content_identifier` |	String | Yes | _Must_ be "web_content".
 `url` | String | Yes | A complete URL.
 
 #### Response
@@ -211,6 +211,8 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 
 ## File upload
 <h3 id="upload-part" class="call"><span>PUT</span> {signed_url}</h3>
+
+Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' [S3 error documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html) for more details about specific responses.
 
 ```shell
 curl -T "./path/to/kittie.gif" https://signed-s3-upload-url
