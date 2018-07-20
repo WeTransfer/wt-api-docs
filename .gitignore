@@ -30,3 +30,6 @@ coverage
 
 # Ignore generated files
 /docs/examples/bash/*.txt
+/docs/stylesheets/component/*
+/docs/stylesheets/init/*
+/docs/stylesheets/variables
