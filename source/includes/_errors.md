@@ -13,6 +13,9 @@ Unsupported HTTP Method |`{"message":"Unsupported HTTP method"}` | You've sent a
 API Rate Limit |`{"message":"Limit Exceeded Exception"}` or a 429 response | You've exceeded your rate limit. | Try again but with fewer requests in a given time period, wait until tomorrow, or even better: email us (developers@wetransfer.com) and we can talk extending the limit.
 Expected X to be Y | `{"message":"Expected 1200 to be 3243214"}`| If the size of the file you send does not match the size of the file you told us to expect, you'll see this message when you send a /complete request. | Check that you're properly computing the size of the file, or that you're uploading all the required chunks (before sending the complete call).
 
+## A note about file upload errors
+
+Because file uploads go directly to S3, any errors during this step of the process will be returned in XML. Please see the [S3 error documentation](https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html) for details of individual AWS S3 responses.
 
 ## Error codes
 
