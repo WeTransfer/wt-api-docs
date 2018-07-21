@@ -24,7 +24,7 @@ In order to make your life a little bit easier when building applications in Rub
 
 ## Community SDKs
 
-Our lovely community is also contributing with some SDKs:
+You make them, we present them: community made SDKs!
 
 <section class="sdks">
   <article class="sdk sdk-php">
