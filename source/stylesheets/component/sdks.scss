@@ -1,32 +1,38 @@
 .sdks {
-  display: flex;
-
-  article {
-    flex-grow: 1;
-    margin-right: 2%;
-    padding: 20px 15px;
-    text-align: center;
+  .sdk {
+    display: flex;
+    padding: 20px;
+    align-items: center;
     border: 1px solid #d3d3d3;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.11);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
     border-radius: 4px;
-    width: 150px;
+    margin-bottom: 10px;
 
     &:last-child {
       margin-right: 0;
     }
 
-    .logo {
-      margin-bottom: 15px;
+    &__logo {
+      width: 32px;
+      margin-right: 20px;
+      height: auto;
+      display: block;
     }
 
-    h4 {
+    .info {
+      flex-grow: 1;
+    }
+
+    &__title {
       margin-top: 0;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      font-size: 16px;
+      color: #3c3c3c;
     }
 
-    .badge {
-      display: inline-block;
-      margin-bottom: 20px;
+    p {
+      font-size: 12px;
+      margin-bottom: 2px;
     }
 
     .button {
@@ -48,12 +54,8 @@
     }
 
     &.coming-soon {
-      opacity: 0.6;
-
-      span {
-        font-style: italic;
-        display: block;
-        text-align: center;
+      p {
+        opacity: 0.6;
       }
     }
   }
