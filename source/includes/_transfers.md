@@ -28,6 +28,13 @@ const transfer = await apiClient.transfer.create({
 });
 ```
 
+```php
+$transfer = \WeTransfer\Transfer::create(
+    'My very first transfer!',
+    'Something about cats, most probably.'
+);
+```
+
 <h3 id="create-object" class="call"><span>POST</span> /transfers</h3>
 
 #### Headers
@@ -78,20 +85,35 @@ curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
 ```
 
 ```javascript
-const transferItems = await apiClient.transfer.addItems(transfer.id, [{
-  content_identifier: 'file',
-  local_identifier: 'delightful-cat',
+const fileItems = await apiClient.transfer.addFiles(transfer, [{
   filename: 'kittie.gif',
   filesize: 1024
-},
-{
-  content_identifier: 'web_content',
-  local_identifier: 'wetransfer-com-link',
+}]);
+
+const linkItems = await apiClient.transfer.addLinks(transfer, [{
   url: 'https://wetransfer.com',
   meta: {
     title: 'WeTransfer'
   },
 }]);
+```
+
+```php
+\WeTransfer\Transfer::addLinks($transfer, [
+    [
+        'url' => 'https://en.wikipedia.org/wiki/Japan',
+        'meta' => [
+            'title' => 'Japan'
+        ]
+    ]
+]);
+
+\WeTransfer\Transfer::addFiles($transfer, [
+    [
+        'filename' => 'Japan-01.jpg',
+        'filesize' => 13370099
+    ]
+]);
 ```
 
 #### Headers
@@ -226,6 +248,12 @@ const files = [[/* Buffer */], [/* Buffer */]];
 await Promise.all(transferItems.map((item, index) => {
   return apiClient.transfer.uploadFile(item, files[index]);
 }));
+```
+
+```php
+foreach($transfer->getFiles() as $file) {
+  \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
+}
 ```
 
 ## Complete a file upload
