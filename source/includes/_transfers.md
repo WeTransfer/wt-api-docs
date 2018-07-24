@@ -29,6 +29,7 @@ const transfer = await apiClient.transfer.create({
 ```
 
 ```php
+<?php
 $transfer = \WeTransfer\Transfer::create(
     'My very first transfer!',
     'Something about cats, most probably.'
@@ -99,6 +100,7 @@ const linkItems = await apiClient.transfer.addLinks(transfer, [{
 ```
 
 ```php
+<?php
 \WeTransfer\Transfer::addLinks($transfer, [
     [
         'url' => 'https://en.wikipedia.org/wiki/Japan',
@@ -251,6 +253,7 @@ await Promise.all(transferItems.map((item, index) => {
 ```
 
 ```php
+<?php
 foreach($transfer->getFiles() as $file) {
   \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
 }

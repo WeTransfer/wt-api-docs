@@ -41,6 +41,7 @@ const auth = await apiClient.authorize();
 ```
 
 ```php
+<?php
 \WeTransfer\Client::setApiKey(getenv['WT_API_KEY']);
 
 // When using the SDK, there is no need to call authorize manually.
