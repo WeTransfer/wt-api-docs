@@ -40,6 +40,14 @@ const apiClient = await createWTClient('/* YOUR PRIVATE API KEY GOES HERE */');
 const auth = await apiClient.authorize();
 ```
 
+```php
+\WeTransfer\Client::setApiKey(getenv['WT_API_KEY']);
+
+// When using the SDK, there is no need to call authorize manually.
+// The method is available though, in case you need to access the JWT.
+$token = \WeTransfer\Client::authorize();
+```
+
 #### Headers
 
 name | type | required | description

@@ -432,6 +432,11 @@ You must replace <code>your_api_key</code> with your secret API key.
 <span class="c1">// When using the SDK, there is no need to call authorize manually.</span>
 <span class="c1">// The method is available though, in case you need to access the JWT.</span>
 <span class="kr">const</span> <span class="nx">auth</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">authorize</span><span class="p">();</span>
+</code></pre><pre class="highlight php tab-php"><code>\WeTransfer\Client::setApiKey(getenv['WT_API_KEY']);
+
+// When using the SDK, there is no need to call authorize manually.
+// The method is available though, in case you need to access the JWT.
+$token = \WeTransfer\Client::authorize();
 </code></pre><h4 id='headers'>Headers</h4>
 <table><thead>
 <tr>
@@ -494,6 +499,10 @@ You must replace <code>your_api_key</code> with your secret API key.
   <span class="na">name</span><span class="p">:</span> <span class="s1">'My very first transfer!'</span><span class="p">,</span>
   <span class="na">description</span><span class="p">:</span> <span class="s1">'Something about cats, most probably.'</span>
 <span class="p">});</span>
+</code></pre><pre class="highlight php tab-php"><code>$transfer = \WeTransfer\Transfer::create(
+    'My very first transfer!',
+    'Something about cats, most probably.'
+);
 </code></pre>
 <h3 id="create-object" class="call"><span>POST</span> /transfers</h3>
 <h4 id='headers'>Headers</h4>
@@ -568,20 +577,32 @@ You must replace <code>your_api_key</code> with your secret API key.
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
   -d <span class="s1">'{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">transferItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">addItems</span><span class="p">(</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">[{</span>
-  <span class="na">content_identifier</span><span class="p">:</span> <span class="s1">'file'</span><span class="p">,</span>
-  <span class="na">local_identifier</span><span class="p">:</span> <span class="s1">'delightful-cat'</span><span class="p">,</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">fileItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="nx">transfer</span><span class="p">,</span> <span class="p">[{</span>
   <span class="na">filename</span><span class="p">:</span> <span class="s1">'kittie.gif'</span><span class="p">,</span>
   <span class="na">filesize</span><span class="p">:</span> <span class="mi">1024</span>
-<span class="p">},</span>
-<span class="p">{</span>
-  <span class="na">content_identifier</span><span class="p">:</span> <span class="s1">'web_content'</span><span class="p">,</span>
-  <span class="na">local_identifier</span><span class="p">:</span> <span class="s1">'wetransfer-com-link'</span><span class="p">,</span>
+<span class="p">}]);</span>
+
+<span class="kr">const</span> <span class="nx">linkItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">addLinks</span><span class="p">(</span><span class="nx">transfer</span><span class="p">,</span> <span class="p">[{</span>
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://wetransfer.com'</span><span class="p">,</span>
   <span class="na">meta</span><span class="p">:</span> <span class="p">{</span>
     <span class="na">title</span><span class="p">:</span> <span class="s1">'WeTransfer'</span>
   <span class="p">},</span>
 <span class="p">}]);</span>
+</code></pre><pre class="highlight php tab-php"><code>\WeTransfer\Transfer::addLinks($transfer, [
+    [
+        'url' =&gt; 'https://en.wikipedia.org/wiki/Japan',
+        'meta' =&gt; [
+            'title' =&gt; 'Japan'
+        ]
+    ]
+]);
+
+\WeTransfer\Transfer::addFiles($transfer, [
+    [
+        'filename' =&gt; 'Japan-01.jpg',
+        'filesize' =&gt; 13370099
+    ]
+]);
 </code></pre><h4 id='headers-2'>Headers</h4>
 <table><thead>
 <tr>
@@ -801,6 +822,9 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <span class="nx">await</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">transferItems</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">uploadFile</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">files</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
 <span class="p">}));</span>
+</code></pre><pre class="highlight php tab-php"><code>foreach($transfer-&gt;getFiles() as $file) {
+  \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
+}
 </code></pre><h2 id='complete-a-file-upload'>Complete a file upload</h2>
 <h3 id="complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
@@ -961,6 +985,11 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <th>api / portal / documentation</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>2018-07-24</td>
+<td>Add PHP code snippets</td>
+<td>documentation</td>
+</tr>
 <tr>
 <td>2018-07-18</td>
 <td>Clarify a couple of required params and add errors documentation</td>
