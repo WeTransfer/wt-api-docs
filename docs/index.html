@@ -199,7 +199,7 @@
     <link href="stylesheets/screen-dbfa2f8a.css" rel="stylesheet" media="screen" />
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;,&quot;php&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,6 +212,7 @@
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="ruby">ruby</a>
               <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="php">php</a>
         </div>
       <div id="toc" class="toc-list-h1">
           <li>
@@ -432,11 +433,12 @@ You must replace <code>your_api_key</code> with your secret API key.
 <span class="c1">// When using the SDK, there is no need to call authorize manually.</span>
 <span class="c1">// The method is available though, in case you need to access the JWT.</span>
 <span class="kr">const</span> <span class="nx">auth</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">authorize</span><span class="p">();</span>
-</code></pre><pre class="highlight php tab-php"><code>\WeTransfer\Client::setApiKey(getenv['WT_API_KEY']);
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">\WeTransfer\Client</span><span class="o">::</span><span class="na">setApiKey</span><span class="p">(</span><span class="nb">getenv</span><span class="p">[</span><span class="s1">'WT_API_KEY'</span><span class="p">]);</span>
 
-// When using the SDK, there is no need to call authorize manually.
+<span class="c1">// When using the SDK, there is no need to call authorize manually.
 // The method is available though, in case you need to access the JWT.
-$token = \WeTransfer\Client::authorize();
+</span><span class="nv">$token</span> <span class="o">=</span> <span class="nx">\WeTransfer\Client</span><span class="o">::</span><span class="na">authorize</span><span class="p">();</span>
 </code></pre><h4 id='headers'>Headers</h4>
 <table><thead>
 <tr>
@@ -499,10 +501,11 @@ $token = \WeTransfer\Client::authorize();
   <span class="na">name</span><span class="p">:</span> <span class="s1">'My very first transfer!'</span><span class="p">,</span>
   <span class="na">description</span><span class="p">:</span> <span class="s1">'Something about cats, most probably.'</span>
 <span class="p">});</span>
-</code></pre><pre class="highlight php tab-php"><code>$transfer = \WeTransfer\Transfer::create(
-    'My very first transfer!',
-    'Something about cats, most probably.'
-);
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nv">$transfer</span> <span class="o">=</span> <span class="nx">\WeTransfer\Transfer</span><span class="o">::</span><span class="na">create</span><span class="p">(</span>
+    <span class="s1">'My very first transfer!'</span><span class="p">,</span>
+    <span class="s1">'Something about cats, most probably.'</span>
+<span class="p">);</span>
 </code></pre>
 <h3 id="create-object" class="call"><span>POST</span> /transfers</h3>
 <h4 id='headers'>Headers</h4>
@@ -588,21 +591,22 @@ $token = \WeTransfer\Client::authorize();
     <span class="na">title</span><span class="p">:</span> <span class="s1">'WeTransfer'</span>
   <span class="p">},</span>
 <span class="p">}]);</span>
-</code></pre><pre class="highlight php tab-php"><code>\WeTransfer\Transfer::addLinks($transfer, [
-    [
-        'url' =&gt; 'https://en.wikipedia.org/wiki/Japan',
-        'meta' =&gt; [
-            'title' =&gt; 'Japan'
-        ]
-    ]
-]);
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="nx">\WeTransfer\Transfer</span><span class="o">::</span><span class="na">addLinks</span><span class="p">(</span><span class="nv">$transfer</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">[</span>
+        <span class="s1">'url'</span> <span class="o">=&gt;</span> <span class="s1">'https://en.wikipedia.org/wiki/Japan'</span><span class="p">,</span>
+        <span class="s1">'meta'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'title'</span> <span class="o">=&gt;</span> <span class="s1">'Japan'</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">]);</span>
 
-\WeTransfer\Transfer::addFiles($transfer, [
-    [
-        'filename' =&gt; 'Japan-01.jpg',
-        'filesize' =&gt; 13370099
-    ]
-]);
+<span class="nx">\WeTransfer\Transfer</span><span class="o">::</span><span class="na">addFiles</span><span class="p">(</span><span class="nv">$transfer</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">[</span>
+        <span class="s1">'filename'</span> <span class="o">=&gt;</span> <span class="s1">'Japan-01.jpg'</span><span class="p">,</span>
+        <span class="s1">'filesize'</span> <span class="o">=&gt;</span> <span class="mi">13370099</span>
+    <span class="p">]</span>
+<span class="p">]);</span>
 </code></pre><h4 id='headers-2'>Headers</h4>
 <table><thead>
 <tr>
@@ -822,9 +826,10 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <span class="nx">await</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">transferItems</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">uploadFile</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">files</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
 <span class="p">}));</span>
-</code></pre><pre class="highlight php tab-php"><code>foreach($transfer-&gt;getFiles() as $file) {
-  \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
-}
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$transfer</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$file</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">\WeTransfer\File</span><span class="o">::</span><span class="na">upload</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span> <span class="nb">fopen</span><span class="p">(</span><span class="nb">realpath</span><span class="p">(</span><span class="s1">'./path/to/your/files.jpg'</span><span class="p">),</span> <span class="s1">'r'</span><span class="p">));</span>
+<span class="p">}</span>
 </code></pre><h2 id='complete-a-file-upload'>Complete a file upload</h2>
 <h3 id="complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
@@ -1028,6 +1033,7 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="ruby">ruby</a>
                 <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="php">php</a>
           </div>
       </div>
     </div>
