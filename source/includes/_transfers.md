@@ -152,6 +152,7 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `content_identifier` |	String | Yes | _Must_ be "web_content".
 `url` | String | Yes | A complete URL.
+`meta` | Hash | No | meta can contain the `title` object.
 
 #### Response
 
