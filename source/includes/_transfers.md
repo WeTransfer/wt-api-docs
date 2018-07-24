@@ -18,6 +18,7 @@ transfer = client.create_transfer(name: 'My very first transfer!', description: 
   builder.add_file(name: 'cat-picture.jpg', io: StringIO.new('cat-picture'))
   builder.add_file(name: 'README.txt', io: File.open('/path/to/local/readme.txt', 'rb'))
   builder.add_file_at(path: __FILE__)
+  builder.add_web_url(url: "https://www.the.url.you.want.to.share.com", title: "title of the url"))
 end
 ```
 
