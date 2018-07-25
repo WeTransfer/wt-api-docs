@@ -557,6 +557,12 @@ You must replace <code>your_api_key</code> with your secret API key.
 <td>No</td>
 <td>A description, if needed</td>
 </tr>
+<tr>
+<td><code>board_request</code></td>
+<td>Boolean</td>
+<td>No</td>
+<td>Optional parameter. You can request a &quot;<a href="https://wetransfer.com/downloads/s8fco99f8f7wf7rhy20180725100342/d9d275", target="_blank">classic transfer</a>&quot; by not including this or setting it to <code>false</code>. If you include it and set it to <code>true</code>, you&#39;ll get a &quot;<a href="https://boards.wetransfer.com/board/sf32t4rgzftsqnce720180725100347/latest", target="_blank">board transfer</a>&quot;.</td>
+</tr>
 </tbody></table>
 <h4 id='response'>Response</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
@@ -990,6 +996,11 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <th>api / portal / documentation</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>2018-07-25</td>
+<td>Document board_request parameter</td>
+<td>api and documentation</td>
+</tr>
 <tr>
 <td>2018-07-24</td>
 <td>Add PHP code snippets</td>

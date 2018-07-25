@@ -52,6 +52,7 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `name` | String | Yes | Something about cats or coffee, most probably
 `description` | String | No | A description, if needed
+`board_request` | Boolean | No | Optional parameter. You can request a "<a href="https://wetransfer.com/downloads/s8fco99f8f7wf7rhy20180725100342/d9d275", target="_blank">classic transfer</a>" by not including this or setting it to `false`. If you include it and set it to `true`, you'll get a "<a href="https://boards.wetransfer.com/board/sf32t4rgzftsqnce720180725100347/latest", target="_blank">board transfer</a>".
 
 #### Response
 
