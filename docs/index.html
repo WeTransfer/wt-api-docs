@@ -287,7 +287,7 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to WeTransfer&#39;s public API! You can use our API to create transfer links and share files and love all over the world.</p>
 
-<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now. These docs are current as of 2018/07/04.</aside>
+<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now.</aside>
 <h2 id='flow-diagram'>Flow Diagram</h2>
 <section class="flow-diagram">
   <ol>
@@ -305,7 +305,7 @@
     </li>
     <li class="flow-diagram__section">
       <h3>Create a Transfer Object</h3>
-      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step.</p>
+      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step. This is also where we retrieve the URL for the transfer itself.</p>
       <ul>
         <li class="flow-diagram__item">
           <a href="#create-object">
@@ -336,7 +336,7 @@
           <li class="flow-diagram__item">
             <a href="#upload-part">
               <h4>3.2 - Upload part</h4>
-              <code><em>PUT</em> {aws_slot}</code>
+              <code><em>PUT</em> {signed_s3_url}</code>
             </a>
           </li>
         </ul>
@@ -356,24 +356,24 @@
   </ol>
 </section>
 <h1 id='sdks'>SDKs</h1><h2 id='official-sdks'>Official SDKs</h2>
-<p>In order to make your life a little bit easier when building applications in Ruby and Javascript, we’ve released two open source SDKs.</p>
+<p>We make them, you use (and contribute to) them: WeTransfer made SDKs!</p>
 
 <section class="sdks">
   <article class="sdk sdk-node">
     <img src="images/sdks/node-js-df9dffeb.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Node.js</h4>
-      <p>Created and supported by WeTransfer</p>
+      <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="blank">View Repository</a>
+    <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-ruby">
     <img src="images/sdks/ruby-88f255a7.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Ruby</h4>
-      <p>Created and supported by WeTransfer</p>
+      <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">View Repository</a>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-swift coming-soon">
     <img src="images/sdks/swift-b38afa16.svg" class="sdk__logo">
@@ -393,7 +393,7 @@
       <h4 class="sdk__title">PHP</h4>
       <p>Created and maintained by Arkaitz Garro</p>
     </div>
-    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View Repository</a>
+    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-python coming-soon">
     <img src="images/sdks/python-dc794a59.svg" class="sdk__logo">
@@ -570,7 +570,13 @@ You must replace <code>your_api_key</code> with your secret API key.
   </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Creates a new empty transfer. The <code>shortened_url</code> property contains a URL for WeTransfer, where you can access the resulting transfer.</p>
+<p>Creates a new empty transfer.</p>
+
+<hr>
+
+<p>👉🏻 <strong>Note:</strong>  the <code>shortened_url</code> in the response is the URL you will use to access the transfer you create! It is not returned at the end of the upload flow, rather when you create the empty transfer. 👈🏻</p>
+
+<hr>
 <h2 id='add-items-to-a-transfer'>Add items to a transfer</h2>
 <h3 id="send-items" class="call"><span>POST</span> /transfers/{transfer_id}/items</h3>
 
@@ -990,6 +996,11 @@ Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, whi
 <th>api / portal / documentation</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>2018-07-25</td>
+<td>Clarify shortened_url, copy fixes</td>
+<td>documentation</td>
+</tr>
 <tr>
 <td>2018-07-24</td>
 <td>Add PHP code snippets</td>
