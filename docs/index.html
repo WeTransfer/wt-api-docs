@@ -287,7 +287,7 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to WeTransfer&#39;s public API! You can use our API to create transfer links and share files and love all over the world.</p>
 
-<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now. These docs are current as of 2018/07/04.</aside>
+<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now. These docs are current as of 2018/07/25.</aside>
 <h2 id='flow-diagram'>Flow Diagram</h2>
 <section class="flow-diagram">
   <ol>
@@ -576,7 +576,9 @@ You must replace <code>your_api_key</code> with your secret API key.
   </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Creates a new empty transfer. The <code>shortened_url</code> property contains a URL for WeTransfer, where you can access the resulting transfer.</p>
+<p>Creates a new empty transfer.</p>
+
+<aside class="warning"><strong>Note:</strong> The "shortened_url" property in the response contains the URL for transfer you are creating! You'll need this to access the end result of the upload process.</aside>
 <h2 id='add-items-to-a-transfer'>Add items to a transfer</h2>
 <h3 id="send-items" class="call"><span>POST</span> /transfers/{transfer_id}/items</h3>
 

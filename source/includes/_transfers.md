@@ -70,7 +70,9 @@ name | type | required | description
 }
 ```
 
-Creates a new empty transfer. The `shortened_url` property contains a URL for WeTransfer, where you can access the resulting transfer.
+Creates a new empty transfer.
+
+<aside class="warning"><strong>Note:</strong> The "shortened_url" property in the response contains the URL for transfer you are creating! You'll need this to access the end result of the upload process.</aside>
 
 ## Add items to a transfer
 
