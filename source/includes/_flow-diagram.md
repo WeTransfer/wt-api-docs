@@ -16,7 +16,7 @@
     </li>
     <li class="flow-diagram__section">
       <h3>Create a Transfer Object</h3>
-      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step.</p>
+      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step. This is also where we retrieve the URL for the transfer itself.</p>
       <ul>
         <li class="flow-diagram__item">
           <a href="#create-object">
@@ -47,7 +47,7 @@
           <li class="flow-diagram__item">
             <a href="#upload-part">
               <h4>3.2 - Upload part</h4>
-              <code><em>PUT</em> {aws_slot}</code>
+              <code><em>PUT</em> {signed_s3_url}</code>
             </a>
           </li>
         </ul>
