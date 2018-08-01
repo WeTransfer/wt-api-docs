@@ -21,12 +21,13 @@ We make them, you use (and contribute to) them: WeTransfer made SDKs!
     </div>
     <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-swift coming-soon">
+  <article class="sdk sdk-swift">
     <img src="images/sdks/swift.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Swift</h4>
-      <p>Coming soon</p>
+      <p>Created and maintained by WeTransfer</p>
     </div>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">View on GitHub</a>
   </article>
 </section>
 
