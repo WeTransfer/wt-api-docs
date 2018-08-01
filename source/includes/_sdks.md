@@ -43,6 +43,22 @@ You make them, we present them: community made SDKs!
     </div>
     <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View on GitHub</a>
   </article>
+  <article class="sdk sdk-r">
+    <img src="images/sdks/r.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">R</h4>
+      <p>Created and maintained by Tim Faber</p>
+    </div>
+    <a href="https://github.com/tfaber/wetransfeR" class="button" target="blank">View on GitHub</a>
+  </article>
+    <article class="sdk sdk-c-sharp">
+    <img src="images/sdks/c-sharp.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">C#</h4>
+      <p>Created and maintained by André Steffens</p>
+    </div>
+    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="blank">View on GitHub</a>
+  </article>
   <article class="sdk sdk-python coming-soon">
     <img src="images/sdks/python.svg" class="sdk__logo">
     <div class="info">
