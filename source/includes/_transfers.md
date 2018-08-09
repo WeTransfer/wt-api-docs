@@ -244,9 +244,8 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 
 Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
 
-
 ```shell
-curl -T "./path/to/kittie.gif" https://signed-s3-upload-url
+curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
 ```javascript
