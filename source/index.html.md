@@ -13,7 +13,9 @@ includes:
  - flow-diagram
  - sdks
  - authorization
- - transfers
+ - api-overview
+ - transfer-api
+ - collect-api
  - errors
  - changelog
 ---
