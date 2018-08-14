@@ -26,8 +26,13 @@ under the License.
     if (!language) return;
     if (language === "") return;
 
-    $(".lang-selector a").removeClass('active');
-    $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
+    // $('.selDiv option:contains("Selection 1")')
+    // $('.selDiv option:eq(1)').prop('selected', true)
+
+    $("#language_switcher option[data-language-name='" + language + "']").prop('selected', true);
+
+    // $(".lang-selector a").removeClass('active');
+    // $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
     for (var i=0; i < languages.length; i++) {
       $(".highlight.tab-" + languages[i]).hide();
       $(".lang-specific." + languages[i]).hide();
@@ -152,8 +157,8 @@ under the License.
 
   // if we click on a language tab, activate that language
   $(function() {
-    $(".lang-selector a").on("click", function() {
-      var language = $(this).data("language-name");
+    $("#language_switcher").on("change", function() {
+      var language = $(this).find(':selected').data("language-name");
       pushURL(language);
       activateLanguage(language);
       return false;

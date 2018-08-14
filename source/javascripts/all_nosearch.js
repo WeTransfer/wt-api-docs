@@ -14,3 +14,16 @@ $(function() {
 window.onpopstate = function() {
   activateLanguage(getLanguageFromQueryString());
 };
+
+$(function() {
+  $('#toc').on('click', '.toc-link', function() {
+    console.log(event.target.href);
+    console.log( this.href );
+    // $('html, body').animate(
+    //   {
+    //     scrollTop: window.innerHeight
+    //   },
+    //   800
+    // );
+  });
+});
