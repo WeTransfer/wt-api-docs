@@ -45,6 +45,13 @@ under the License.
       </span>
     </a>
 
+    <div class="page-wrapper">
+      <div class="content">
+        <%= page_content %>
+      </div>
+
+    </div>
+
     <div class="toc-wrapper">
       <% if language_tabs.any? %>
         <div class="lang-selector">
@@ -77,25 +84,6 @@ under the License.
               </ul>
             <% end %>
           </li>
-        <% end %>
-      </div>
-    </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <%= page_content %>
-      </div>
-      <div class="dark-box">
-        <% if language_tabs.any? %>
-          <div class="lang-selector">
-            <% language_tabs.each do |lang| %>
-              <% if lang.is_a? Hash %>
-                <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-              <% else %>
-                <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-              <% end %>
-            <% end %>
-          </div>
         <% end %>
       </div>
     </div>

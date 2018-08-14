@@ -61,35 +61,17 @@ body {
 }
 
 .toc-wrapper {
-  transition: left 0.3s ease-in-out;
+  // transition: left 0.3s ease-in-out;
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
   top: 0;
-  left: 0;
+  left: $content-width;
   bottom: 0;
   width: $nav-width;
-  background-color: $nav-bg;
   font-size: 14px;
   font-weight: 500;
-  border-right: 1px solid $gray-light;
-
-  // language selector for mobile devices
-  .lang-selector {
-    display: none;
-    a {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-    }
-  }
-
-  // This is the logo at the top of the ToC
-  .logo {
-    display: block;
-    max-width: 100%;
-    margin-bottom: $logo-margin;
-  }
 
   & > .search {
     position: relative;
@@ -296,23 +278,11 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 
 .page-wrapper {
-  margin-left: $nav-width;
+  // margin-left: $nav-width;
   z-index: 10;
   background-color: $main-bg;
   min-height: 100%;
   padding-bottom: 1px; // prevent margin overflow
-
-  // The dark box is what gives the code samples their dark background.
-  // It sits essentially under the actual content block, which has a
-  // transparent background.
-  // I know, it's hackish, but it's the simplist way to make the left
-  // half of the content always this background color.
-  .dark-box {
-    width: $nav-width;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
 
   .lang-selector {
     z-index: 50;
@@ -320,13 +290,13 @@ body {
 }
 
 .lang-selector {
-  background-color: #fff;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: $nav-width - 1;
-  border-top: 1px solid $gray-light;
+  // background-color: #fff;
+  // width: 100%;
+  // position: fixed;
+  // bottom: 0;
+  // left: 0;
+  // width: $nav-width - 1;
+  // border-top: 1px solid $gray-light;
   text-align: center;
 
   a {
@@ -368,8 +338,11 @@ body {
 
 .content {
   z-index: 30;
-  max-width: 740px;
-  padding: 50px;
+  max-width: $content-width;
+  min-height: calc(100vh - 42px);
+  padding: 120px 60px 60px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
 
   & > ul,
   & > ol {
@@ -595,7 +568,6 @@ body {
   }
 
   .toc-wrapper {
-    left: -$nav-width;
     padding: 0;
 
     &.open {
@@ -609,7 +581,9 @@ body {
     #toc > li ul li a {
       padding: 0px 15px;
     }
-
+    .lang-selector {
+      display: none;
+    }
   }
 
   .page-wrapper {
@@ -624,31 +598,15 @@ body {
     padding-top: 0.3em;
     padding-bottom: 0.3em;
   }
-
-  .lang-selector {
-    position: static;
-    border-top: 0;
-    border-bottom: 1px solid $gray-light;
-    text-align: left;
-    padding: 0 10px;
-  }
 }
 
 @media (max-width: $phone-width) {
-  .dark-box {
-    display: none;
-  }
-
   %left-col {
     margin-right: 0;
   }
 
   .toc-wrapper .lang-selector {
     display: block;
-  }
-
-  .page-wrapper .lang-selector {
-    display: none;
   }
 
   %right-col {
