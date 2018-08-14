@@ -55,13 +55,18 @@ under the License.
     <div class="toc-wrapper">
       <% if language_tabs.any? %>
         <div class="lang-selector">
-          <% language_tabs.each do |lang| %>
-            <% if lang.is_a? Hash %>
-              <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-            <% else %>
-              <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+          <span class="lang-selector__title">Syntax shown</span>
+
+          <select id="language_switcher" class="lang-selector__picker">
+            <% language_tabs.each do |lang| %>
+              <% if lang.is_a? Hash %>
+                <option data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></option>
+              <% else %>
+                <option data-language-name="<%= lang %>"><%= lang %></option>
+              <% end %>
             <% end %>
-          <% end %>
+            </select>
+
         </div>
       <% end %>
       <% if current_page.data.search %>
