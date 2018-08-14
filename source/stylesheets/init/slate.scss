@@ -3,37 +3,34 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Use these settings to help adjust the appearance of Slate
 
-
 // BACKGROUND COLORS
 ////////////////////
 $nav-bg: #fff !default;
-$examples-bg: #2D2F2D !default;
-$code-bg: #2D2F2D !default;
-$code-annotation-bg: #191D1F !default;
-$nav-subitem-bg: #F8F8F8 !default;
-$nav-active-bg: #F8F8F8 !default;
-$nav-active-parent-bg: #F8F8F8 !default; // parent links of the current section
+$examples-bg: #2d2f2d !default;
+$code-bg: #2d2f2d !default;
+$code-annotation-bg: #191d1f !default;
+$nav-subitem-bg: #f8f8f8 !default;
+$nav-active-bg: #f8f8f8 !default;
+$nav-active-parent-bg: #f8f8f8 !default; // parent links of the current section
 $lang-select-border: #353535 !default;
 $lang-select-bg: #353535 !default;
 $lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
 $lang-select-pressed-bg: #111 !default; // color of language tab bg when mouse is pressed
-$main-bg: #ffffff !default;
+$main-bg: #f8f8f8 !default;
 $aside-notice-bg: #8fbcd4 !default;
 $aside-warning-bg: #c97a7e !default;
 $aside-success-bg: #6ac174 !default;
 $search-notice-bg: #c97a7e !default;
 
-
 // TEXT COLORS
 ////////////////////
 $main-text: #333 !default; // main content text color
-$nav-text: #3C3E40 !default;
-$nav-active-text: #3C3E40 !default;
-$nav-active-parent-text: #3C3E40 !default; // parent links of the current section
+$nav-text: #3c3e40 !default;
+$nav-active-text: #3c3e40 !default;
+$nav-active-parent-text: #3c3e40 !default; // parent links of the current section
 $lang-select-text: #fff !default; // color of unselected language tab text
 $lang-select-active-text: #fff !default; // color of selected language tab text
 $lang-select-pressed-text: #fff !default; // color of language tab text when mouse is pressed
-
 
 // SIZES
 ////////////////////
@@ -70,6 +67,6 @@ $search-box-border-color: #666 !default;
 // These settings are probably best left alone.
 
 %break-words {
-    word-break: break-all;
-    hyphens: auto;
+  word-break: break-all;
+  hyphens: auto;
 }

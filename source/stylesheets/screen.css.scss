@@ -31,7 +31,8 @@ under the License.
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   color: $main-text;
   padding: 0;
   margin: 0;
@@ -54,7 +55,7 @@ html, body {
 
 #toc > ul > li > a > span {
   float: right;
-  background-color: #2484FF;
+  background-color: #2484ff;
   border-radius: 40px;
   width: 20px;
 }
@@ -90,7 +91,7 @@ html, body {
     margin-bottom: $logo-margin;
   }
 
-  &>.search {
+  & > .search {
     position: relative;
 
     input {
@@ -144,9 +145,7 @@ html, body {
     }
   }
 
-
   #toc > li {
-
     a {
       padding: 10px $main-padding;
 
@@ -158,15 +157,15 @@ html, body {
     ul li a {
       padding: 0 $main-padding;
       text-decoration: underline;
-      transition: padding .2s;
+      transition: padding 0.2s;
       position: relative;
-        &:before {
-          content: '>';
-          position: absolute;
-          left: 26px;
-          opacity: 0;
-          transition: .2s;
-        }
+      &:before {
+        content: '>';
+        position: absolute;
+        left: 26px;
+        opacity: 0;
+        transition: 0.2s;
+      }
 
       &.active {
         font-weight: 500;
@@ -180,11 +179,11 @@ html, body {
     }
   }
 
-
   // The Table of Contents is composed of multiple nested
   // unordered lists.  These styles remove the default
   // styling of an unordered list because it is ugly.
-  ul, li {
+  ul,
+  li {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -192,7 +191,7 @@ html, body {
 
   li {
     color: $nav-text;
-    transition: background .4s;
+    transition: background 0.4s;
     line-height: 16px;
   }
 
@@ -221,7 +220,8 @@ html, body {
     margin-top: 1em;
     border-top: 1px dashed $nav-footer-border-color;
 
-    li,a {
+    li,
+    a {
       color: $nav-text;
       text-decoration: none;
     }
@@ -238,7 +238,8 @@ html, body {
   }
 }
 
-.toc-link, .toc-footer li {
+.toc-link,
+.toc-footer li {
   padding: 0 $nav-padding 0 $nav-padding;
   display: block;
   overflow-x: hidden;
@@ -282,10 +283,13 @@ html, body {
 
   transition: left 0.3s ease-in-out;
 
-  &:hover { opacity: 1; }
-  &.open {left: $nav-width}
+  &:hover {
+    opacity: 1;
+  }
+  &.open {
+    left: $nav-width;
+  }
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
@@ -338,7 +342,8 @@ html, body {
       text-decoration: underline;
     }
 
-    &:active, &:focus {
+    &:active,
+    &:focus {
       color: $gray-medium;
     }
 
@@ -366,13 +371,16 @@ html, body {
   max-width: 740px;
   padding: 50px;
 
-  &>ul, &>ol {
+  & > ul,
+  & > ol {
     padding-left: $main-padding + 15px;
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
-    clear:both;
+  & > h1,
+  & > h2,
+  & > div {
+    clear: both;
   }
 
   h1 {
@@ -433,7 +441,8 @@ html, body {
     margin-bottom: 1em;
     overflow: auto;
 
-    th,td {
+    th,
+    td {
       text-align: left;
       padding: 5px 20px 5px 0;
       line-height: 18px;
@@ -455,12 +464,12 @@ html, body {
       font-weight: 500;
     }
 
-    tr:nth-child(odd)>td {
-      background-color: lighten($main-bg,4.2%);
+    tr:nth-child(odd) > td {
+      background-color: lighten($main-bg, 4.2%);
     }
 
-    tr:nth-child(even)>td {
-      background-color: lighten($main-bg,2.4%);
+    tr:nth-child(even) > td {
+      background-color: lighten($main-bg, 2.4%);
     }
   }
 
@@ -472,7 +481,10 @@ html, body {
     margin-left: 15px;
   }
 
-  p, li, dt, dd {
+  p,
+  li,
+  dt,
+  dd {
     margin-top: 0;
   }
 
@@ -493,7 +505,7 @@ html, body {
     @extend %code-font;
   }
 
-  pre>code {
+  pre > code {
     background-color: transparent;
     padding: 0;
     color: $gray-light;
@@ -528,8 +540,8 @@ html, body {
     padding: 2px;
     margin: -3px;
     border-radius: 4px;
-    border: 1px solid #F7E633;
-    background: linear-gradient(to top left, #F7E633 0%, #F1D32F 100%);
+    border: 1px solid #f7e633;
+    background: linear-gradient(to top left, #f7e633 0%, #f1d32f 100%);
   }
 }
 
@@ -539,13 +551,16 @@ html, body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
-  pre, blockquote {
+  pre,
+  blockquote {
     background-color: none;
     color: #fff;
     margin: 0 0 20px;
     @extend %right-col;
 
-    &>p { margin: 0; }
+    & > p {
+      margin: 0;
+    }
 
     a {
       color: #fff;
@@ -560,7 +575,7 @@ html, body {
   }
 
   blockquote {
-    &>p {
+    & > p {
       font-size: 12px;
       padding: $code-annotation-padding 30px;
       color: $gray-ultralight;
@@ -650,10 +665,14 @@ html, body {
   }
 }
 
-.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs {
   color: #909090;
 }
 
-.highlight, .highlight .w {
+.highlight,
+.highlight .w {
   background-color: $code-bg;
 }
