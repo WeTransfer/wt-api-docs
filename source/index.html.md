@@ -10,7 +10,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
 search: false
 
 includes:
- - flow-diagram
  - sdks
  - authorization
  - api-overview
