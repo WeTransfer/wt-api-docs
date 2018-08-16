@@ -114,9 +114,6 @@ body {
     }
   }
 
-  // The Table of Contents is composed of multiple nested
-  // unordered lists.  These styles remove the default
-  // styling of an unordered list because it is ugly.
   ul,
   li {
     list-style: none;
@@ -130,24 +127,29 @@ body {
     line-height: 16px;
   }
 
-  // This is the currently selected ToC entry
-  .toc-link.active {
-    // background-color: $nav-active-bg;
-    color: $nav-active-text;
-  }
+  .toc-h1 {
+    font-size: 14px;
+    color: $gray-dark;
+    border-left: 2px solid transparent;
+    transition: border 0.2s;
 
-  // this is parent links of the currently selected ToC entry
-  .toc-link.active-parent {
-    // background-color: $nav-active-parent-bg;
-    color: $nav-active-parent-text;
+    &.active,
+    &.active-parent {
+      border-left: 2px solid #ccc;
+    }
   }
 
   .toc-list-h2 {
     display: none;
-    // background-color: $nav-subitem-bg;
     font-size: 12px;
     font-weight: 400;
     padding-bottom: 12px;
+    border-left: 2px solid transparent;
+    transition: border 0.2s;
+
+    &.active {
+      border-left: 2px solid #ccc;
+    }
   }
 }
 
@@ -321,7 +323,6 @@ body {
   div:first-child + h1 {
     border-top-width: 0;
     margin-top: 0;
-    padding-top: 0;
   }
 
   h2 {
