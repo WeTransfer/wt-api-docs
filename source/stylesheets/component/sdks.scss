@@ -1,6 +1,7 @@
 .sdks {
   .sdk {
     display: flex;
+    flex-wrap: wrap;
     padding: 20px;
     align-items: center;
     border: 1px solid #d3d3d3;
@@ -56,6 +57,25 @@
     &.coming-soon {
       p {
         opacity: 0.6;
+      }
+    }
+  }
+}
+
+@media (max-width: $tablet-width) {
+  .sdks {
+    .sdk__logo {
+      width: 10%;
+      margin-right: 5%;
+    }
+    .sdk {
+      .info {
+        width: 80%;
+        margin-bottom: 5px;
+      }
+      .button {
+        width: 80%;
+        margin-left: 15%;
       }
     }
   }
