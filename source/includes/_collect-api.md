@@ -75,7 +75,7 @@ To help illustrate the multi-step process of using the Collect API, we've made t
 
 ## Create a new collection
 
-Collections can be crecated with or without items. One the collection has been created, items can be added at any time.
+Collections can be crecated with or without items. One the collection has been created, items can be added at any time. If you don't add any items, the API will create an empty collection.
 
 ```shell
 curl https://dev.wetransfer.com/v2/collections \
@@ -102,7 +102,6 @@ const collection = await apiClient.collection.create({
 ```
 
 ```php
-<?php
 $collection = \WeTransfer\Collection::create(
     'My very first collection!',
     'Something about cats, most probably.'
@@ -141,8 +140,6 @@ $collection = \WeTransfer\Collection::create(
   "items": []
 }
 ```
-
-Creates a new empty collection.
 
 <aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the collection you create! It is not returned at the end of the upload flow, rather when you create the empty collection. </aside>
 
@@ -193,7 +190,7 @@ const linkItems = await apiClient.collection.addLinks(collection, [{
 ]);
 ```
 
-#### Headers
+### Headers
 
 | name            | type   | required | description                    |
 | --------------- | ------ | -------- | ------------------------------ |
@@ -201,13 +198,13 @@ const linkItems = await apiClient.collection.addLinks(collection, [{
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
 | `Content-Type`  | String | Yes      | must be application/json       |
 
-#### Parameters
+### Parameters
 
 | name    | type          | required | description                                       |
 | ------- | ------------- | -------- | ------------------------------------------------- |
 | `items` | _Array(Item)_ | Yes      | A list of items to send to an existing collection |
 
-#### Item object
+### Item object
 
 An item can be either a file or an URL.
 
