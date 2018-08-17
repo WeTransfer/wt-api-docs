@@ -269,14 +269,23 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // This is all the stuff with the light background in the left half of the page
 
+.page-wrapper {
+  margin-left: $nav-width;
+  max-width: $content-width;
+  background: $white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.v2-notice {
+  padding: 20px 60px;
+  border-bottom: 2px solid #e8e8e8;
+  background: #fffee6;
+  position: relative;
+}
 .content {
   z-index: 30;
-  max-width: $content-width;
   min-height: calc(100vh - 42px);
   padding: 0 60px 60px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background: $white;
-  margin-left: $nav-width;
 
   & > ul,
   & > ol {
