@@ -66,7 +66,8 @@ body {
   position: fixed;
   z-index: 30;
   top: 0;
-  left: $content-width;
+  // left: $content-width;
+  left: 0;
   bottom: 0;
   width: $nav-width;
   font-size: 14px;
@@ -129,12 +130,12 @@ body {
   .toc-h1 {
     font-size: 14px;
     color: $gray-dark;
-    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
     transition: border 0.2s;
 
     &.active,
     &.active-parent {
-      border-left: 2px solid $gray-mediumlight;
+      border-right: 2px solid $gray-mediumlight;
     }
   }
 
@@ -143,11 +144,11 @@ body {
     font-size: 12px;
     font-weight: 400;
     padding-bottom: 12px;
-    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
     transition: border 0.2s;
 
     &.active {
-      border-left: 2px solid $gray-mediumlight;
+      border-right: 2px solid $gray-mediumlight;
     }
   }
 }
@@ -293,6 +294,7 @@ body {
   padding: 0 60px 60px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background: $white;
+  margin-left: $nav-width;
 
   & > ul,
   & > ol {

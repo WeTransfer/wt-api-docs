@@ -1,19 +1,19 @@
-# Collect API
+# Board API
 
-Intro about the collect API
+Intro about the Board API
 
 ## Flow Diagram
 
-To help illustrate the multi-step process of using the Collect API, we've made this Flow Diagram.
+To help illustrate the multi-step process of using the Board API, we've made this Flow Diagram.
 
 <section class="flow-diagram">
   <ol>
     <li class="flow-diagram__section">
       <h3>Authorize</h3>
-      <p>First, we have to make sure you’re fully authorized to create a new transfer. You do this by sending two authentication headers with the authorize request.</p>
+      <p>First, we have to make sure you’re fully authorized to create a new board. You do this by sending two authentication headers with the authorize request.</p>
       <ul>
         <li class="flow-diagram__item">
-          <a href="#collection-send-request">
+          <a href="#board-send-request">
             <h4>1.1 - Send authorization request</h4>
             <code><em>POST</em> /authorize</code>
           </a>
@@ -21,25 +21,25 @@ To help illustrate the multi-step process of using the Collect API, we've made t
       </ul>
     </li>
     <li class="flow-diagram__section">
-      <h3>Create a Transfer Object</h3>
-      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step. This is also where we retrieve the URL for the transfer itself.</p>
+      <h3>Create an empty board</h3>
+      <p>Next up, we create an empty board object and tell it what items to expect in the next step. This is also where we retrieve the URL for the board itself.</p>
       <ul>
         <li class="flow-diagram__item">
           <a href="#create-object">
             <h4>2.1 - Create an empty transfer object</h4>
-            <code><em>POST</em> /collections</code>
+            <code><em>POST</em> /boards</code>
           </a>
         </li>
         <li class="flow-diagram__item">
           <a href="#send-items">
             <h4>2.2 - Send list of items to transfer object</h4>
-            <code><em>POST</em> /collections/{transfer_id}/items</code>
+            <code><em>POST</em> /boards/{board_id}/items</code>
           </a>
         </li>
       </ul>
     </li>
     <li class="flow-diagram__section">
-      <h3>Upload each file to Collection Object</h3>
+      <h3>Upload each file to Board Object</h3>
       <p>Then for each file part you request an upload URL that will show you where on Amazon to put it. Repeat until you’ve uploaded all parts and move on to next file.</p>
       <fieldset>
         <legend>for each part</legend>
@@ -73,20 +73,20 @@ To help illustrate the multi-step process of using the Collect API, we've made t
   </ol>
 </section>
 
-## Create a new collection
+## Create a new board
 
-Collections can be crecated with or without items. One the collection has been created, items can be added at any time. If you don't add any items, the API will create an empty collection.
+Boards can be crecated with or without items. One the board has been created, items can be added at any time. If you don't add any items, the API will create an empty board.
 
 ```shell
-curl https://dev.wetransfer.com/v2/collections \
+curl https://dev.wetransfer.com/v2/boards \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"name": "My very first collection!"}'
+  -d '{"name": "My very first board!"}'
 ```
 
 ```ruby
-collection = client.create_collection(name: 'My very first collection!', description: 'Something about cats, most probably.') do |builder|
+board = client.create_board(name: 'My very first board!', description: 'Something about cats, most probably.') do |builder|
   builder.add_file(name: File.basename(__FILE__), io: File.open(__FILE__, 'rb'))
   builder.add_file(name: 'cat-picture.jpg', io: StringIO.new('cat-picture'))
   builder.add_file(name: 'README.txt', io: File.open('/path/to/local/readme.txt', 'rb'))
@@ -95,20 +95,20 @@ end
 ```
 
 ```javascript
-const collection = await apiClient.collection.create({
-  name: 'My very first collection!',
+const board = await apiClient.board.create({
+  name: 'My very first board!',
   description: 'Something about cats, most probably.'
 });
 ```
 
 ```php
-$collection = \WeTransfer\Collection::create(
-    'My very first collection!',
+$board = \WeTransfer\Board::create(
+    'My very first board!',
     'Something about cats, most probably.'
 );
 ```
 
-<h3 id="collection-create-object" class="call"><span>POST</span> /collections</h3>
+<h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
 
 #### Headers
 
@@ -141,16 +141,16 @@ $collection = \WeTransfer\Collection::create(
 }
 ```
 
-<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the collection you create! It is not returned at the end of the upload flow, rather when you create the empty collection. </aside>
+<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather when you create the empty board.</aside>
 
-## Add items to a collection
+## Add items to a board
 
-<h3 id="collection-send-items" class="call"><span>POST</span> /collections/{collection_id}/items</h3>
+<h3 id="board-send-items" class="call"><span>POST</span> /boards/{board_id}/items</h3>
 
-Once a collection has been created you can then add items to it.
+Once a board has been created you can then add items to it.
 
 ```shell
-curl https://dev.wetransfer.com/v1/collections/{collection_id}/items \
+curl https://dev.wetransfer.com/v1/boards/{board_id}/items \
   -H "x-api-key: your_api_key" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer jwt_token" \
@@ -158,12 +158,12 @@ curl https://dev.wetransfer.com/v1/collections/{collection_id}/items \
 ```
 
 ```javascript
-const fileItems = await apiClient.collection.addFiles(collection, [{
+const fileItems = await apiClient.board.addFiles(board, [{
   filename: 'kittie.gif',
   filesize: 1024
 }]);
 
-const linkItems = await apiClient.collection.addLinks(collection, [{
+const linkItems = await apiClient.board.addLinks(board, [{
   url: 'https://wetransfer.com',
   meta: {
     title: 'WeTransfer'
@@ -173,7 +173,7 @@ const linkItems = await apiClient.collection.addLinks(collection, [{
 
 ```php
 <?php
-\WeTransfer\Collection::addLinks($collection, [
+\WeTransfer\Board::addLinks($board, [
     [
         'url' => 'https://en.wikipedia.org/wiki/Japan',
         'meta' => [
@@ -182,7 +182,7 @@ const linkItems = await apiClient.collection.addLinks(collection, [{
     ]
 ]);
 
-\WeTransfer\Collection::addFiles($collection, [
+\WeTransfer\Board::addFiles($board, [
     [
         'filename' => 'Japan-01.jpg',
         'filesize' => 13370099
@@ -200,9 +200,9 @@ const linkItems = await apiClient.collection.addLinks(collection, [{
 
 ### Parameters
 
-| name    | type          | required | description                                       |
-| ------- | ------------- | -------- | ------------------------------------------------- |
-| `items` | _Array(Item)_ | Yes      | A list of items to send to an existing collection |
+| name    | type          | required | description                                  |
+| ------- | ------------- | -------- | -------------------------------------------- |
+| `items` | _Array(Item)_ | Yes      | A list of items to send to an existing board |
 
 ### Item object
 
@@ -252,14 +252,14 @@ An item can be either a file or an URL.
 ]
 ```
 
-It will return an object for each item you want to add to the collection. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
+It will return an object for each item you want to add to the board. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
 
 **Important**
 Chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
 
 ## Request upload URL
 
-<h3 id="collection-request-upload-url" class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
+<h3 id="board-request-upload-url" class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
 
 To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts.
 
@@ -303,7 +303,7 @@ The Response Body contains the `upload_url`, `part_number`, `upload_id`, and `up
 
 ##### 401 (Unauthorized)
 
-If the requester tries to request an upload URL for a file that is not in one of the requester's collections, we will respond with 401 UNAUTHORIZED.
+If the requester tries to request an upload URL for a file that is not in one of the requester's boards, we will respond with 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
@@ -311,7 +311,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 
 ## File upload
 
-<h3 id="collection-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
+<h3 id="board-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
 Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
 
@@ -323,26 +323,26 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 // Depending on your application, you will read the file using fs.readFile
 // or it will be a file uploaded to your service.
 const files = [[/* Buffer */], [/* Buffer */]];
-await Promise.all(collectionItems.map((item, index) => {
-  return apiClient.collection.uploadFile(item, files[index]);
+await Promise.all(boardItems.map((item, index) => {
+  return apiClient.board.uploadFile(item, files[index]);
 }));
 ```
 
 ```php
 <?php
-foreach($collection->getFiles() as $file) {
+foreach($board->getFiles() as $file) {
   \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
 }
 ```
 
 ## Complete a file upload
 
-<h3 id="collection-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
+<h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
 After the file upload is successful, the file must be marked as complete.
 
 ```shell
-curl -X https://dev.wetransfer.com/v1/files/{file_id}/uploads/complete \
+curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-complete \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
