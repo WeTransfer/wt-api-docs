@@ -11,10 +11,10 @@ search: false
 
 includes:
  - sdks
- - authorization
  - api-overview
+ - authorization
  - transfer-api
- - collect-api
+ - board-api
  - errors
  - changelog
 ---
