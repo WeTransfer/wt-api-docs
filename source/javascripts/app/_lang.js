@@ -38,11 +38,11 @@ under the License.
     window.recacheHeights();
 
     // scroll to the new location of the position
-    if ($(window.location.hash).get(0)) {
-      $(window.location.hash)
-        .get(0)
-        .scrollIntoView(true);
-    }
+    // if ($(window.location.hash).get(0)) {
+    //   $(window.location.hash)
+    //     .get(0)
+    //     .scrollIntoView(true);
+    // }
   }
 
   // parseURL and stringifyURL are from https://github.com/sindresorhus/query-string
