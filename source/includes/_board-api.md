@@ -1,81 +1,10 @@
 # Board API
 
-Intro about the Board API
-
-## Flow Diagram
-
-To help illustrate the multi-step process of using the Board API, we've made this Flow Diagram.
-
-<section class="flow-diagram">
-  <ol>
-    <li class="flow-diagram__section">
-      <h3>Authorize</h3>
-      <p>First, we have to make sure you’re fully authorized to create a new board. You do this by sending two authentication headers with the authorize request.</p>
-      <ul>
-        <li class="flow-diagram__item">
-          <a href="#board-send-request">
-            <h4>1.1 - Send authorization request</h4>
-            <code><em>POST</em> /authorize</code>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="flow-diagram__section">
-      <h3>Create an empty board</h3>
-      <p>Next up, we create an empty board object and tell it what items to expect in the next step. This is also where we retrieve the URL for the board itself.</p>
-      <ul>
-        <li class="flow-diagram__item">
-          <a href="#create-object">
-            <h4>2.1 - Create an empty transfer object</h4>
-            <code><em>POST</em> /boards</code>
-          </a>
-        </li>
-        <li class="flow-diagram__item">
-          <a href="#send-items">
-            <h4>2.2 - Send list of items to transfer object</h4>
-            <code><em>POST</em> /boards/{board_id}/items</code>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="flow-diagram__section">
-      <h3>Upload each file to Board Object</h3>
-      <p>Then for each file part you request an upload URL that will show you where on Amazon to put it. Repeat until you’ve uploaded all parts and move on to next file.</p>
-      <fieldset>
-        <legend>for each part</legend>
-        <ul>
-          <li class="flow-diagram__item">
-            <a href="#request-upload-url">
-              <h4>3.1 - Request upload URL for part</h4>
-              <code><em>GET</em> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</code>
-            </a>
-          </li>
-          <li class="flow-diagram__item">
-            <a href="#upload-part">
-              <h4>3.2 - Upload part</h4>
-              <code><em>PUT</em> {signed_s3_url}</code>
-            </a>
-          </li>
-        </ul>
-      </fieldset>
-      <ul>
-        <li class="flow-diagram__item">
-          <a href="#complete-upload" class="call">
-            <h4>3.3 - Complete file upload</h4>
-            <code><em>POST</em> /files/{file_id}/uploads/complete</code>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="flow-diagram__section">
-      <h3>Transfer completed</h3>
-    </li>
-  </ol>
-</section>
+The Board API is the latest addition to our Public API. It was built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also very suitable for desktop. It focusses on collecting content rather than just sending things off and it supports both files and web content.
 
 ## Create a new board
 
-Boards can be crecated with or without items. One the board has been created, items can be added at any time. If you don't add any items, the API will create an empty board.
+Boards can be created with or without items. One the board has been created, items can be added at any time. If you don't add any items, the API will create an empty board.
 
 ```shell
 curl https://dev.wetransfer.com/v2/boards \
@@ -257,9 +186,9 @@ It will return an object for each item you want to add to the board. Each item m
 **Important**
 Chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
 
-## Request upload URL
+<h2 id="request-upload-url">Request upload URL</h2>
 
-<h3 id="board-request-upload-url" class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
+<h3 class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
 
 To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts.
 
