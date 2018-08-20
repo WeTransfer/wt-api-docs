@@ -47,32 +47,25 @@ body {
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
-.documentation {
-  height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-}
-
-#toc > ul > li > a > span {
-  float: right;
-  background-color: #2484ff;
-  border-radius: 40px;
-  width: 20px;
-}
-
 .toc-wrapper {
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
   top: 0;
-  // left: $content-width;
-  left: 0;
+  left: -($nav-width);
   bottom: 0;
   width: $nav-width;
   font-size: 14px;
   line-height: 16px;
   font-weight: 500;
+  border-right: 1px solid $gray-light;
+  transition: left 0.3s ease-in-out;
+  background: $white;
+
+  &.open {
+    left: 0;
+  }
 
   #toc > li {
     a {
@@ -167,20 +160,29 @@ body {
   transition-duration: 130ms;
 }
 
+.lang-selector {
+  padding: 10px 15px;
+  border-bottom: 1px solid #d3d3d3;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &__title {
+    font-size: 12px;
+    font-weight: 500;
+    color: $gray-dark;
+    margin-right: 10px;
+  }
+  &__picker {
+    font-size: 14px;
+  }
+}
+
 // button to show navigation on mobile devices
 #nav-button {
-  span {
-    display: block;
-    $side-pad: $main-padding / 2 - 8px;
-    padding: $side-pad $side-pad $side-pad;
-    background-color: #fff;
-    transform-origin: 0 0;
-    transform: rotate(-90deg) translate(-100%, 0);
-    box-shadow: -1px 1px 0 $gray-light;
-  }
-
   padding: 0 1.5em 5em 0; // increase touch size area
-  display: none;
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -191,6 +193,16 @@ body {
   font-size: 12px;
   line-height: 16px;
   transition: left 0.3s ease-in-out;
+
+  span {
+    display: block;
+    $side-pad: $main-padding / 2 - 8px;
+    padding: $side-pad $side-pad $side-pad;
+    background-color: #fff;
+    transform-origin: 0 0;
+    transform: rotate(-90deg) translate(-100%, 0);
+    box-shadow: -1px 1px 0 $gray-light;
+  }
 
   img {
     height: 16px;
@@ -212,28 +224,9 @@ body {
 
 .page-wrapper {
   z-index: 10;
-  background-color: $main-bg;
+  background: #fff;
   min-height: 100%;
   padding-bottom: 1px; // prevent margin overflow
-}
-
-.lang-selector {
-  padding: 10px 15px;
-  border-bottom: 1px solid #d3d3d3;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-
-  &__title {
-    font-size: 12px;
-    font-weight: 500;
-    color: $gray-dark;
-    margin-right: 10px;
-  }
-  &__picker {
-    font-size: 14px;
-  }
 }
 
 .error_container {
@@ -269,23 +262,17 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // This is all the stuff with the light background in the left half of the page
 
-.page-wrapper {
-  margin-left: $nav-width;
-  max-width: $content-width;
-  background: $white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 .v2-notice {
-  padding: 20px 60px;
+  padding: 20px;
   border-bottom: 2px solid #e8e8e8;
   background: #fffee6;
   position: relative;
 }
+
 .content {
   z-index: 30;
   min-height: calc(100vh - 42px);
-  padding: 0 60px 60px;
+  padding: 20px;
 
   & > ul,
   & > ol {
@@ -328,8 +315,10 @@ body {
   }
 
   h3.call {
-    margin-top: 10px;
-    padding-top: 10px;
+    padding: 10px 10px 10px 0;
+    white-space: nowrap;
+    overflow-x: scroll;
+    position: relative;
 
     span {
       @extend %code-font;
@@ -457,17 +446,9 @@ body {
   }
 
   .two-col {
-    display: flex;
-    justify-content: space-between;
-
     .col {
-      width: 48%;
-
-      h2 {
-        margin: 0 0 8px;
-      }
+      margin-bottom: 20px;
     }
-
     .two-col__title {
       @extend h3;
       display: block;
@@ -487,7 +468,6 @@ body {
     background-color: none;
     color: #fff;
     margin: 0 0 20px;
-    @extend %right-col;
 
     & > p {
       margin: 0;
@@ -517,71 +497,39 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // RESPONSIVE DESIGN
 ////////////////////////////////////////////////////////////////////////////////
-// These are the styles for phones and tablets
-// There are also a couple styles disperesed
 
-@media (max-width: $tablet-width) {
+@media (min-width: $tablet-width) {
+  .page-wrapper {
+    margin-left: $nav-width;
+    background: $white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .v2-notice {
+    padding: 20px 60px;
+  }
+
   .content {
-    padding: 20px;
+    padding: 0 60px 60px;
+    max-width: $content-width;
+    .two-col {
+      display: flex;
+      justify-content: space-between;
+
+      .col {
+        width: 48%;
+        margin-bottom: 0;
+      }
+    }
   }
 
   .toc-wrapper {
-    padding: 0;
-    border-right: 1px solid $gray-light;
-    background: $white;
-    left: -($nav-width);
-    transition: left 0.3s ease-in-out;
-
-    &.open {
-      left: 0;
-    }
-
-    #toc > li a {
-      padding: 10px 15px;
-    }
-
-    #toc > li ul li a {
-      padding: 0px 15px;
-    }
-    .lang-selector {
-      display: none;
-    }
-  }
-
-  .page-wrapper {
-    margin-left: 0;
+    left: 0;
+    background: transparent;
   }
 
   #nav-button {
-    display: block;
-  }
-
-  .toc-link {
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-  }
-}
-
-@media (max-width: $phone-width) {
-  %left-col {
-    margin-right: 0;
-  }
-
-  .toc-wrapper .lang-selector {
-    display: block;
-  }
-
-  %right-col {
-    width: auto;
-    background: $code-bg;
-
-    .hightlight {
-      background: $code-bg;
-    }
-  }
-
-  %right-col + %left-col {
-    margin-top: $main-padding;
+    display: none;
   }
 }
 
