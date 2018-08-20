@@ -21,4 +21,12 @@ class UniqueHeadCounter < Middleman::Renderers::MiddlemanRedcarpetHTML
     end
     return "<h#{header_level} id='#{friendly_text}'>#{text}</h#{header_level}>"
   end
+  def table(header, body)
+    "<div class='table-wrapper'>" \
+      "<table class='table'>" \
+        "<thead>#{header}</thead>" \
+        "<tbody>#{body}</tbody>" \
+      "</table>" \
+    "</div>"
+  end
 end
