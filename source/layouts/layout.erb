@@ -48,7 +48,7 @@ under the License.
     <div class="page-wrapper">
       <div class="v2-notice">
         <h3>Welcome to the V2 version of our Public API</h3>
-        <p>On XXXX we released this new version of our API, which simplifies some of the concepts used and introduces the all new <em>Board API</em>. If you're looking for the V1 documentation, you can find that <a href="#">here</a>.</p>
+        <p>On XXXX we released this new version of our API, which simplifies some of the concepts used and introduces the all new <em>Board API</em>. If you're looking for the V1 documentation, you can find that <a href="/v1/">here</a>.</p>
       </div>
       <div class="content">
         <%= page_content %>
@@ -69,8 +69,7 @@ under the License.
                 <option data-language-name="<%= lang %>"><%= lang %></option>
               <% end %>
             <% end %>
-            </select>
-
+          </select>
         </div>
       <% end %>
       <% if current_page.data.search %>
@@ -79,7 +78,7 @@ under the License.
         </div>
         <ul class="search-results"></ul>
       <% end %>
-      <div id="toc" class="toc-list-h1">
+      <ul id="toc" class="toc-list-h1">
         <% toc_data(page_content).each do |h1| %>
           <li>
             <a href="#<%= h1[:id] %>" class="toc-h1 toc-link" data-title="<%= h1[:content].to_s.parameterize %>"><%= h1[:content] %></a>
@@ -94,7 +93,7 @@ under the License.
             <% end %>
           </li>
         <% end %>
-      </div>
+      </ul>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>

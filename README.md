@@ -30,6 +30,6 @@ You can now see the docs at http://localhost:4567. Whoa! That was fast!
 
 To create an exportable set of files, run the following command:
 
-`bundle exec middleman build --clean`
+`bundle exec middleman build --no-clean`
 
 This will output the static files in the `/docs` folder.
