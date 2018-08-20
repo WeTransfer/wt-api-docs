@@ -560,6 +560,8 @@ body {
     margin-left: $nav-width;
     background: $white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 50;
   }
 
   .v2-notice {
@@ -582,7 +584,8 @@ body {
 
   .toc-wrapper {
     left: 0;
-    background: transparent;
+    background-color: $main-bg;
+    border: 0;
   }
 
   #nav-button {
