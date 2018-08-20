@@ -2,12 +2,12 @@
   .sdk {
     display: flex;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 1.25em;
     align-items: center;
     border: 1px solid #d3d3d3;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
 
     &:last-child {
       margin-right: 0;
@@ -64,20 +64,20 @@
   }
 }
 
-// @media (min-width: $tablet-width) {
-//   .sdks {
-//     .sdk__logo {
-//       width: 32px;
-//       margin-right: 20px;
-//     }
-//     .sdk {
-//       .info {
-//         flex-grow: 1;
-//         width: inherit;
-//       }
-//       .button {
-//         margin-left: 0;
-//       }
-//     }
-//   }
-// }
+@media (min-width: $tablet-width) {
+  .sdks {
+    .sdk__logo {
+      width: 2em;
+      margin-right: 1em;
+    }
+    .sdk {
+      .info {
+        flex-grow: 1;
+        width: inherit;
+      }
+      .button {
+        margin-left: 0;
+      }
+    }
+  }
+}
