@@ -14,14 +14,15 @@
     }
 
     &__logo {
-      width: 32px;
-      margin-right: 20px;
       height: auto;
       display: block;
+      width: 10%;
+      margin-right: 5%;
     }
 
     .info {
-      flex-grow: 1;
+      width: 80%;
+      margin-bottom: 5px;
     }
 
     &__title {
@@ -38,6 +39,7 @@
 
     .button {
       display: block;
+      margin-left: 15%;
       padding: 0 20px;
       text-decoration: none;
       background: #fff;
@@ -62,20 +64,18 @@
   }
 }
 
-@media (max-width: $tablet-width) {
+@media (min-width: $tablet-width) {
   .sdks {
     .sdk__logo {
-      width: 10%;
-      margin-right: 5%;
+      width: 32px;
+      margin-right: 20px;
     }
     .sdk {
       .info {
-        width: 80%;
-        margin-bottom: 5px;
+        flex-grow: 1;
       }
       .button {
-        width: 80%;
-        margin-left: 15%;
+        margin-left: 0;
       }
     }
   }
