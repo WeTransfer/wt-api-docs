@@ -56,7 +56,7 @@ body {
   left: -($nav-width);
   bottom: 0;
   width: $nav-width;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 16px;
   font-weight: 500;
   border-right: 1px solid $gray-light;
@@ -121,7 +121,7 @@ body {
   }
 
   .toc-h1 {
-    font-size: 14px;
+    font-size: 1em;
     color: $gray-dark;
     border-right: 2px solid transparent;
     transition: border 0.2s;
@@ -134,7 +134,7 @@ body {
 
   .toc-list-h2 {
     display: none;
-    font-size: 12px;
+    font-size: 0.8em;
     font-weight: 400;
     padding-bottom: 12px;
     border-right: 2px solid transparent;
@@ -169,13 +169,13 @@ body {
   margin-bottom: 10px;
 
   &__title {
-    font-size: 12px;
+    font-size: 0.8em;
     font-weight: 500;
     color: $gray-dark;
     margin-right: 10px;
   }
   &__picker {
-    font-size: 14px;
+    font-size: 1em;
   }
 }
 
@@ -190,7 +190,7 @@ body {
   color: #000;
   text-decoration: none;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 0.8em;
   line-height: 16px;
   transition: left 0.3s ease-in-out;
 
@@ -241,7 +241,7 @@ body {
       margin: 4px 0;
       display: inline-block;
       color: rgba(0, 0, 0, 0.7);
-      font-size: 12px;
+      font-size: 0.8em;
       background: none;
       padding: 0;
     }
@@ -263,7 +263,7 @@ body {
 // This is all the stuff with the light background in the left half of the page
 
 .v2-notice {
-  padding: 20px;
+  padding: 20px 25px;
   border-bottom: 2px solid #e8e8e8;
   background: #fffee6;
   position: relative;
@@ -272,7 +272,7 @@ body {
 .content {
   z-index: 30;
   min-height: calc(100vh - 42px);
-  padding: 20px;
+  padding: 25px;
 
   & > ul,
   & > ol {
@@ -341,6 +341,10 @@ body {
     border-bottom: 2px solid $main-bg;
   }
 
+  .table-wrapper {
+    overflow-x: scroll;
+  }
+
   table {
     margin-bottom: 1em;
     overflow: auto;
@@ -352,7 +356,7 @@ body {
       padding: 5px 20px 5px 0;
       line-height: 18px;
       border-bottom: 1px solid $gray-light;
-      font-size: 14px;
+      font-size: 1em;
 
       code {
         white-space: nowrap;
@@ -442,7 +446,7 @@ body {
   aside:before {
     vertical-align: middle;
     padding-right: 0.5em;
-    font-size: 14px;
+    font-size: 1em;
   }
 
   .two-col {
@@ -487,7 +491,7 @@ body {
 
   blockquote {
     & > p {
-      font-size: 12px;
+      font-size: 0.8em;
       padding: $code-annotation-padding 30px;
       color: $gray-ultralight;
     }

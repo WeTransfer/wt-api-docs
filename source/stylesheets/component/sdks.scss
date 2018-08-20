@@ -28,12 +28,12 @@
     &__title {
       margin-top: 0;
       margin-bottom: 5px;
-      font-size: 16px;
+      font-size: 1.2em;
       color: #3c3c3c;
     }
 
     p {
-      font-size: 12px;
+      font-size: 0.8em;
       margin-bottom: 2px;
     }
 
@@ -46,7 +46,7 @@
       border: 1px solid $gray-dark;
       border-radius: 4px;
       color: $gray-dark;
-      font-size: 12px;
+      font-size: 0.8em;
       font-weight: 500;
       line-height: 32px;
 
@@ -64,20 +64,20 @@
   }
 }
 
-@media (min-width: $tablet-width) {
-  .sdks {
-    .sdk__logo {
-      width: 32px;
-      margin-right: 20px;
-    }
-    .sdk {
-      .info {
-        flex-grow: 1;
-        width: inherit;
-      }
-      .button {
-        margin-left: 0;
-      }
-    }
-  }
-}
+// @media (min-width: $tablet-width) {
+//   .sdks {
+//     .sdk__logo {
+//       width: 32px;
+//       margin-right: 20px;
+//     }
+//     .sdk {
+//       .info {
+//         flex-grow: 1;
+//         width: inherit;
+//       }
+//       .button {
+//         margin-left: 0;
+//       }
+//     }
+//   }
+// }
