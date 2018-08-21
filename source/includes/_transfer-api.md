@@ -2,7 +2,7 @@
 
 ## Create a new transfer
 
-Transfers can be created with or without items. Once the transfer has been created, items can be added at any time.
+Transfers must be created with files. Once the transfer has been created and finalized, items cannot be added.
 
 ```shell
 curl https://dev.wetransfer.com/v1/transfers \
