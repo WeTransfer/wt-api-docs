@@ -6,7 +6,7 @@ Transfers created through the API "live" for 7 days and then vanish forever. The
 
 ## Create a new transfer
 
-Transfers must be created with files. Once the transfer has been created and finalized, new files cannot be added.
+Transfers must be created with files. Once the transfer has been created and finalized, items cannot be added.
 
 ```shell
 curl https://dev.wetransfer.com/v2/transfers \

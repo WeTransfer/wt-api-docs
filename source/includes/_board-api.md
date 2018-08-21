@@ -59,7 +59,9 @@ curl https://dev.wetransfer.com/v2/boards \
 }
 ```
 
-<aside class="warning"><strong>Note:</strong> The <code>url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
+<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
+
+## Add items to a board
 
 ## Add links to a board
 
@@ -277,6 +279,8 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
+
+<h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
 After all of the file parts have been uploaded, the file must be marked as complete.
 

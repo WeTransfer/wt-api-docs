@@ -1,5 +1,7 @@
 # Authorization
 
+<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
+
 To use our APIs, you must provide a secret API key on every request. You can create a key on our [Developer Portal](https://developers.wetransfer.com/). Please make sure that you keep your API key in a secret place, and it is not shared on Github or other version control repositories or in client side code.
 
 Our APIs expect the API key to be included as a header on every API request. Please provide the API key using `x-api-key` header, like in the following example:
@@ -8,6 +10,8 @@ Our APIs expect the API key to be included as a header on every API request. Ple
 Replace <code>your_api_key</code> with your secret API key.
 Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
 </aside>
+
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API token to the following endpoint:
 
 ```shell
 curl -X POST \
@@ -65,7 +69,7 @@ $token = \WeTransfer\Client::authorize();
 }
 ```
 
-| name      | type    | description                                                |
-| --------- | ------- | ---------------------------------------------------------- |
-| `success` | Boolean | Successful request, or not                                 |
-| `token`   | String  | A JWT token valid for one year, if authorization succeeded |
+name | type | description
+---- | ---- | -----------
+`success` | Boolean | Successful request, or not.
+`token` | String | A JWT token valid for one year, if authorization succeeded
