@@ -6,37 +6,27 @@ Note that boards are "live" indefinitely, so long as they are being viewed. If a
 
 ## Create a new board
 
-Boards can be created with or without items. One the board has been created, items can be added at any time. If you don't add any items, the API will create an empty board.
+Boards are created without items. One the board has been created, items can be added at any time. If you don't add any items, the API will create an empty board.
 
 ```shell
 curl https://dev.wetransfer.com/v2/boards \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"name": "My very first board!"}'
+  -d '{"name": "Little kittens"}'
 ```
 
 ```ruby
-board = client.create_board(name: 'My very first board!', description: 'Something about cats, most probably.') do |builder|
-  builder.add_file(name: File.basename(__FILE__), io: File.open(__FILE__, 'rb'))
-  builder.add_file(name: 'cat-picture.jpg', io: StringIO.new('cat-picture'))
-  builder.add_file(name: 'README.txt', io: File.open('/path/to/local/readme.txt', 'rb'))
-  builder.add_file_at(path: __FILE__)
-end
+# TBD
 ```
 
 ```javascript
-const board = await apiClient.board.create({
-  name: 'My very first board!',
-  description: 'Something about cats, most probably.'
-});
+// TBD
 ```
 
 ```php
-$board = \WeTransfer\Board::create(
-    'My very first board!',
-    'Something about cats, most probably.'
-);
+<?php
+// TBD
 ```
 
 <h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
@@ -61,20 +51,17 @@ $board = \WeTransfer\Board::create(
 ```json
 {
   "id": "random-hash",
-  "version_identifier": null,
-  "state": "uploading",
-  "shortened_url": "https://we.tl/s-random-hash",
   "name": "Little kittens",
   "description": null,
-  "size": 0,
-  "total_items": 0,
+  "state": "uploading",
+  "url": "https://we.tl/s-random-hash",
   "items": []
 }
 ```
 
-<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
+<aside class="warning"><strong>Note:</strong> The <code>url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
 
-## Add items to a board
+<!-- ## Add items to a board
 
 <h3 id="board-send-items" class="call"><span>POST</span> /boards/{board_id}/items</h3>
 
@@ -291,4 +278,4 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
 
 | name      | type   | required | description                                                      |
 | --------- | ------ | -------- | ---------------------------------------------------------------- |
-| `file_id` | String | Yes      | The public ID of the file to upload, returned when adding items. |
+| `file_id` | String | Yes      | The public ID of the file to upload, returned when adding items. | -->
