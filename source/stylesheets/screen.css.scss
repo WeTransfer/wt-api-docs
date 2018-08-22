@@ -283,10 +283,6 @@ body {
   border-bottom: 2px solid #e8e8e8;
   background: #fffee6;
   position: relative;
-
-  &__content {
-    max-width: $content-width - 120px;
-  }
 }
 
 .content {
@@ -553,7 +549,10 @@ body {
 
   .v2-notice {
     padding: 20px 60px;
-    max-width: $content-width;
+
+    &__content {
+      max-width: $content-width - 120px;
+    }
   }
 
   .content {
