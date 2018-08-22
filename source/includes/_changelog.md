@@ -1,4 +1,4 @@
-# Changelog
+<!-- # Changelog
 
 | date       | Changes made                                                     | Product affected |
 | ---------- | ---------------------------------------------------------------- | ---------------- |
@@ -9,4 +9,4 @@
 | 2018-07-06 | Add changelog to documentation                                   | Documentation    |
 | 2018-06-22 | Add ability for users to create multiple keys                    | Portal           |
 | 2018-05-30 | Add HSTS header to API endpoints                                 | API and Portal   |
-| 2018-05-14 | Release initial version of API to the world                      | All              |
+| 2018-05-14 | Release initial version of API to the world                      | All              | -->

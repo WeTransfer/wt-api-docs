@@ -1,39 +1,32 @@
 # Transfer API
 
+The Transfer API is classic WeTransfer. You know it well (or you're about to) - upload files, get link, share magic. We've been using this behind the scenes for ages (an internal version of it powers our [macOS app](https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12) and our [Command Line Client](https://we.tl/wtclient)) and now we're opening it up to you and all your users.
+
+Transfers created through the API "live" for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you'll need to store the transfer link somewhere - just like a web link transfer, there's no way to get the link back if it gets misplaced.
+
 ## Create a new transfer
 
-Transfers must be created with files. Once the transfer has been created and finalized, items cannot be added.
+Transfers must be created with files. Once the transfer has been created and finalized, new files cannot be added.
 
 ```shell
-curl https://dev.wetransfer.com/v1/transfers \
+curl https://dev.wetransfer.com/v2/transfers \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"name": "My very first transfer!"}'
+  -d '{"message": "My very first transfer!","files":[{"name":"big-bobis.jpg", "size":195906}]}}'
 ```
 
 ```ruby
-transfer = client.create_transfer(name: 'My very first transfer!', description: 'Something about cats, most probably.') do |builder|
-  builder.add_file(name: File.basename(__FILE__), io: File.open(__FILE__, 'rb'))
-  builder.add_file(name: 'cat-picture.jpg', io: StringIO.new('cat-picture'))
-  builder.add_file(name: 'README.txt', io: File.open('/path/to/local/readme.txt', 'rb'))
-  builder.add_file_at(path: __FILE__)
-end
+# TBD
 ```
 
 ```javascript
-const transfer = await apiClient.transfer.create({
-  name: 'My very first transfer!',
-  description: 'Something about cats, most probably.'
-});
+// TBD
 ```
 
 ```php
 <?php
-$transfer = \WeTransfer\Transfer::create(
-    'My very first transfer!',
-    'Something about cats, most probably.'
-);
+// TDB
 ```
 
 <h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
@@ -48,146 +41,41 @@ $transfer = \WeTransfer\Transfer::create(
 
 #### Parameters
 
-| name          | type   | required | description                                   |
-| ------------- | ------ | -------- | --------------------------------------------- |
-| `name`        | String | Yes      | Something about cats or coffee, most probably |
-| `description` | String | No       | A description, if needed                      |
+| name      | type        | required | description                                   |
+| --------- | ----------- | -------- | --------------------------------------------- |
+| `message` | String      | Yes      | Something about cats or coffee, most probably |
+| `files`   | Array(File) | Yes      | A list of files to be added to the transfer   |
+
+#### File object
+
+| name   | type      | required | description                                                          |
+| -------| --------- | -------- | -------------------------------------------------------------------- |
+| `name` | String    | Yes      | The name of the file you want to show on items list                  |
+| `size` | Number    | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down. |
 
 #### Response
 
 ```json
 {
   "id": "random-hash",
-  "version_identifier": null,
+  "message": "Little kittens",
   "state": "uploading",
-  "shortened_url": "https://we.tl/s-random-hash",
-  "name": "Little kittens",
-  "description": null,
-  "size": 0,
-  "total_items": 0,
-  "items": []
+  "files": [
+    {
+      "id": "random-hash",
+      "name": "big-bobis.jpg",
+      "size": 195906,
+      "meta": {
+        "chunk_size": 5242880
+      }
+    }
+  ]
 }
 ```
 
-Creates a new empty transfer.
+Creates a new transfer with specified files.
 
-<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the transfer you create! It is not returned at the end of the upload flow, rather when you create the empty collection. </aside>
-
-## Add items to a transfer
-
-<h3 id="transfer-send-items" class="call"><span>POST</span> /transfers/{transfer_id}/items</h3>
-
-Once a transfer has been created you can then add items to it.
-
-```shell
-curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
-  -H "x-api-key: your_api_key" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer jwt_token" \
-  -d '{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
-```
-
-```javascript
-const fileItems = await apiClient.transfer.addFiles(transfer, [{
-  filename: 'kittie.gif',
-  filesize: 1024
-}]);
-
-const linkItems = await apiClient.transfer.addLinks(transfer, [{
-  url: 'https://wetransfer.com',
-  meta: {
-    title: 'WeTransfer'
-  },
-}]);
-```
-
-```php
-<?php
-\WeTransfer\Transfer::addLinks($transfer, [
-    [
-        'url' => 'https://en.wikipedia.org/wiki/Japan',
-        'meta' => [
-            'title' => 'Japan'
-        ]
-    ]
-]);
-
-\WeTransfer\Transfer::addFiles($transfer, [
-    [
-        'filename' => 'Japan-01.jpg',
-        'filesize' => 13370099
-    ]
-]);
-```
-
-#### Headers
-
-| name            | type   | required | description                    |
-| --------------- | ------ | -------- | ------------------------------ |
-| `x-api-key`     | String | Yes      | Private API key                |
-| `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
-
-#### Parameters
-
-| name    | type          | required | description                                     |
-| ------- | ------------- | -------- | ----------------------------------------------- |
-| `items` | _Array(Item)_ | Yes      | A list of items to send to an existing transfer |
-
-#### Item object
-
-An item can be either a file or an URL.
-
-**File object**
-
-| name                 | type      | required | description                                                                                         |
-| -------------------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `filename`           | String    | Yes      | The name of the file you want to show on items list                                                 |
-| `filesize`           | _Integer_ | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down.                                |
-| `content_identifier` | String    | Yes      | _Must_ be "file".                                                                                   |
-| `local_identifier`   | String    | Yes      | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 characters! |
-
-**URL object**
-
-| name                 | type   | required | description              |
-| -------------------- | ------ | -------- | ------------------------ |
-| `content_identifier` | String | Yes      | _Must_ be "web_content". |
-| `url`                | String | Yes      | A complete URL.          |
-
-#### Response
-
-```json
-[
-  {
-    "id": "random-hash",
-    "content_identifier": "file",
-    "local_identifier": "delightful-cat",
-    "meta": {
-      "multipart_parts": 3,
-      "multipart_upload_id": "some.random-id--"
-    },
-    "name": "kittie.gif",
-    "size": 195906,
-    "upload_id": "more.random-ids--",
-    "upload_expires_at": 1520410633
-  },
-  {
-    "id": "random-hash",
-    "content_identifier": "web_content",
-    "meta": {
-      "title": "WeTransfer"
-    },
-    "url": "https://wetransfer.com"
-  }
-]
-```
-
-It will return an object for each item you want to add to the transfer. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
-
-**Important**
-Chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
-
-## Request upload URL
+<!-- ## Request upload URL
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
 
@@ -290,4 +178,4 @@ curl -X https://dev.wetransfer.com/v1/files/{file_id}/uploads/complete \
 
 | name      | type   | required | description                                                      |
 | --------- | ------ | -------- | ---------------------------------------------------------------- |
-| `file_id` | String | Yes      | The public ID of the file to upload, returned when adding items. |
+| `file_id` | String | Yes      | The public ID of the file to upload, returned when adding items. | -->
