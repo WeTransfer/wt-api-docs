@@ -1,6 +1,8 @@
 # Board API
 
-The Board API is the latest addition to our Public API. It was built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also very suitable for desktop. It focusses on collecting content rather than just sending things off and it supports both files and web content.
+The Board API is the latest addition to our Public API. It was built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links.
+
+Note that boards are "live" indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted.
 
 ## Create a new board
 
@@ -70,7 +72,7 @@ $board = \WeTransfer\Board::create(
 }
 ```
 
-<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather when you create the empty board.</aside>
+<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
 
 ## Add items to a board
 
@@ -190,7 +192,7 @@ Chunks _must_ be 6 megabytes in size, except for the very last chunk, which can 
 
 <h3 class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
 
-To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts.
+To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.
 
 ```shell
 curl "https://dev.wetransfer.com/v2/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
@@ -268,7 +270,7 @@ foreach($board->getFiles() as $file) {
 
 <h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
-After the file upload is successful, the file must be marked as complete.
+After all of the file parts have been uploaded, the file must be marked as complete.
 
 ```shell
 curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-complete \
