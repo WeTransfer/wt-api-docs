@@ -24,15 +24,15 @@ Welcome to WeTransfer's public API! You can use our API to create transfers and 
 
 ## Our APIs
 
-To make sure you have as much flexibility as possible, we’ve released two APIs that both have their own usecases.
+Depending on how you want to use the API we have two different ways of using WeTransfer's systems: transfers and boards.
 
 <div class="two-col">
   <div class="col">
     <span class="two-col__title">Transfer API</span>
-    <p>Built to get files from one place to the other, this is the classic WeTransfer experience. Throw as many files at it as you can imagine, this thing will handle it with ease.</p>
+    <p>Built to get files from one place to the other, this is the classic WeTransfer experience. Send it up to 2GB of files per transfer and this thing will handle it with ease, with a built-in 7 day expiry.</p>
   </div>
   <div class="col">
     <span class="two-col__title">Board API</span>
-    <p>Our new <em>Board API</em> was built based on the concept of our mobile app. It can handle both files and web content, and is flexible in how it displays it all.</p>
+    <p>Our new <em>Board API</em> is in line with our new mobile app. It can store traditional files as well as links, and is flexible in how it displays it all.</p>
   </div>
 </div>
