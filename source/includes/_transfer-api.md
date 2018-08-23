@@ -48,10 +48,10 @@ curl https://dev.wetransfer.com/v2/transfers \
 
 #### File object
 
-| name   | type      | required | description                                                          |
-| -------| --------- | -------- | -------------------------------------------------------------------- |
-| `name` | String    | Yes      | The name of the file you want to show on items list                  |
-| `size` | Number    | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down. |
+| name   | type   | required | description                                                         |
+| -------| ------ | -------- | ------------------------------------------------------------------- |
+| `name` | String | Yes      | The name of the file you want to show on items list                 |
+| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down |
 
 #### Response
 
@@ -65,8 +65,9 @@ curl https://dev.wetransfer.com/v2/transfers \
       "id": "random-hash",
       "name": "big-bobis.jpg",
       "size": 195906,
-      "meta": {
-        "chunk_size": 5242880
+      "multipart": {
+        "part_numbers": 1,
+        "chunk_size": 195906
       }
     }
   ]
@@ -75,18 +76,18 @@ curl https://dev.wetransfer.com/v2/transfers \
 
 Creates a new transfer with specified files.
 
-<!-- ## Request upload URL
+## Request upload URL
 
-<h3 id="transfer-request-upload-url" class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
-
-To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts.
+To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.
 
 ```shell
-curl "https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
+curl "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
+
+<h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
 #### Headers
 
@@ -98,11 +99,11 @@ curl "https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multi
 
 #### Parameters
 
-| name                  | type     | required | description                                                                                                     |
-| --------------------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| `file_id`             | String   | Yes      | The public ID of the file to upload, returned when adding items.                                                |
-| `part_number`         | _Number_ | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart_parts` response. |
-| `multipart_upload_id` | _Number_ | Yes      | The upload ID issued by AWS S3.                                                                                 |
+| name          | type   | required | description                                                                                                           |
+| ------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| `transfer_id` | String | Yes      | The public ID of the transfer where you added the files                                                               |
+| `file_id`     | String | Yes      | The public ID of the file to upload, returned when adding items                                                       |
+| `part_number` | Number | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart.part_numbers` response |
 
 #### Responses
 
@@ -110,22 +111,19 @@ curl "https://dev.wetransfer.com/v1/files/{file_id}/uploads/{part_number}/{multi
 
 ```json
 {
-  "upload_url": "https://presigned-s3-put-url",
-  "part_number": 1,
-  "upload_id": "an-s3-issued-multipart-upload-id",
-  "upload_expires_at": 1519988329
+  "url": "https://presigned-s3-put-url"
 }
 ```
 
-The Response Body contains the `upload_url`, `part_number`, `upload_id`, and `upload_expires_at`.
+The Response Body contains the presigned S3 upload `url`.
 
-##### 401 (Unauthorized)
+<!-- ##### 401 (Unauthorized)
 
 If the requester tries to request an upload URL for a file that is not in one of the requester's transfers, we will respond with 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
+If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
 
 ## File upload
 
@@ -137,34 +135,31 @@ Please note: errors returned from S3 will be sent as XML, not JSON. If your resp
 curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
+```ruby
+# TBD
+```
+
 ```javascript
-// Depending on your application, you will read the file using fs.readFile
-// or it will be a file uploaded to your service.
-const files = [[/* Buffer */], [/* Buffer */]];
-await Promise.all(transferItems.map((item, index) => {
-  return apiClient.transfer.uploadFile(item, files[index]);
-}));
+// TBD
 ```
 
 ```php
 <?php
-foreach($transfer->getFiles() as $file) {
-  \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
-}
+// TBD
 ```
 
 ## Complete a file upload
 
-<h3 id="transfer-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
-
 After the file upload is successful, the file must be marked as complete.
 
 ```shell
-curl -X https://dev.wetransfer.com/v1/files/{file_id}/uploads/complete \
+curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
+
+<h3 id="transfer-complete-upload" class="call"><span>POST</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
 
 #### Headers
 
@@ -176,6 +171,7 @@ curl -X https://dev.wetransfer.com/v1/files/{file_id}/uploads/complete \
 
 #### Parameters
 
-| name      | type   | required | description                                                      |
-| --------- | ------ | -------- | ---------------------------------------------------------------- |
-| `file_id` | String | Yes      | The public ID of the file to upload, returned when adding items. | -->
+| name          | type   | required | description                                                     |
+| ------------- | ------ | -------- | --------------------------------------------------------------- |
+| `transfer_id` | String | Yes      | The public ID of the transfer where you added the files         |
+| `file_id`     | String | Yes      | The public ID of the file to upload, returned when adding items |

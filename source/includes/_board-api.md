@@ -61,54 +61,39 @@ curl https://dev.wetransfer.com/v2/boards \
 
 <aside class="warning"><strong>Note:</strong> The <code>url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
 
-<!-- ## Add items to a board
+## Add links to a board
 
-<h3 id="board-send-items" class="call"><span>POST</span> /boards/{board_id}/items</h3>
-
-Once a board has been created you can then add items to it.
+Once a board has been created you can then add links to it.
 
 ```shell
-curl https://dev.wetransfer.com/v1/boards/{board_id}/items \
+curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
   -H "x-api-key: your_api_key" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
+  -d '[{"url": "https://wetransfer.com/", "meta": {"title": "WeTransfer"}}]'
+```
+
+```ruby
+# TBD
 ```
 
 ```javascript
-const fileItems = await apiClient.board.addFiles(board, [{
-  filename: 'kittie.gif',
-  filesize: 1024
-}]);
-
 const linkItems = await apiClient.board.addLinks(board, [{
-  url: 'https://wetransfer.com',
+  url: 'https://wetransfer.com/',
   meta: {
-    title: 'WeTransfer'
-  },
+    title: "WeTransfer"
+  }
 }]);
 ```
 
 ```php
 <?php
-\WeTransfer\Board::addLinks($board, [
-    [
-        'url' => 'https://en.wikipedia.org/wiki/Japan',
-        'meta' => [
-            'title' => 'Japan'
-        ]
-    ]
-]);
-
-\WeTransfer\Board::addFiles($board, [
-    [
-        'filename' => 'Japan-01.jpg',
-        'filesize' => 13370099
-    ]
-]);
+// TBD
 ```
 
-### Headers
+<h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
+
+#### Headers
 
 | name            | type   | required | description                    |
 | --------------- | ------ | -------- | ------------------------------ |
@@ -116,31 +101,18 @@ const linkItems = await apiClient.board.addLinks(board, [{
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
 | `Content-Type`  | String | Yes      | must be application/json       |
 
-### Parameters
+#### Parameters
 
-| name    | type          | required | description                                  |
-| ------- | ------------- | -------- | -------------------------------------------- |
-| `items` | _Array(Item)_ | Yes      | A list of items to send to an existing board |
+| name    | type        | required | description                                  |
+| ------- | ----------- | -------- | -------------------------------------------- |
+| `links` | Array(Link) | Yes      | A list of links to send to an existing board |
 
-### Item object
+#### File object
 
-An item can be either a file or an URL.
-
-**File object**
-
-| name                 | type      | required | description                                                                                         |
-| -------------------- | --------- | -------- | --------------------------------------------------------------------------------------------------- |
-| `filename`           | String    | Yes      | The name of the file you want to show on items list                                                 |
-| `filesize`           | _Integer_ | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down.                                |
-| `content_identifier` | String    | Yes      | _Must_ be "file".                                                                                   |
-| `local_identifier`   | String    | Yes      | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 characters! |
-
-**URL object**
-
-| name                 | type   | required | description              |
-| -------------------- | ------ | -------- | ------------------------ |
-| `content_identifier` | String | Yes      | _Must_ be "web_content". |
-| `url`                | String | Yes      | A complete URL.          |
+| name   | type   | required | description                                |
+| ------ | ------ | -------- | ------------------------------------------ |
+| `url`  | String | Yes      | The complete URL of the link               |
+| `meta` | Hash   | Yes      | An object containing the title of the link |
 
 #### Response
 
@@ -148,41 +120,98 @@ An item can be either a file or an URL.
 [
   {
     "id": "random-hash",
-    "content_identifier": "file",
-    "local_identifier": "delightful-cat",
-    "meta": {
-      "multipart_parts": 3,
-      "multipart_upload_id": "some.random-id--"
-    },
-    "name": "kittie.gif",
-    "size": 195906,
-    "upload_id": "more.random-ids--",
-    "upload_expires_at": 1520410633
-  },
-  {
-    "id": "random-hash",
-    "content_identifier": "web_content",
+    "url": "https://wetransfer.com/",
     "meta": {
       "title": "WeTransfer"
     },
-    "url": "https://wetransfer.com"
+    "type": "link"
   }
 ]
 ```
 
-It will return an object for each item you want to add to the board. Each item must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
+## Add files to a board
+
+Once a board has been created you can then add files to it.
+
+```shell
+curl https://dev.wetransfer.com/v2/boards/{board_id}/files \
+  -H "x-api-key: your_api_key" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer jwt_token" \
+  -d '[{"name": "kittie.gif", "size": 1024}]'
+```
+
+```ruby
+# TBD
+```
+
+```javascript
+const fileItems = await apiClient.board.addFiles(board, [{
+  name: 'kittie.gif',
+  size: 1024
+}]);
+```
+
+```php
+<?php
+// TBD
+```
+
+<h3 id="board-send-files" class="call"><span>POST</span> /boards/{board_id}/files</h3>
+
+#### Headers
+
+| name            | type   | required | description                    |
+| --------------- | ------ | -------- | ------------------------------ |
+| `x-api-key`     | String | Yes      | Private API key                |
+| `Authorization` | String | Yes      | Bearer JWT authorization token |
+| `Content-Type`  | String | Yes      | must be application/json       |
+
+#### Parameters
+
+| name    | type        | required | description                                  |
+| ------- | ----------- | -------- | -------------------------------------------- |
+| `files` | Array(File) | Yes      | A list of files to send to an existing board |
+
+#### File object
+
+| name   | type   | required | description                                                         |
+| ------ | ------ | -------- | ------------------------------------------------------------------- |
+| `name` | String | Yes      | The name of the file you want to show on items list                 |
+| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down |
+
+#### Response
+
+```json
+[
+  {
+    "id": "random-hash",
+    "name": "kittie.gif",
+    "size": 195906,
+    "multipart": {
+      "id": "some.random-id--",
+      "part_numbers": 1,
+      "chunk_size": 195906
+    },
+    "type": "file"
+  }
+]
+```
+
+It will return an object for each file you want to add to the board. Each file must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
 
 **Important**
+
 Chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
 
-<h2 id="request-upload-url">Request upload URL</h2>
+<h2 id="board-request-upload-url">Request upload URL</h2>
 
-<h3 class="call"><span>GET</span> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
+<h3 class="call"><span>GET</span> /boards/{board_id}/files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
 
 To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.
 
 ```shell
-curl "https://dev.wetransfer.com/v2/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
+curl "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
@@ -198,11 +227,12 @@ curl "https://dev.wetransfer.com/v2/files/{file_id}/uploads/{part_number}/{multi
 
 #### Parameters
 
-| name                  | type     | required | description                                                                                                     |
-| --------------------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------- |
-| `file_id`             | String   | Yes      | The public ID of the file to upload, returned when adding items.                                                |
-| `part_number`         | _Number_ | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart_parts` response. |
-| `multipart_upload_id` | _Number_ | Yes      | The upload ID issued by AWS S3.                                                                                 |
+| name                  | type   | required | description                                                                                                           |
+| --------------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------- |
+| `board_id`            | String | Yes      | The public ID of the board where you added the files                                                                  |
+| `file_id`             | String | Yes      | The public ID of the file to upload, returned when adding items                                                       |
+| `part_number`         | Number | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart.part_numbers` response |
+| `multipart_upload_id` | Number | Yes      | The upload ID issued by AWS S3, which is available at `multipart.part_numbers`                                        |
 
 #### Responses
 
@@ -210,22 +240,19 @@ curl "https://dev.wetransfer.com/v2/files/{file_id}/uploads/{part_number}/{multi
 
 ```json
 {
-  "upload_url": "https://presigned-s3-put-url",
-  "part_number": 1,
-  "upload_id": "an-s3-issued-multipart-upload-id",
-  "upload_expires_at": 1519988329
+  "url": "https://presigned-s3-put-url"
 }
 ```
 
-The Response Body contains the `upload_url`, `part_number`, `upload_id`, and `upload_expires_at`.
+The Response Body contains the presigned S3 upload `url`.
 
-##### 401 (Unauthorized)
+<!-- ##### 401 (Unauthorized)
 
 If the requester tries to request an upload URL for a file that is not in one of the requester's boards, we will respond with 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
+If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
 
 ## File upload
 
@@ -237,25 +264,19 @@ Please note: errors returned from S3 will be sent as XML, not JSON. If your resp
 curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
+```ruby
+# TBD
+```
+
 ```javascript
-// Depending on your application, you will read the file using fs.readFile
-// or it will be a file uploaded to your service.
-const files = [[/* Buffer */], [/* Buffer */]];
-await Promise.all(boardItems.map((item, index) => {
-  return apiClient.board.uploadFile(item, files[index]);
-}));
+// TBD
 ```
 
 ```php
 <?php
-foreach($board->getFiles() as $file) {
-  \WeTransfer\File::upload($file, fopen(realpath('./path/to/your/files.jpg'), 'r'));
-}
 ```
 
 ## Complete a file upload
-
-<h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
 After all of the file parts have been uploaded, the file must be marked as complete.
 
@@ -265,6 +286,8 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
+
+<h3 id="board-complete-upload" class="call"><span>POST</span> /boards/{board_id}/files/{file_id}/uploads/complete</h3>
 
 #### Headers
 
@@ -276,6 +299,7 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
 
 #### Parameters
 
-| name      | type   | required | description                                                      |
-| --------- | ------ | -------- | ---------------------------------------------------------------- |
-| `file_id` | String | Yes      | The public ID of the file to upload, returned when adding items. | -->
+| name       | type   | required | description                                                     |
+| ---------- | ------ | -------- | --------------------------------------------------------------- |
+| `board_id` | String | Yes      | The public ID of the board where you added the files            |
+| `file_id`  | String | Yes      | The public ID of the file to upload, returned when adding items |
