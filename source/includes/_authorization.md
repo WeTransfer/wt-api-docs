@@ -36,14 +36,14 @@ const apiClient = await createWTClient('/* YOUR PRIVATE API KEY GOES HERE */');
 const auth = await apiClient.authorize();
 ```
 
-<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
+<h3 id="authorization" class="call"><span>POST</span> /authorize</h3>
 
 #### Headers
 
-name | type | required | description
----- | ---- | -------- | -----------
-`x-api-key` | String | Yes | Private API key
-`Content-Type` | String | Yes | must be application/json
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `x-api-key`    | String | Yes      | Private API key          |
+| `Content-Type` | String | Yes      | must be application/json |
 
 
 
@@ -65,7 +65,7 @@ $token = \WeTransfer\Client::authorize();
 }
 ```
 
-name | type | description
----- | ---- | -----------
-`success` | Boolean | Successful request, or not.
-`token` | String | A JWT token valid for one year, if authorization succeeded
+| name      | type    | description                                                |
+| --------- | ------- | ---------------------------------------------------------- |
+| `success` | Boolean | Successful request, or not                                 |
+| `token`   | String  | A JWT token valid for one year, if authorization succeeded |
