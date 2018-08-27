@@ -88,7 +88,7 @@ curl https://dev.wetransfer.com/v1/transfers/{transfer_id}/items \
   -H "x-api-key: your_api_key" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}]}'
+  -d '{"items": [{"local_identifier": "delightful-cat", "content_identifier": "file", "filename": "kittie.gif", "filesize": 1024}, {"local_identifier":"favourite-site", content_identifier: "web_content", "url":"https://developers.wetransfer.com", "meta":{"title":"My Favourite Developers Portal!"}}]}'
 ```
 
 ```javascript
@@ -148,15 +148,17 @@ name | type | required | description
 ---- | ---- | -------- | -----------
 `filename` | String | Yes | The name of the file you want to show on items list
 `filesize` | _Integer_ | Yes | File size in bytes. Must be accurate. No fooling. Don't let us down.
-`content_identifier` |	String | Yes | _Must_ be "file".
+`content_identifier` | String | Yes | _Must_ be "file".
 `local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 characters!
 
 **URL object**
 
 name | type | required | description
 ---- | ---- | -------- | -----------
-`content_identifier` |	String | Yes | _Must_ be "web_content".
 `url` | String | Yes | A complete URL.
+`content_identifier` | String | Yes | _Must_ be "web_content".
+`local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 char`acters!
+`meta` | Object | No | You can use this to store the metadata of the URL. For example: `"meta": {"title":"The Best URL EVER!"}`
 
 #### Response
 
