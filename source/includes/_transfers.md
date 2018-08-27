@@ -158,7 +158,7 @@ name | type | required | description
 `url` | String | Yes | A complete URL.
 `content_identifier` | String | Yes | _Must_ be "web_content".
 `local_identifier` | String | Yes | Unique identifier to identify the item locally (to your system). _Must_ be less than 36 char`acters!
-`meta` | Object | No | You can use this to store the metadata of the URL. For example: `"meta": {"title":"The Best URL EVER!"}`
+`meta` | Object | Yes | You can use this to store the metadata of the URL. For example: `"meta": {"title":"The Best URL EVER!"}`
 
 #### Response
 
