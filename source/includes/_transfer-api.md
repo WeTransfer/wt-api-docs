@@ -49,7 +49,7 @@ curl https://dev.wetransfer.com/v2/transfers \
 #### File object
 
 | name   | type   | required | description                                                         |
-| -------| ------ | -------- | ------------------------------------------------------------------- |
+| ------ | ------ | -------- | ------------------------------------------------------------------- |
 | `name` | String | Yes      | The name of the file you want to show on items list                 |
 | `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down |
 
@@ -125,7 +125,7 @@ If the requester tries to request an upload URL for a file that is not in one of
 
 If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
 
-## File upload
+<h2 id="transfer-file-upload">File Upload</h2>
 
 <h3 id="transfer-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
@@ -148,7 +148,7 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 // TBD
 ```
 
-## Complete a file upload
+<h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
 After the file upload is successful, the file must be marked as complete.
 
