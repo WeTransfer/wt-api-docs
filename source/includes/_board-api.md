@@ -254,7 +254,7 @@ If the requester tries to request an upload URL for a file that is not in one of
 
 If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
 
-## File upload
+<h2 id="board-file-upload">File Upload</h2>
 
 <h3 id="board-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
@@ -276,7 +276,7 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 <?php
 ```
 
-## Complete a file upload
+<h2 id="board-complete-file-upload">Complete a file upload</h2>
 
 After all of the file parts have been uploaded, the file must be marked as complete.
 
