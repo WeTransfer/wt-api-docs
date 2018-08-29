@@ -1,19 +1,19 @@
 # Authorization
 
-<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
-
+### API keys - where and how
 To use our APIs, you must provide your API key with every request. You must create a key on our [Developer Portal](https://developers.wetransfer.com/) - currently we require you to have a github account to login and acquire a key.
 
 Please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code.
 
-Please provide the API key using `x-api-key` header, like in the following example:
-
 <aside class="notice">
-Replace <code>your_api_key</code> with your secret API key.
-Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
+In all of our examples remember to replace <code>your_api_key</code> with your secret API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
 </aside>
 
-Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API key to the following endpoint:
+You will also need to make the following request when you start your app, script, etc.
+
+<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
+
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. To retrieve a JWT, send a request including your API key to the following endpoint:
 
 ```shell
 curl -X POST \
@@ -48,8 +48,6 @@ const auth = await apiClient.authorize();
 // The method is available though, in case you need to access the JWT.
 $token = \WeTransfer\Client::authorize();
 ```
-
-<h3 id="authorization" class="call"><span>POST</span> /authorize</h3>
 
 #### Headers
 
