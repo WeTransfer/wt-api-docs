@@ -61,8 +61,6 @@ curl https://dev.wetransfer.com/v2/boards \
 
 <aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
 
-## Add items to a board
-
 ## Add links to a board
 
 Once a board has been created you can then add links to it.
@@ -114,7 +112,14 @@ const linkItems = await apiClient.board.addLinks(board, [{
 | name   | type   | required | description                                |
 | ------ | ------ | -------- | ------------------------------------------ |
 | `url`  | String | Yes      | The complete URL of the link               |
-| `meta` | Hash   | Yes      | An object containing the title of the link |
+| `meta` | Hash   | Yes      | An object containing the metadata of the link |
+
+#### Meta
+
+| name   | type   | required | description                                |
+| ------ | ------ | -------- | ------------------------------------------ |
+| `title`  | String | Yes      | The title of the link. Can be custom.    |
+
 
 #### Response
 
@@ -248,13 +253,13 @@ curl "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/uploads/{p
 
 The Response Body contains the presigned S3 upload `url`.
 
-<!-- ##### 401 (Unauthorized)
+##### 401 (Unauthorized)
 
 If the requester tries to request an upload URL for a file that is not in one of the requester's boards, we will respond with 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
+If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
 
 <h2 id="board-file-upload">File Upload</h2>
 
