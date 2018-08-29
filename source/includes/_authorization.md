@@ -2,16 +2,18 @@
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
-To use our APIs, you must provide a secret API key on every request. You can create a key on our [Developer Portal](https://developers.wetransfer.com/). Please make sure that you keep your API key in a secret place, and it is not shared on Github or other version control repositories or in client side code.
+To use our APIs, you must provide your API key with every request. You must create a key on our [Developer Portal](https://developers.wetransfer.com/) - currently we require you to have a github account to login and acquire a key.
 
-Our APIs expect the API key to be included as a header on every API request. Please provide the API key using `x-api-key` header, like in the following example:
+<b>Please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code.</b>
+
+Please provide the API key using `x-api-key` header, like in the following example:
 
 <aside class="notice">
 Replace <code>your_api_key</code> with your secret API key.
 Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
 </aside>
 
-Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API token to the following endpoint:
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API key to the following endpoint:
 
 ```shell
 curl -X POST \
@@ -19,8 +21,6 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key"
 ```
-
-Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API token to the following endpoint:
 
 ```ruby
 require 'we_transfer_client'
@@ -40,6 +40,15 @@ const apiClient = await createWTClient('/* YOUR PRIVATE API KEY GOES HERE */');
 const auth = await apiClient.authorize();
 ```
 
+```php
+<?php
+\WeTransfer\Client::setApiKey(getenv['WT_API_KEY']);
+
+// When using the SDK, there is no need to call authorize manually.
+// The method is available though, in case you need to access the JWT.
+$token = \WeTransfer\Client::authorize();
+```
+
 <h3 id="authorization" class="call"><span>POST</span> /authorize</h3>
 
 #### Headers
@@ -50,22 +59,12 @@ const auth = await apiClient.authorize();
 | `Content-Type` | String | Yes      | must be application/json |
 
 
-
-```php
-<?php
-\WeTransfer\Client::setApiKey(getenv['WT_API_KEY']);
-
-// When using the SDK, there is no need to call authorize manually.
-// The method is available though, in case you need to access the JWT.
-$token = \WeTransfer\Client::authorize();
-```
-
 #### Response
 
 ```json
 {
   "success": true,
-  "token": "A valid JWT token here"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqdXN0IGEgc2FtcGxlIHRva2VuLCB0aGUgYWN0dWFsIG9uZSB3aWxsIGhhdmUgZGlmZmVyZW50IGNvbnRlbnQiLCJuYW1lIjoiQW5nZWxhIEJlbm5ldHQiLCJpYXQiOjE1MTYyMzkwMjJ9.fd14EeU1vbj40WtHIYaDwpCOE972DKnrrP8mffioEdg"
 }
 ```
 
@@ -73,3 +72,5 @@ name | type | description
 ---- | ---- | -----------
 `success` | Boolean | Successful request, or not.
 `token` | String | A JWT token valid for one year, if authorization succeeded
+
+The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorise on startup.
