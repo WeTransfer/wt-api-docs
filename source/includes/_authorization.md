@@ -4,7 +4,7 @@
 
 To use our APIs, you must provide your API key with every request. You must create a key on our [Developer Portal](https://developers.wetransfer.com/) - currently we require you to have a github account to login and acquire a key.
 
-<b>Please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code.</b>
+Please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code.
 
 Please provide the API key using `x-api-key` header, like in the following example:
 
