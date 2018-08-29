@@ -18,13 +18,13 @@ includes:
  - changelog
 ---
 
-# Introduction
+# Welcome to WeTransfer's public API!
 
-Welcome to WeTransfer's public API! You can use our API to create transfers and boards to share files, links and love all over the world.
+You can use our API to share files, links and love all over the world.
 
 ## Our APIs
 
-Depending on how you want to use the API we have two different ways of using WeTransfer's systems: transfers and boards.
+Depending on what you want to make we have two different ways of using WeTransfer's systems: transfers and boards.
 
 <div class="two-col">
   <div class="col">
