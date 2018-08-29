@@ -162,7 +162,7 @@ curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/up
   -H "Authorization: Bearer jwt_token"
 ```
 
-<h3 id="transfer-complete-upload" class="call"><span>POST</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
+<h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
 
 #### Headers
 
@@ -178,6 +178,20 @@ curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/up
 | ------------- | ------ | -------- | --------------------------------------------------------------- |
 | `transfer_id` | String | Yes      | The public ID of the transfer where you added the files         |
 | `file_id`     | String | Yes      | The public ID of the file to upload, returned when adding items |
+
+#### Response
+
+##### 200 (OK)
+
+```json
+{
+    "id": "random-hash",
+    "retries": 0,
+    "name": "big-bobis.jpg",
+    "size": 195906,
+    "chunk_size": 5242880
+}
+```
 
 <h2 id="finalize-a-transfer">Finalize a transfer</h2>
 
@@ -212,28 +226,26 @@ curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize
 
 ```json
 {
-  "id": "acf23..12",
-  "security_hash": "0fe32..",
-  "state": "processing",
-  "transfer_type": "email",
-  "shortened_url": "http://we.tl/...",
-  "message": "My great message",
-  "files": [
-    {
-      "id": "ab0fe...",
-      "retries": 0,
-      "name": "my_video.mov",
-      "size": 1458596,
-      "chunk_size": 5242880
-    },
-    "..."
-  ],
-  "expires_at": "2018-10-28T20:52:43Z"
+    "id": "random-hash",
+    "state": "processing",
+    "message": "Little kittens",
+    "url": "https://we.tl/t-smaller-random-hash",
+    "files": [
+        {
+            "id": "random-hash",
+            "name": "big-bobis.jpg",
+            "size": 195906,
+            "multipart": {
+                "part_numbers": 1,
+                "chunk_size": 60510
+            }
+        }
+    ]
 }
 ```
 
 <aside class="notice">
-The <code>shortened_url</code> field is where you get the link you will need to access the transfer!
+The <code>url</code> field is where you get the link you will need to access the transfer!
 </aside>
 
 ##### 400 (Bad Request)

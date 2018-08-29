@@ -559,7 +559,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre>
-<h3 id="transfer-complete-upload" class="call"><span>POST</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
+<h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
 <h4 id='headers-3'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
 <th>type</th>
@@ -602,7 +602,14 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 <td>Yes</td>
 <td>The public ID of the file to upload, returned when adding items</td>
 </tr>
-</tbody></table></div>
+</tbody></table></div><h4 id='response-2'>Response</h4><h5 id='200-ok-2'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"retries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">5242880</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <h2 id="finalize-a-transfer">Finalize a transfer</h2>
 
 <p>Finalize the whole transfer. Once all the parts have been uploaded and finalized, you use this endpoint to tell the system that everything has been completely uploaded.</p>
@@ -648,28 +655,26 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 <td>Yes</td>
 <td>The public ID of the transfer where you added the files</td>
 </tr>
-</tbody></table></div><h4 id='responses-2'>Responses</h4><h5 id='200-ok-2'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acf23..12"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"security_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0fe32.."</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"transfer_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"shortened_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://we.tl/..."</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My great message"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab0fe..."</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"retries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_video.mov"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1458596</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">5242880</span><span class="w">
-    </span><span class="p">},</span><span class="w">
-    </span><span class="s2">"..."</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-28T20:52:43Z"</span><span class="w">
+</tbody></table></div><h4 id='responses-2'>Responses</h4><h5 id='200-ok-3'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little kittens"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/t-smaller-random-hash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">60510</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <aside class="notice">
-The <code>shortened_url</code> field is where you get the link you will need to access the transfer!
+The <code>url</code> field is where you get the link you will need to access the transfer!
 </aside>
 <h5 id='400-bad-request'>400 (Bad Request)</h5>
 <p>This is returned if the transfer can no longer be written to.</p>
@@ -743,7 +748,7 @@ The <code>shortened_url</code> field is where you get the link you will need to 
   </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
+<aside class="warning"><strong>Note:</strong> The <code>url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
 <h2 id='add-links-to-a-board'>Add links to a board</h2>
 <p>Once a board has been created you can then add links to it.</p>
 <pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v2/boards/<span class="o">{</span>board_id<span class="o">}</span>/links <span class="se">\</span>

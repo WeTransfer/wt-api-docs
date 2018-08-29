@@ -59,7 +59,7 @@ curl https://dev.wetransfer.com/v2/boards \
 }
 ```
 
-<aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
+<aside class="warning"><strong>Note:</strong> The <code>url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
 
 ## Add links to a board
 
