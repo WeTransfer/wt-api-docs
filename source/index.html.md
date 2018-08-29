@@ -24,7 +24,7 @@ You can use our API to share files, links and love all over the world.
 
 ## Our APIs
 
-Depending on what you want to make we have two different ways of using WeTransfer's systems: transfers and boards.
+Depending on what you want to make we have two different APIs: transfers and boards.
 
 <div class="two-col">
   <div class="col">
@@ -33,6 +33,6 @@ Depending on what you want to make we have two different ways of using WeTransfe
   </div>
   <div class="col">
     <span class="two-col__title">Board API</span>
-    <p>Our new <em>Board API</em> is in line with our new mobile app. It can store traditional files as well as links, and is flexible in how it displays it all.</p>
+    <p>Our Board API is similar to what you'll experience with our new mobile app. It can store traditional files as well as links, and is flexible in how it displays your items.</p>
   </div>
 </div>
