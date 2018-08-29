@@ -298,21 +298,20 @@
 Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
 
 </section>
-<h1 id='authorization'>Authorization</h1>
-<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
-
+<h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
 <p>To use our APIs, you must provide your API key with every request. You must create a key on our <a href="https://developers.wetransfer.com/">Developer Portal</a> - currently we require you to have a github account to login and acquire a key.</p>
 
 <p>Please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code.</p>
 
-<p>Please provide the API key using <code>x-api-key</code> header, like in the following example:</p>
-
 <aside class="notice">
-Replace <code>your_api_key</code> with your secret API key.
-Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
+In all of our examples remember to replace <code>your_api_key</code> with your secret API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
 </aside>
 
-<p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API key to the following endpoint:</p>
+<p>You will also need to make the following request when you start your app, script, etc.</p>
+
+<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
+
+<p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. To retrieve a JWT, send a request including your API key to the following endpoint:</p>
 <pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
   https://dev.wetransfer.com/v2/authorize <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -335,9 +334,7 @@ Also, we require a <code>Content-Type: application/json</code> header on every r
 <span class="c1">// When using the SDK, there is no need to call authorize manually.
 // The method is available though, in case you need to access the JWT.
 </span><span class="nv">$token</span> <span class="o">=</span> <span class="nx">\WeTransfer\Client</span><span class="o">::</span><span class="na">authorize</span><span class="p">();</span>
-</code></pre>
-<h3 id="authorization" class="call"><span>POST</span> /authorize</h3>
-<h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+</code></pre><h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
 <th>type</th>
 <th>required</th>
@@ -379,9 +376,11 @@ Also, we require a <code>Content-Type: application/json</code> header on every r
 <h1 id='transfer-api'>Transfer API</h1>
 <p>The Transfer API is classic WeTransfer. You know it well (or you&#39;re about to) - upload files, get link, share magic. We&#39;ve been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&amp;mt=12">macOS app</a> and our <a href="https://we.tl/wtclient">Command Line Client</a>) and now we&#39;re opening it up to you and all your users.</p>
 
-<p>Transfers created through the API &quot;live&quot; for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you&#39;ll need to store the transfer link somewhere - just like a web link transfer, there&#39;s no way to get the link back if it gets misplaced.</p>
+<p>Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you&#39;ll need to store the transfer link somewhere - just like a web link transfer, there&#39;s no way to get the link back if it gets misplaced.</p>
+
+<p>A transfer request consists of the endpoint itself, the headers, and the body, which can contain a message and must contain a list of file objects. The files themselves need a name and a size in bytes - you&#39;ll need to compute the size yourself. Most languages provide a way to do this.</p>
 <h2 id='create-a-new-transfer'>Create a new transfer</h2>
-<p>Transfers must be created with files. Once the transfer has been created and finalized, items cannot be added.</p>
+<p>Transfers must be created with files. Once the transfer has been created and finalized, the transfer is locked and cannot be further modified.</p>
 <pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v2/transfers <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
@@ -431,9 +430,9 @@ Also, we require a <code>Content-Type: application/json</code> header on every r
 </tr>
 <tr>
 <td><code>files</code></td>
-<td>Array(File)</td>
+<td>Array</td>
 <td>Yes</td>
-<td>A list of files to be added to the transfer</td>
+<td>A list of file objects to be added to the transfer</td>
 </tr>
 </tbody></table></div><h4 id='file-object'>File object</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
@@ -472,7 +471,7 @@ Also, we require a <code>Content-Type: application/json</code> header on every r
 </span></code></pre>
 <p>Creates a new transfer with specified files.</p>
 <h2 id='request-upload-url'>Request upload URL</h2>
-<p>To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file&#39;s parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.</p>
+<p>To be able to upload a file, it must be split into parts and then each part will be uploaded to presigned AWS S3 URLs. This route can be used to fetch presigned upload URLS for each of a file&#39;s parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. NB: They are valid for an <em>hour</em> and must be re-requested if they expire.</p>
 <pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}"</span> <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
@@ -545,7 +544,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 
 <h3 id="transfer-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
-<p>Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS&#39; <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.</p>
+<p>Important: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS&#39; <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.</p>
 <pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> <span class="s2">"https://signed-s3-upload-url"</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># TBD</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// TBD</span>
@@ -554,7 +553,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 </span></code></pre>
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
-<p>After the file upload is successful, the file must be marked as complete.</p>
+<p>Finalize a file. Once all the parts have been uploaded succesfully, you use this endpoint to tell the system that it can start splicing the parts together to form one whole file.</p>
 <pre class="highlight shell tab-shell"><code>curl -X https://dev.wetransfer.com/v2/transfers/<span class="o">{</span>transfer_id<span class="o">}</span>/files/<span class="o">{</span>file_id<span class="o">}</span>/upload-complete <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
@@ -603,7 +602,80 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 <td>Yes</td>
 <td>The public ID of the file to upload, returned when adding items</td>
 </tr>
-</tbody></table></div><h1 id='board-api'>Board API</h1>
+</tbody></table></div>
+<h2 id="finalize-a-transfer">Finalize a transfer</h2>
+
+<p>Finalize the whole transfer. Once all the parts have been uploaded and finalized, you use this endpoint to tell the system that everything has been completely uploaded.</p>
+<pre class="highlight shell tab-shell"><code>curl -X https://dev.wetransfer.com/v2/transfers/<span class="o">{</span>transfer_id<span class="o">}</span>/finalize
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre>
+<h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
+<h4 id='headers-4'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-4'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>transfer_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the transfer where you added the files</td>
+</tr>
+</tbody></table></div><h4 id='responses-2'>Responses</h4><h5 id='200-ok-2'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acf23..12"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"security_hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0fe32.."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transfer_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"shortened_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://we.tl/..."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My great message"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ab0fe..."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"retries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my_video.mov"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1458596</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">5242880</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"..."</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-28T20:52:43Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="notice">
+The <code>shortened_url</code> field is where you get the link you will need to access the transfer!
+</aside>
+<h5 id='400-bad-request'>400 (Bad Request)</h5>
+<p>This is returned if the transfer can no longer be written to.</p>
+<h5 id='403-unauthorized'>403 (Unauthorized)</h5>
+<p>When you try to access something you don&#39;t have access to.</p>
+<h1 id='board-api'>Board API</h1>
 <p>The Board API is the latest addition to our Public API. It was built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&amp;ct=wetransfer-developer-portal&amp;mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&amp;referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal">Android</a> apps in mind, but it&#39;s also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links.</p>
 
 <p>Note that boards are &quot;live&quot; indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted.</p>
@@ -672,7 +744,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <aside class="warning"><strong>Note:</strong> The <code>shortened_url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
-<h2 id='add-items-to-a-board'>Add items to a board</h2><h2 id='add-links-to-a-board'>Add links to a board</h2>
+<h2 id='add-links-to-a-board'>Add links to a board</h2>
 <p>Once a board has been created you can then add links to it.</p>
 <pre class="highlight shell tab-shell"><code>curl https://dev.wetransfer.com/v2/boards/<span class="o">{</span>board_id<span class="o">}</span>/links <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
@@ -742,7 +814,19 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 <td><code>meta</code></td>
 <td>Hash</td>
 <td>Yes</td>
-<td>An object containing the title of the link</td>
+<td>An object containing the metadata of the link</td>
+</tr>
+</tbody></table></div><h4 id='meta'>Meta</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>title</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The title of the link. Can be custom.</td>
 </tr>
 </tbody></table></div><h4 id='response-2'>Response</h4><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -912,14 +996,10 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>The Response Body contains the presigned S3 upload <code>url</code>.</p>
-
-<!-- ##### 401 (Unauthorized)
-
-If the requester tries to request an upload URL for a file that is not in one of the requester's boards, we will respond with 401 UNAUTHORIZED.
-
-##### 400 (Bad request)
-
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
+<h5 id='401-unauthorized'>401 (Unauthorized)</h5>
+<p>If the requester tries to request an upload URL for a file that is not in one of the requester&#39;s boards, we will respond with 401 UNAUTHORIZED.</p>
+<h5 id='400-bad-request'>400 (Bad request)</h5>
+<p>If a request is made for a part, but no <code>multipart_upload_id</code> is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same <code>multipart_upload_id</code>.</p>
 
 <h2 id="board-file-upload">File Upload</h2>
 
@@ -1182,10 +1262,10 @@ The WeTransfer API uses the following conventional error codes:
             <a href="#authorization" class="toc-h1 toc-link" data-title="authorization">Authorization</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#send-request" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
+                    <a href="#api-keys-where-and-how" class="toc-h2 toc-link" data-title="api-keys-where-and-how">API keys - where and how</a>
                   </li>
                   <li>
-                    <a href="#authorization" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
+                    <a href="#send-request" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
                   </li>
               </ul>
           </li>
@@ -1204,6 +1284,9 @@ The WeTransfer API uses the following conventional error codes:
                   <li>
                     <a href="#transfer-complete-file-upload" class="toc-h2 toc-link" data-title="complete-a-file-upload">Complete a file upload</a>
                   </li>
+                  <li>
+                    <a href="#finalize-a-transfer" class="toc-h2 toc-link" data-title="finalize-a-transfer">Finalize a transfer</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1211,9 +1294,6 @@ The WeTransfer API uses the following conventional error codes:
               <ul class="toc-list-h2">
                   <li>
                     <a href="#create-a-new-board" class="toc-h2 toc-link" data-title="create-a-new-board">Create a new board</a>
-                  </li>
-                  <li>
-                    <a href="#add-items-to-a-board" class="toc-h2 toc-link" data-title="add-items-to-a-board">Add items to a board</a>
                   </li>
                   <li>
                     <a href="#add-links-to-a-board" class="toc-h2 toc-link" data-title="add-links-to-a-board">Add links to a board</a>
