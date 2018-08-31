@@ -196,7 +196,7 @@
 }
     </style>
 
-    <link href="stylesheets/screen-bf454709.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-28f6ba1e.css" rel="stylesheet" media="screen" />
   </head>
 
   <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;,&quot;php&quot;]">
@@ -223,11 +223,11 @@
 <div class="two-col">
   <div class="col">
     <span class="two-col__title">Transfer API</span>
-    <p>Built to get files from one place to the other, this is the classic WeTransfer experience. Send it up to 2GB of files per transfer and this thing will handle it with ease, with a built-in 7 day expiry.</p>
+    <p>Built to get files from one place to the other, this is the classic WeTransfer experience. Send it up to 2GB of files per transfer and this thing will handle it with ease, with a built-in 7 day expiry. Once a transfer has been finalized, that's it - it can't be changed.</p>
   </div>
   <div class="col">
     <span class="two-col__title">Board API</span>
-    <p>Our Board API is similar to what you'll experience with our new mobile app. It can store traditional files as well as links, and is flexible in how it displays your items.</p>
+    <p>Our Board API is similar to what you'll experience with our new mobile app. It can store traditional files as well as links, and is flexible in how it displays your items. Additionally - boards can be changed as long as they are live, so you can add and remove items as you see fit.</p>
   </div>
 </div>
 <h1 id='sdks'>SDKs</h1><h2 id='official-sdks'>Official SDKs</h2>
@@ -311,11 +311,16 @@ In all of our examples remember to replace <code>your_api_key</code> with your s
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
-<p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. To retrieve a JWT, send a request including your API key to the following endpoint:</p>
+<p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You will need to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems. In our example below we used ruby&#39;s <code>SecureRandom.uuid</code> to generate an identifier.</p>
+
+<p>These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob&#39;s transfers.</p>
+
+<p>To retrieve a JWT, send a request including your API key to the following endpoint:</p>
 <pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
   https://dev.wetransfer.com/v2/authorize <span class="se">\</span>
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-  -H <span class="s2">"x-api-key: your_api_key"</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -d <span class="s1">'{"user_identifier":"5eb6b98e-ddaa-4f5b-9d03-7bd4d91aa05f"}'</span><span class="o">)</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'we_transfer_client'</span>
 
 <span class="c1"># Please keep in mind that authorization is performed when the client is initialized.</span>
@@ -351,6 +356,18 @@ In all of our examples remember to replace <code>your_api_key</code> with your s
 <td>String</td>
 <td>Yes</td>
 <td>must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='body'>Body</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>user_identifier</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>A unique (per user of your application) identifier</td>
 </tr>
 </tbody></table></div><h4 id='response'>Response</h4><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -681,7 +698,7 @@ The <code>url</code> field is where you get the link you will need to access the
 <h5 id='403-unauthorized'>403 (Unauthorized)</h5>
 <p>When you try to access something you don&#39;t have access to.</p>
 <h1 id='board-api'>Board API</h1>
-<p>The Board API is the latest addition to our Public API. It was built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&amp;ct=wetransfer-developer-portal&amp;mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&amp;referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal">Android</a> apps in mind, but it&#39;s also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links.</p>
+<p>The Board API is the latest addition to our Public API. It was built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&amp;ct=wetransfer-developer-portal&amp;mt=8">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&amp;referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal">Android</a> apps in mind, but it&#39;s also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links. Boards can be changed - if you hold on to the board&#39;s public ID you are able to add and remove items from a board as long as it is live.</p>
 
 <p>Note that boards are &quot;live&quot; indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted.</p>
 <h2 id='create-a-new-board'>Create a new board</h2>
@@ -744,7 +761,7 @@ The <code>url</code> field is where you get the link you will need to access the
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little kittens"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"uploading"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/s-random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/b-random-hash"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -1069,7 +1086,83 @@ The <code>url</code> field is where you get the link you will need to access the
 <td>Yes</td>
 <td>The public ID of the file to upload, returned when adding items</td>
 </tr>
-</tbody></table></div><!-- # Errors
+</tbody></table></div>
+<h2 id="retrieve-boards-information">Retrieve a board's information</h2>
+
+<h3 id="get-board" class="call"><span>GET</span> /boards/{board_id}</h3>
+
+<p>Retrieve information about a previously-sent board.</p>
+<pre class="highlight shell tab-shell"><code>curl -X https://dev.wetransfer.com/v2/boards/<span class="o">{</span>board_id<span class="o">}</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><h4 id='headers-6'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-6'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>board_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the board where you added the files</td>
+</tr>
+</tbody></table></div><h4 id='responses-2'>Responses</h4><h5 id='200-ok-2'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"board-id"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/b-the-boards-url"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little kittens"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kittie.gif"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"different-random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://wetransfer.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WeTransfer"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"link"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='403-forbidden'>403 (Forbidden)</h5>
+<p>If the requester tries to request a board that is not in one of the requester&#39;s boards, we will respond with 403 FORBIDDEN.</p>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="s2">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"This board does not belong to you"</span><span class="p">}</span><span class="w">
+</span></code></pre><!-- # Errors
 
 In working with the WeTransfer API you might come across some errors. Here are some of the most common, and what you can do about them.
 
@@ -1314,6 +1407,9 @@ The WeTransfer API uses the following conventional error codes:
                   </li>
                   <li>
                     <a href="#board-complete-file-upload" class="toc-h2 toc-link" data-title="complete-a-file-upload">Complete a file upload</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-boards-information" class="toc-h2 toc-link" data-title="retrieve-a-board-s-information">Retrieve a board's information</a>
                   </li>
               </ul>
           </li>
