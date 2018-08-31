@@ -68,4 +68,7 @@ You make them, we present them: community made SDKs!
     </div>
     <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="blank">View on GitHub</a>
   </article>
+  <aside class="notice">
+Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
+
 </section>

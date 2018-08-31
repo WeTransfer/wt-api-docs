@@ -1,6 +1,6 @@
 # Board API
 
-The Board API is the latest addition to our Public API. It was built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links.
+The Board API is the latest addition to our Public API. It was built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links. Boards can be changed - if you hold on to the board's public ID you are able to add and remove items from a board as long as it is live.
 
 Note that boards are "live" indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted.
 
@@ -54,7 +54,7 @@ curl https://dev.wetransfer.com/v2/boards \
   "name": "Little kittens",
   "description": null,
   "state": "uploading",
-  "url": "https://we.tl/s-random-hash",
+  "url": "https://we.tl/b-random-hash",
   "items": []
 }
 ```
@@ -112,7 +112,14 @@ const linkItems = await apiClient.board.addLinks(board, [{
 | name   | type   | required | description                                |
 | ------ | ------ | -------- | ------------------------------------------ |
 | `url`  | String | Yes      | The complete URL of the link               |
-| `meta` | Hash   | Yes      | An object containing the title of the link |
+| `meta` | Hash   | Yes      | An object containing the metadata of the link |
+
+#### Meta
+
+| name   | type   | required | description                                |
+| ------ | ------ | -------- | ------------------------------------------ |
+| `title`  | String | Yes      | The title of the link. Can be custom.    |
+
 
 #### Response
 
@@ -246,13 +253,13 @@ curl "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/uploads/{p
 
 The Response Body contains the presigned S3 upload `url`.
 
-<!-- ##### 401 (Unauthorized)
+##### 401 (Unauthorized)
 
 If the requester tries to request an upload URL for a file that is not in one of the requester's boards, we will respond with 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
+If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
 
 <h2 id="board-file-upload">File Upload</h2>
 
@@ -277,6 +284,8 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
+
+<h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
 
 After all of the file parts have been uploaded, the file must be marked as complete.
 
@@ -303,3 +312,72 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
 | ---------- | ------ | -------- | --------------------------------------------------------------- |
 | `board_id` | String | Yes      | The public ID of the board where you added the files            |
 | `file_id`  | String | Yes      | The public ID of the file to upload, returned when adding items |
+
+<h2 id="retrieve-boards-information">Retrieve a board's information</h2>
+
+<h3 id="get-board" class="call"><span>GET</span> /boards/{board_id}</h3>
+
+Retrieve information about a previously-sent board.
+
+```shell
+curl -X https://dev.wetransfer.com/v2/boards/{board_id} \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: your_api_key" \
+  -H "Authorization: Bearer jwt_token"
+```
+
+#### Headers
+
+| name            | type   | required | description                    |
+| --------------- | ------ | -------- | ------------------------------ |
+| `x-api-key`     | String | Yes      | Private API key                |
+| `Authorization` | String | Yes      | Bearer JWT authorization token |
+| `Content-Type`  | String | Yes      | must be application/json       |
+
+#### Parameters
+
+| name       | type   | required | description                                                     |
+| ---------- | ------ | -------- | --------------------------------------------------------------- |
+| `board_id` | String | Yes      | The public ID of the board where you added the files            |
+
+#### Responses
+
+##### 200 (OK)
+
+```json
+{
+  "id": "board-id",
+  "state": "processing",
+  "url": "https://we.tl/b-the-boards-url",
+  "name": "Little kittens",
+  "description": null,
+  "items": [
+    {
+      "id": "random-hash",
+      "name": "kittie.gif",
+      "size": 1024,
+      "multipart": {
+        "part_numbers": 1,
+        "chunk_size": 1024
+      },
+      "type": "file"
+    },
+    {
+      "id": "different-random-hash",
+      "url": "https://wetransfer.com",
+      "meta": {
+        "title": "WeTransfer"
+      },
+      "type": "link"
+    }
+  ]
+}
+```
+
+##### 403 (Forbidden)
+
+If the requester tries to request a board that is not in one of the requester's boards, we will respond with 403 FORBIDDEN.
+
+```json
+ {"success":false,"message":"This board does not belong to you"}
+```
