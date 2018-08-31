@@ -15,7 +15,7 @@ You will also need to make the following request when you start your app, script
 
 Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You will need to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems. In our example below we used ruby's `SecureRandom.uuid` to generate an identifier.
 
-These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers.
+These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers. If you do not include the identifier, anyone using your application can potentially access any other boards created by your application.
 
 To retrieve a JWT, send a request including your API key to the following endpoint:
 
