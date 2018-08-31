@@ -67,4 +67,7 @@ You make them, we present them: community made SDKs!
       <p>Coming soon</p>
     </div>
   </article>
+  <aside class="notice">
+Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
+
 </section>
