@@ -70,7 +70,7 @@ curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
   -H "x-api-key: your_api_key" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer jwt_token" \
-  -d '[{"url": "https://wetransfer.com/", "meta": {"title": "WeTransfer"}}]'
+  -d '[{"url": "https://wetransfer.com/", "title": "WeTransfer"}]'
 ```
 
 ```ruby
@@ -80,9 +80,7 @@ curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
 ```javascript
 const linkItems = await apiClient.board.addLinks(board, [{
   url: 'https://wetransfer.com/',
-  meta: {
-    title: "WeTransfer"
-  }
+  title: "WeTransfer"
 }]);
 ```
 
@@ -101,25 +99,18 @@ const linkItems = await apiClient.board.addLinks(board, [{
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
 | `Content-Type`  | String | Yes      | must be application/json       |
 
-#### Parameters
+#### Request Body
 
-| name    | type        | required | description                                  |
-| ------- | ----------- | -------- | -------------------------------------------- |
-| `links` | Array(Link) | Yes      | A list of links to send to an existing board |
+| type   | required | description                                                    |
+| ------ | -------- | -------------------------------------------------------------- |
+| Array  | Yes      | A list of link objects(see below) to send to an existing board |
 
-#### File object
+#### Link object
 
-| name   | type   | required | description                                |
-| ------ | ------ | -------- | ------------------------------------------ |
-| `url`  | String | Yes      | The complete URL of the link               |
-| `meta` | Hash   | Yes      | An object containing the metadata of the link |
-
-#### Meta
-
-| name   | type   | required | description                                |
-| ------ | ------ | -------- | ------------------------------------------ |
-| `title`  | String | Yes      | The title of the link. Can be custom.    |
-
+| name    | type   | required | description                                |
+| ------- | ------ | -------- | ------------------------------------------ |
+| `url`   | String | Yes      | The complete URL of the link               |
+| `title` | String | No       | The title of the page, defaults to the url |
 
 #### Response
 
