@@ -52,7 +52,7 @@ You make them, we present them: community made SDKs!
     </div>
     <a href="https://github.com/tfaber/wetransfeR" class="button" target="blank">View on GitHub</a>
   </article>
-    <article class="sdk sdk-c-sharp">
+  <article class="sdk sdk-c-sharp">
     <img src="images/sdks/c-sharp.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">C#</h4>
@@ -60,11 +60,12 @@ You make them, we present them: community made SDKs!
     </div>
     <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-python coming-soon">
+  <article class="sdk sdk-python">
     <img src="images/sdks/python.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Python</h4>
-      <p>Coming soon</p>
+      <p>Created and maintained by Andreas Strikos</p>
     </div>
+    <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="blank">View on GitHub</a>
   </article>
 </section>
