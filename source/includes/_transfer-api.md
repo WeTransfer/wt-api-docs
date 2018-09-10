@@ -23,7 +23,19 @@ curl https://dev.wetransfer.com/v2/transfers \
 ```
 
 ```javascript
-// TBD
+const transfer = await wtClient.transfer.create({
+  message: 'My very first transfer!',
+  files: [
+    {
+      name: 'hello.txt',
+      size: 1024
+    },
+    {
+      name: 'big-bobis.jpg',
+      size: 13370099
+    }
+  ]
+});
 ```
 
 ```php
