@@ -11,7 +11,7 @@ A transfer request consists of the endpoint itself, the headers, and the body, w
 Transfers must be created with files. Once the transfer has been created and finalized, the transfer is locked and cannot be further modified.
 
 ```shell
-curl https://dev.wetransfer.com/v2/transfers \
+curl -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
@@ -102,6 +102,37 @@ curl "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/uplo
   -H "Authorization: Bearer jwt_token"
 ```
 
+```ruby
+# TBD
+```
+
+```javascript
+const file = transfer.files[0];
+
+for (
+  let partNumber = 0;
+  partNumber < file.multipart.part_numbers;
+  partNumber++
+) {
+  const chunkStart = partNumber * file.multipart.chunk_size;
+  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
+
+  // Get the upload url for the chunk we want to upload
+  const uploadURL = await wtClient.transfer.getFileUploadURL(
+    transfer.id,
+    file.id,
+    partNumber + 1
+  );
+
+  console.log(uploadURL.url)
+}
+```
+
+```php
+<?php
+// TDB
+```
+
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
 #### Headers
@@ -155,7 +186,35 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
 ```javascript
-// TBD
+// Use your favourite JS 
+const fs = require('fs);
+
+const file = transfer.files[0];
+const fileContent = fs.readFileSync('/path/to/file');
+
+for (
+  let partNumber = 0;
+  partNumber < file.multipart.part_numbers;
+  partNumber++
+) {
+  const chunkStart = partNumber * file.multipart.chunk_size;
+  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
+
+  // Get the upload url for the chunk we want to upload
+  const uploadURL = await wtClient.transfer.getFileUploadURL(
+    transfer.id,
+    file.id,
+    partNumber + 1
+  );
+
+  // Use whichever JavaScript library you prefer to upload the chunk:
+  // axios, request, fetch, XMLHttpRequest, etc.
+  axios({
+    url: uploadURL.url,
+    method: 'put',
+    data: fileContent.slice(chunkStart, chunkEnd),
+  });
+}
 ```
 
 ```php
@@ -168,10 +227,23 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 Finalize a file. Once all the parts have been uploaded succesfully, you use this endpoint to tell the system that it can start splicing the parts together to form one whole file.
 
 ```shell
-curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete \
+curl -X PUT https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
+```
+
+```ruby
+# TBD
+```
+
+```javascript
+await wtClient.transfer.completeFileUpload(transfer, file);
+```
+
+```php
+<?php
+// TBD
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
@@ -214,6 +286,22 @@ curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
+```
+
+```ruby
+# TBD
+```
+
+```javascript
+// Finalize transfer
+const finalTransfer = await wtClient.transfer.finalize(transfer);
+
+console.log(finalTransfer.url);
+```
+
+```php
+<?php
+// TBD
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>

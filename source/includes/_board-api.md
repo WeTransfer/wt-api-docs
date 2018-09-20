@@ -21,7 +21,9 @@ curl https://dev.wetransfer.com/v2/boards \
 ```
 
 ```javascript
-// TBD
+const transfer = await wtClient.board.create({
+  name: 'Little kittens'
+});
 ```
 
 ```php
@@ -79,8 +81,7 @@ curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
 
 ```javascript
 const linkItems = await apiClient.board.addLinks(board, [{
-  url: 'https://wetransfer.com/',
-  title: "WeTransfer"
+  url: 'https://wetransfer.com/'
 }]);
 ```
 
@@ -215,6 +216,37 @@ curl "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/uploads/{p
   -H "Authorization: Bearer jwt_token"
 ```
 
+```ruby
+# TBD
+```
+
+```javascript
+const file = fileItems.files[0];
+
+for (
+  let partNumber = 0;
+  partNumber < file.multipart.part_numbers;
+  partNumber++
+) {
+  const chunkStart = partNumber * file.multipart.chunk_size;
+  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
+
+  // Get the upload url for the chunk we want to upload
+  const uploadURL = await wtClient.board.getFileUploadURL(
+    board.id,
+    file.id,
+    partNumber + 1
+  );
+
+  console.log(uploadURL.url)
+}
+```
+
+```php
+<?php
+// TDB
+```
+
 #### Headers
 
 | name            | type   | required | description                    |
@@ -267,7 +299,35 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
 ```javascript
-// TBD
+// Use your favourite JS 
+const fs = require('fs);
+
+const file = fileItems.files[0];
+const fileContent = fs.readFileSync('/path/to/file');
+
+for (
+  let partNumber = 0;
+  partNumber < file.multipart.part_numbers;
+  partNumber++
+) {
+  const chunkStart = partNumber * file.multipart.chunk_size;
+  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
+
+  // Get the upload url for the chunk we want to upload
+  const uploadURL = await wtClient.board.getFileUploadURL(
+    transfer.id,
+    file.id,
+    partNumber + 1
+  );
+
+  // Use whichever JavaScript library you prefer to upload the chunk:
+  // axios, request, fetch, XMLHttpRequest, etc.
+  axios({
+    url: uploadURL.url,
+    method: 'put',
+    data: fileContent.slice(chunkStart, chunkEnd),
+  });
+}
 ```
 
 ```php
@@ -285,6 +345,19 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
+```
+
+```ruby
+# TBD
+```
+
+```javascript
+await wtClient.board.completeFileUpload(board, file);
+```
+
+```php
+<?php
+// TBD
 ```
 
 <h3 id="board-complete-upload" class="call"><span>POST</span> /boards/{board_id}/files/{file_id}/uploads/complete</h3>
