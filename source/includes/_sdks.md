@@ -38,6 +38,8 @@ We make them, you use (and contribute to) them: WeTransfer made SDKs!
 
 ## V1 compatible SDKs
 
+These SDKs are <em>only</em> compatible with V1 of the SDK.
+
 ## Community Developed SDKs
 
 You make them, we present them: community made SDKs!

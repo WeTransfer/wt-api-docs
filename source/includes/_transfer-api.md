@@ -1,6 +1,6 @@
 # Transfer API
 
-The Transfer API is classic WeTransfer. You know it well (or you're about to) - upload files, get link, share magic. We've been using this behind the scenes for ages (an internal version of it powers our [macOS app](https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12) and our [Command Line Client](https://we.tl/wtclient)) and now we're opening it up to you and all your users.
+The Transfer API is classic WeTransfer. You might know it well (or you're about to) - upload files, get link, share magic. We've been using this behind the scenes for ages (an internal version of it powers our [macOS app](https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12) and our [Command Line Client](https://we.tl/wtclient)) and now we're opening it up to you and all your users.
 
 Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you'll need to store the transfer link somewhere - just like a web link transfer, there's no way to get the link back if it gets misplaced.
 
@@ -16,10 +16,6 @@ curl -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
   -d '{"message": "My very first transfer!","files":[{"name":"big-bobis.jpg", "size":195906}]}}'
-```
-
-```ruby
-# TBD
 ```
 
 ```javascript
@@ -38,11 +34,6 @@ const transfer = await wtClient.transfer.create({
 });
 ```
 
-```php
-<?php
-// TDB
-```
-
 <h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
 
 #### Headers
@@ -51,7 +42,7 @@ const transfer = await wtClient.transfer.create({
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
@@ -62,10 +53,10 @@ const transfer = await wtClient.transfer.create({
 
 #### File object
 
-| name   | type   | required | description                                                         |
-| ------ | ------ | -------- | ------------------------------------------------------------------- |
-| `name` | String | Yes      | The name of the file you want to show on items list                 |
-| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down |
+| name   | type   | required | description                                                          |
+| ------ | ------ | -------- | -------------------------------------------------------------------- |
+| `name` | String | Yes      | The name of the file you want to show on items list                  |
+| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down! |
 
 
 #### Response
@@ -82,7 +73,7 @@ const transfer = await wtClient.transfer.create({
       "size": 195906,
       "multipart": {
         "part_numbers": 1,
-        "chunk_size": 195906
+        "chunk_size": 5242880
       }
     }
   ]
@@ -100,10 +91,6 @@ curl "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/uplo
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
-```
-
-```ruby
-# TBD
 ```
 
 ```javascript
@@ -128,11 +115,6 @@ for (
 }
 ```
 
-```php
-<?php
-// TDB
-```
-
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
 #### Headers
@@ -141,7 +123,7 @@ for (
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
@@ -163,13 +145,13 @@ for (
 
 The Response Body contains the presigned S3 upload `url`.
 
-<!-- ##### 401 (Unauthorized)
+##### 401 (Unauthorized)
 
 If the requester tries to request an upload URL for a file that is not in one of the requester's transfers, we will respond with 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`. -->
+If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
 
 <h2 id="transfer-file-upload">File Upload</h2>
 
@@ -181,12 +163,8 @@ Important: errors returned from S3 will be sent as XML, not JSON. If your respon
 curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
-// Use your favourite JS 
+// Use your favourite JS
 const fs = require('fs);
 
 const file = transfer.files[0];
@@ -217,11 +195,6 @@ for (
 }
 ```
 
-```php
-<?php
-// TBD
-```
-
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
 Finalize a file. Once all the parts have been uploaded succesfully, you use this endpoint to tell the system that it can start splicing the parts together to form one whole file.
@@ -233,17 +206,8 @@ curl -X PUT https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id
   -H "Authorization: Bearer jwt_token"
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
 await wtClient.transfer.completeFileUpload(transfer, file);
-```
-
-```php
-<?php
-// TBD
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
@@ -254,7 +218,7 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
@@ -288,20 +252,11 @@ curl -X https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize
   -H "Authorization: Bearer jwt_token"
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
 // Finalize transfer
 const finalTransfer = await wtClient.transfer.finalize(transfer);
 
 console.log(finalTransfer.url);
-```
-
-```php
-<?php
-// TBD
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
@@ -337,7 +292,7 @@ console.log(finalTransfer.url);
             "size": 195906,
             "multipart": {
                 "part_numbers": 1,
-                "chunk_size": 60510
+                "chunk_size": 5242880
             }
         }
     ]

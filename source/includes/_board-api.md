@@ -112,6 +112,8 @@ const linkItems = await apiClient.board.addLinks(board, [{
 
 ## Add files to a board
 
+Note that files need a name and a size in bytes - you'll need to compute the size yourself. Most languages provide a way to do this.
+
 Once a board has been created you can add files like so:
 
 ```shell
