@@ -500,20 +500,29 @@ You must replace <code>your_api_key</code> with your secret API key.
 =======
 </section>
 <h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
+<<<<<<< HEAD
 <p>To use our APIs, you must provide your API key with every request. You must create a key on our <a href="https://developers.wetransfer.com/">Developer Portal</a> - currently we require you to have a github account to login and acquire a key.</p>
 >>>>>>> V2 release copy draft 1 (#52)
+=======
+<p>To use our APIs you must provide your API key with every request. Create yourself an API key on our <a href="https://developers.wetransfer.com/">Developer Portal</a> - currently we require you to have a github account to login. Once you&#39;ve done so make sure you&#39;re on the
+dashboard page, and select &quot;Create new application&quot; to get started generating an API key.</p>
+>>>>>>> Update authorization docs
 
-<p>Please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code.</p>
+<p>Once you have a key or keys, please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select &quot;Delete&quot; under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.</p>
 
 <aside class="notice">
-In all of our examples remember to replace <code>your_api_key</code> with your secret API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
+In all of our examples remember to replace <code>your_api_key</code> with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Media Type" error.
 </aside>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on subsequent requests. To retrieve a JWT, send a request including your API token to the following endpoint:</p>
 >>>>>>> WIP V2 release copy (#50)
 =======
 <p>You will also need to make the following request when you start your app, script, etc.</p>
+=======
+<p>When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.</p>
+>>>>>>> Update authorization docs
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
@@ -528,10 +537,6 @@ In all of our examples remember to replace <code>your_api_key</code> with your s
   -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -d <span class="s1">'{"user_identifier":"5eb6b98e-ddaa-4f5b-9d03-7bd4d91aa05f"}'</span><span class="o">)</span>
-</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'we_transfer_client'</span>
-
-<span class="c1"># Please keep in mind that authorization is performed when the client is initialized.</span>
-<span class="n">client</span> <span class="o">=</span> <span class="no">WeTransferClient</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">api_key: </span><span class="s1">'# YOUR PRIVATE API KEY GOES HERE'</span><span class="p">))</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">createWTClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@wetransfer/js-sdk'</span><span class="p">);</span>
 
 <span class="c1">// Please keep in mind that authorization is performed when the client is initialized.</span>
@@ -540,6 +545,7 @@ In all of our examples remember to replace <code>your_api_key</code> with your s
 <span class="c1">// When using the SDK, there is no need to call authorize manually.</span>
 <span class="c1">// The method is available though, in case you need to access the JWT.</span>
 <span class="kr">const</span> <span class="nx">auth</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">apiClient</span><span class="p">.</span><span class="nx">authorize</span><span class="p">();</span>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -560,6 +566,8 @@ In all of our examples remember to replace <code>your_api_key</code> with your s
 <h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 >>>>>>> WIP V2 release copy (#50)
 =======
+=======
+>>>>>>> Update authorization docs
 </code></pre><h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 >>>>>>> V2 release copy draft 1 (#52)
 <th>name</th>
