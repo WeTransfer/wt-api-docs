@@ -117,6 +117,8 @@ for (
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
+Transfer chunks must be 5 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
+
 #### Headers
 
 | name            | type   | required | description                    |

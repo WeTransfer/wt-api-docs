@@ -176,7 +176,7 @@ The endpoint will return an object for each file you want to add to the board. E
 
 **Important**
 
-Chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
+Board chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 

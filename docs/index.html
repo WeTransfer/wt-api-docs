@@ -920,6 +920,8 @@ In all of our examples remember to replace <code>your_api_key</code> with your o
 <span class="p">}</span>
 </code></pre>
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
+
+<p>Transfer chunks must be 5 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.</p>
 <h4 id='headers-2'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 >>>>>>> V2 release copy draft 1 (#52)
 <th>name</th>
@@ -1793,7 +1795,7 @@ The <code>url</code> field is where you get the link you will need to access the
 
 <p><strong>Important</strong></p>
 
-<p>Chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.</p>
+<p>Board chunks <em>must</em> be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.</p>
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 
