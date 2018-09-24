@@ -1,5 +1,10 @@
 # SDKs
 
+## V2 and V1 Compatible SDKs
+
+These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file
+issues or PRs to help speed the process. :-)
+
 ## Official SDKs
 
 We make them, you use (and contribute to) them: WeTransfer made SDKs!
@@ -13,23 +18,25 @@ We make them, you use (and contribute to) them: WeTransfer made SDKs!
     </div>
     <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-ruby">
+  <article class="sdk sdk-ruby coming-soon">
     <img src="images/sdks/ruby.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Ruby</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">V2 compatibility coming soon</a>
   </article>
-  <article class="sdk sdk-swift">
+  <article class="sdk sdk-swift coming-soon">
     <img src="images/sdks/swift.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Swift</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">V2 compatibility coming soon</a>
   </article>
 </section>
+
+## V1 compatible SDKs
 
 ## Community Developed SDKs
 

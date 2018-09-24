@@ -400,8 +400,15 @@
     <p>Our Board API is similar to what you'll experience with our mobile collecting apps. It can store traditional files as well as links, and is flexible in how it displays your items. Additionally - boards can be changed as long as they are live, so you can add items as you see fit.</p>
   </div>
 </div>
+<<<<<<< HEAD
 >>>>>>> WIP V2 release copy (#50)
 <h1 id='sdks'>SDKs</h1><h2 id='official-sdks'>Official SDKs</h2>
+=======
+<h1 id='sdks'>SDKs</h1><h2 id='v2-and-v1-compatible-sdks'>V2 and V1 Compatible SDKs</h2>
+<p>These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file
+issues or PRs to help speed the process. :-)</p>
+<h2 id='official-sdks'>Official SDKs</h2>
+>>>>>>> Re-enable errors page and add V1 V2 compatibility to SDKs
 <p>We make them, you use (and contribute to) them: WeTransfer made SDKs!</p>
 
 <section class="sdks">
@@ -413,24 +420,24 @@
     </div>
     <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-ruby">
+  <article class="sdk sdk-ruby coming-soon">
     <img src="images/sdks/ruby-88f255a7.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Ruby</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">V2 compatibility coming soon</a>
   </article>
-  <article class="sdk sdk-swift">
+  <article class="sdk sdk-swift coming-soon">
     <img src="images/sdks/swift-b38afa16.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Swift</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">V2 compatibility coming soon</a>
   </article>
 </section>
-<h2 id='community-developed-sdks'>Community Developed SDKs</h2>
+<h2 id='v1-compatible-sdks'>V1 compatible SDKs</h2><h2 id='community-developed-sdks'>Community Developed SDKs</h2>
 <p>You make them, we present them: community made SDKs!</p>
 
 <section class="sdks">
@@ -2026,12 +2033,9 @@ for (
 </span></code></pre><h5 id='403-forbidden'>403 (Forbidden)</h5>
 <p>If the requester tries to request a board that is not in one of the requester&#39;s boards, we will respond with 403 FORBIDDEN.</p>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="s2">"success"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"This board does not belong to you"</span><span class="p">}</span><span class="w">
-</span></code></pre><!-- # Errors
-
-In working with the WeTransfer API you might come across some errors. Here are some of the most common, and what you can do about them.
-
-## Most common errors
-
+</span></code></pre><h1 id='errors'>Errors</h1>
+<p>In working with the WeTransfer API you might come across some errors. Here are some of the most common, and what you can do about them.</p>
+<h2 id='most-common-errors'>Most common errors</h2>
 <section class="error_container">
   <div class="error">
     <div class="error__title">Missing Authentication Token</div>
@@ -2114,6 +2118,9 @@ In working with the WeTransfer API you might come across some errors. Here are s
   </div>
 </section>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Re-enable errors page and add V1 V2 compatibility to SDKs
 <h2 id='a-note-about-file-upload-errors'>A note about file upload errors</h2>
 <p>Because file uploads go directly to S3, any errors during this step of the process will be returned in XML. Please see the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">official S3 documentation</a> for details of individual AWS S3 responses.</p>
 <h2 id='error-codes'>Error codes</h2>
@@ -2141,7 +2148,10 @@ In working with the WeTransfer API you might come across some errors. Here are s
 <tr>
 <td><code>406</code></td>
 <td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+<<<<<<< HEAD
 >>>>>>> WIP V2 release copy (#50)
+=======
+>>>>>>> Re-enable errors page and add V1 V2 compatibility to SDKs
 </tr>
 <tr>
 <td><code>410</code></td>
@@ -2163,6 +2173,7 @@ In working with the WeTransfer API you might come across some errors. Here are s
 <td><code>503</code></td>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
+<<<<<<< HEAD
 <<<<<<< HEAD
 </tbody></table>
 <h1 id='changelog'>Changelog</h1>
@@ -2203,6 +2214,9 @@ The WeTransfer API uses the following conventional error codes:
 | `503` | Service Unavailable -- We're temporarily offline for maintenance. Please try again later. | -->
 <h1 id='changelog'>Changelog</h1><div class='table-wrapper'><table class='table'><thead><tr>
 >>>>>>> V2 release copy draft 1 (#52)
+=======
+</tbody></table></div><h1 id='changelog'>Changelog</h1><div class='table-wrapper'><table class='table'><thead><tr>
+>>>>>>> Re-enable errors page and add V1 V2 compatibility to SDKs
 <th>date</th>
 <th>Changes made</th>
 <th>Product affected</th>
@@ -2324,7 +2338,13 @@ The WeTransfer API uses the following conventional error codes:
             <a href="#sdks" class="toc-h1 toc-link" data-title="sdks">SDKs</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#v2-and-v1-compatible-sdks" class="toc-h2 toc-link" data-title="v2-and-v1-compatible-sdks">V2 and V1 Compatible SDKs</a>
+                  </li>
+                  <li>
                     <a href="#official-sdks" class="toc-h2 toc-link" data-title="official-sdks">Official SDKs</a>
+                  </li>
+                  <li>
+                    <a href="#v1-compatible-sdks" class="toc-h2 toc-link" data-title="v1-compatible-sdks">V1 compatible SDKs</a>
                   </li>
                   <li>
                     <a href="#community-developed-sdks" class="toc-h2 toc-link" data-title="community-developed-sdks">Community Developed SDKs</a>
@@ -2385,6 +2405,20 @@ The WeTransfer API uses the following conventional error codes:
                   </li>
                   <li>
                     <a href="#retrieve-boards-information" class="toc-h2 toc-link" data-title="retrieve-a-board-s-information">Retrieve a board's information</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#most-common-errors" class="toc-h2 toc-link" data-title="most-common-errors">Most common errors</a>
+                  </li>
+                  <li>
+                    <a href="#a-note-about-file-upload-errors" class="toc-h2 toc-link" data-title="a-note-about-file-upload-errors">A note about file upload errors</a>
+                  </li>
+                  <li>
+                    <a href="#error-codes" class="toc-h2 toc-link" data-title="error-codes">Error codes</a>
                   </li>
               </ul>
           </li>

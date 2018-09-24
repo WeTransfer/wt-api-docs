@@ -1,4 +1,4 @@
-<!-- # Errors
+# Errors
 
 In working with the WeTransfer API you might come across some errors. Here are some of the most common, and what you can do about them.
 
@@ -105,4 +105,4 @@ The WeTransfer API uses the following conventional error codes:
 | `418` | I'm a teapot.                                                                             |
 | `429` | Too Many Requests -- You're requesting too many things! Slow down!                        |
 | `500` | Internal Server Error -- We had a problem with our server. Try again later.               |
-| `503` | Service Unavailable -- We're temporarily offline for maintenance. Please try again later. | -->
+| `503` | Service Unavailable -- We're temporarily offline for maintenance. Please try again later. |
