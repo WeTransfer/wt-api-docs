@@ -366,6 +366,20 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // This is all the stuff with the light background in the left half of the page
 
+.v1-notice {
+  margin-top: -50px;
+  margin-left: -50px;
+  margin-bottom: 50px;
+  padding: 20px 25px;
+  border-bottom: 2px solid #e8e8e8;
+  background: #fffee6;
+  position: relative;
+
+  p {
+    margin: 0;
+  }
+}
+
 .content {
   z-index: 30;
   max-width: 740px;
@@ -590,6 +604,12 @@ body {
 // There are also a couple styles disperesed
 
 @media (max-width: $tablet-width) {
+  .v1-notice {
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-bottom: 20px;
+  }
+
   .content {
     padding: 20px;
   }
