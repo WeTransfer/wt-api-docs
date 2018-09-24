@@ -1,8 +1,8 @@
 # Board API
 
-The Board API is the latest addition to our Public API. It was built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too) and it supports both files and links. Boards can be changed - if you hold on to the board's public ID you are able to add and remove items from a board as long as it is live.
+The Board API is the latest addition to our Public API. It was originally built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too). It supports both files and links. Boards can be changed - if you hold on to the board's public ID you are able to add and remove items from a board as long as it is live.
 
-Note that boards are "live" indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted.
+Note that boards are "live" indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted!
 
 ## Create a new board
 
@@ -16,19 +16,10 @@ curl https://dev.wetransfer.com/v2/boards \
   -d '{"name": "Little kittens"}'
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
 const transfer = await wtClient.board.create({
   name: 'Little kittens'
 });
-```
-
-```php
-<?php
-// TBD
 ```
 
 <h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
@@ -39,13 +30,13 @@ const transfer = await wtClient.board.create({
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
 | name          | type   | required | description                                   |
 | ------------- | ------ | -------- | --------------------------------------------- |
-| `name`        | String | Yes      | Something about cats or coffee, most probably |
+| `name`        | String | Yes      | A name or title for your board                |
 | `description` | String | No       | A description, if needed                      |
 
 #### Response
@@ -65,7 +56,7 @@ const transfer = await wtClient.board.create({
 
 ## Add links to a board
 
-Once a board has been created you can then add links to it.
+Once a board has been created you can add links like so:
 
 ```shell
 curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
@@ -75,19 +66,10 @@ curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
   -d '[{"url": "https://wetransfer.com/", "title": "WeTransfer"}]'
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
 const linkItems = await apiClient.board.addLinks(board, [{
   url: 'https://wetransfer.com/'
 }]);
-```
-
-```php
-<?php
-// TBD
 ```
 
 <h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
@@ -98,7 +80,7 @@ const linkItems = await apiClient.board.addLinks(board, [{
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Request Body
 
@@ -130,7 +112,7 @@ const linkItems = await apiClient.board.addLinks(board, [{
 
 ## Add files to a board
 
-Once a board has been created you can then add files to it.
+Once a board has been created you can add files like so:
 
 ```shell
 curl https://dev.wetransfer.com/v2/boards/{board_id}/files \
@@ -140,20 +122,11 @@ curl https://dev.wetransfer.com/v2/boards/{board_id}/files \
   -d '[{"name": "kittie.gif", "size": 1024}]'
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
 const fileItems = await apiClient.board.addFiles(board, [{
   name: 'kittie.gif',
   size: 1024
 }]);
-```
-
-```php
-<?php
-// TBD
 ```
 
 <h3 id="board-send-files" class="call"><span>POST</span> /boards/{board_id}/files</h3>
@@ -164,7 +137,7 @@ const fileItems = await apiClient.board.addFiles(board, [{
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
@@ -174,10 +147,10 @@ const fileItems = await apiClient.board.addFiles(board, [{
 
 #### File object
 
-| name   | type   | required | description                                                         |
-| ------ | ------ | -------- | ------------------------------------------------------------------- |
-| `name` | String | Yes      | The name of the file you want to show on items list                 |
-| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down |
+| name   | type   | required | description                                                          |
+| ------ | ------ | -------- | -------------------------------------------------------------------- |
+| `name` | String | Yes      | The name of the file you want to show on items list                  |
+| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down! |
 
 #### Response
 
@@ -197,7 +170,7 @@ const fileItems = await apiClient.board.addFiles(board, [{
 ]
 ```
 
-It will return an object for each file you want to add to the board. Each file must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
+The endpoint will return an object for each file you want to add to the board. Each file must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
 
 **Important**
 
@@ -214,10 +187,6 @@ curl "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/uploads/{p
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
-```
-
-```ruby
-# TBD
 ```
 
 ```javascript
@@ -242,18 +211,13 @@ for (
 }
 ```
 
-```php
-<?php
-// TDB
-```
-
 #### Headers
 
 | name            | type   | required | description                    |
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
@@ -294,12 +258,8 @@ Please note: errors returned from S3 will be sent as XML, not JSON. If your resp
 curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
-// Use your favourite JS 
+// Use your favourite JS
 const fs = require('fs);
 
 const file = fileItems.files[0];
@@ -330,10 +290,6 @@ for (
 }
 ```
 
-```php
-<?php
-```
-
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
 
 <h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
@@ -347,17 +303,8 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
   -H "Authorization: Bearer jwt_token"
 ```
 
-```ruby
-# TBD
-```
-
 ```javascript
 await wtClient.board.completeFileUpload(board, file);
-```
-
-```php
-<?php
-// TBD
 ```
 
 <h3 id="board-complete-upload" class="call"><span>POST</span> /boards/{board_id}/files/{file_id}/uploads/complete</h3>
@@ -396,7 +343,7 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id} \
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | must be application/json       |
+| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
