@@ -33,3 +33,6 @@ coverage
 /docs/stylesheets/component/*
 /docs/stylesheets/init/*
 /docs/stylesheets/variables
+
+# Just in case remove ruby version file
+.ruby-version
