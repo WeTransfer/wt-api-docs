@@ -624,32 +624,32 @@ In all of our examples remember to replace <code>your_api_key</code> with your o
 <p>Important: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS&#39; <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.</p>
 <pre class="highlight shell tab-shell"><code>curl -T <span class="s2">"./path/to/kittie.gif"</span> <span class="s2">"https://signed-s3-upload-url"</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// Use your favourite JS</span>
-<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs);
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
 
-const file = transfer.files[0];
-const fileContent = fs.readFileSync('</span><span class="o">/</span><span class="nx">path</span><span class="o">/</span><span class="nx">to</span><span class="o">/</span><span class="nx">file</span><span class="s1">');
+<span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">transfer</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">fileContent</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">'/path/to/file'</span><span class="p">);</span>
 
-for (
-  let partNumber = 0;
-  partNumber &lt; file.multipart.part_numbers;
-  partNumber++
-) {
-  const chunkStart = partNumber * file.multipart.chunk_size;
-  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
+<span class="k">for</span> <span class="p">(</span>
+  <span class="kd">let</span> <span class="nx">partNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nx">partNumber</span> <span class="o">&lt;</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">part_numbers</span><span class="p">;</span>
+  <span class="nx">partNumber</span><span class="o">++</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">chunkStart</span> <span class="o">=</span> <span class="nx">partNumber</span> <span class="o">*</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">chunk_size</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">chunkEnd</span> <span class="o">=</span> <span class="p">(</span><span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">chunk_size</span><span class="p">;</span>
 
-  // Get the upload url for the chunk we want to upload
-  const uploadURL = await wtClient.transfer.getFileUploadURL(
-    transfer.id,
-    file.id,
-    partNumber + 1
-  );
+  <span class="c1">// Get the upload url for the chunk we want to upload</span>
+  <span class="kr">const</span> <span class="nx">uploadURL</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">getFileUploadURL</span><span class="p">(</span>
+    <span class="nx">transfer</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="p">);</span>
 
-  // Use whichever JavaScript library you prefer to upload the chunk:
-  // axios, request, fetch, XMLHttpRequest, etc.
-  axios({
-    url: uploadURL.url,
-    method: '</span><span class="nx">put</span><span class="err">'</span><span class="p">,</span>
-    <span class="nx">data</span><span class="p">:</span> <span class="nx">fileContent</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">chunkStart</span><span class="p">,</span> <span class="nx">chunkEnd</span><span class="p">),</span>
+  <span class="c1">// Use whichever JavaScript library you prefer to upload the chunk:</span>
+  <span class="c1">// axios, request, fetch, XMLHttpRequest, etc.</span>
+  <span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+    <span class="na">method</span><span class="p">:</span> <span class="s1">'put'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">fileContent</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">chunkStart</span><span class="p">,</span> <span class="nx">chunkEnd</span><span class="p">),</span>
   <span class="p">});</span>
 <span class="p">}</span>
 </code></pre>

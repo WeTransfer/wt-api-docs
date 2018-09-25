@@ -167,7 +167,7 @@ curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
 
 ```javascript
 // Use your favourite JS
-const fs = require('fs);
+const fs = require('fs');
 
 const file = transfer.files[0];
 const fileContent = fs.readFileSync('/path/to/file');
