@@ -20,7 +20,7 @@ includes:
 
 <div class="v1-notice">
   <div class="v1-notice__content">
-    <p>👋 Big news: on 9-25-2018 we released V2 of our API - introducing the Transfer & Board APIs. <br/> For the latest and greatest documentation please visit <a href="/v2/index.html">API V2</a>. 👈</p>
+    <p>👋 Big news: on 2018-09-25 we released V2 of our API - introducing the Transfer & Board APIs. <br/> For the latest and greatest documentation please visit <a href="/v2/index.html">API V2</a>. 👈</p>
   </div>
 </div>
 
