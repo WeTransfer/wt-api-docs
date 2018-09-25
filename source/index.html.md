@@ -18,8 +18,12 @@ includes:
  - changelog
 ---
 
+<div class="v1-notice">
+  <div class="v1-notice__content">
+    <p>👋 Big news: on 2018-09-25 we released V2 of our API - introducing the Transfer & Board APIs. <br/> For the latest and greatest documentation please visit <a href="/v2/index.html">API V2</a>. 👈</p>
+  </div>
+</div>
+
 # Introduction
 
 Welcome to WeTransfer's public API! You can use our API to create transfer links and share files and love all over the world.
-
-<aside class="warning"><strong>Note:</strong> This API is under active development and is currently in "beta" mode, so functionality or endpoints may change between now and the official release. Expect the unexpected. Feel free to contact us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> if you have questions, comments, or want to tell us about something you made. We have SDKs in Ruby and JavaScript for now.</aside>
