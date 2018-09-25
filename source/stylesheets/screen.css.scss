@@ -502,45 +502,6 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // RESPONSIVE DESIGN
 ////////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
-// These are the styles for phones and tablets
-// There are also a couple styles disperesed
-
-@media (max-width: $tablet-width) {
-  .v1-notice {
-    margin-top: -20px;
-    margin-left: -20px;
-    margin-bottom: 20px;
-  }
-
-  .content {
-    padding: 20px;
-  }
-
-  .toc-wrapper {
-    padding: 0;
-    border-right: 1px solid $gray-light;
-    background: $white;
-    left: -($nav-width);
-    transition: left 0.3s ease-in-out;
-
-    &.open {
-      left: 0;
-    }
-
-    #toc > li a {
-      padding: 10px 15px;
-    }
-
-    #toc > li ul li a {
-      padding: 0px 15px;
-    }
-    .lang-selector {
-      display: none;
-    }
-  }
-=======
->>>>>>> Change CSS stying from min-width to max-width
 
 @media (min-width: $tablet-width) {
   .page-wrapper {

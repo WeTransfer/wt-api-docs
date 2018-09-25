@@ -2,7 +2,7 @@
 
 | date       | Changes made                                                     | Product affected |
 | ---------- | ---------------------------------------------------------------- | ---------------- |
-| 2018-XX-XX | API V2                                                           | API and Portal   |
+| 2018-09-25 | API V2                                                           | API and Portal   |
 | 2018-07-25 | Clarify shortened_url, copy fixes                                | Documentation    |
 | 2018-07-24 | Add PHP code snippets                                            | Documentation    |
 | 2018-07-18 | Clarify a couple of required params and add errors documentation | Documentation    |

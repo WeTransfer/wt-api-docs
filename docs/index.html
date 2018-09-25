@@ -196,28 +196,7 @@
 }
     </style>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <link href="stylesheets/screen-d3a39341.css" rel="stylesheet" media="screen" />
-=======
-=======
->>>>>>> V2 release copy draft 1 (#52)
-<<<<<<< HEAD
-    <link href="stylesheets/screen-5b94004f.css" rel="stylesheet" media="screen" />
-=======
-    <link href="stylesheets/screen-efc6c617.css" rel="stylesheet" media="screen" />
->>>>>>> WIP V2 release copy (#50)
-<<<<<<< HEAD
->>>>>>> WIP V2 release copy (#50)
-=======
-=======
-    <link href="stylesheets/screen-28f6ba1e.css" rel="stylesheet" media="screen" />
->>>>>>> V2 release copy draft 1 (#52)
->>>>>>> V2 release copy draft 1 (#52)
-=======
-    <link href="stylesheets/screen-28f6ba1e.css" rel="stylesheet" media="screen" />
->>>>>>> Merge from master
+    <link href="stylesheets/screen-e44caafe.css" rel="stylesheet" media="screen" />
   </head>
 
   <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;]">
@@ -228,167 +207,11 @@
       </span>
     </a>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <div class="toc-wrapper">
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-              <a href="#" data-language-name="php">php</a>
-        </div>
-      <div id="toc" class="toc-list-h1">
-          <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#flow-diagram" class="toc-h2 toc-link" data-title="flow-diagram">Flow Diagram</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#sdks" class="toc-h1 toc-link" data-title="sdks">SDKs</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#official-sdks" class="toc-h2 toc-link" data-title="official-sdks">Official SDKs</a>
-                  </li>
-                  <li>
-                    <a href="#community-developed-sdks" class="toc-h2 toc-link" data-title="community-developed-sdks">Community Developed SDKs</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#authorization" class="toc-h1 toc-link" data-title="authorization">Authorization</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#send-request" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#transferring" class="toc-h1 toc-link" data-title="transferring">Transferring</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#create-a-new-transfer" class="toc-h2 toc-link" data-title="create-a-new-transfer">Create a new transfer</a>
-                  </li>
-                  <li>
-                    <a href="#add-items-to-a-transfer" class="toc-h2 toc-link" data-title="add-items-to-a-transfer">Add items to a transfer</a>
-                  </li>
-                  <li>
-                    <a href="#request-upload-url" class="toc-h2 toc-link" data-title="request-upload-url">Request upload URL</a>
-                  </li>
-                  <li>
-                    <a href="#file-upload" class="toc-h2 toc-link" data-title="file-upload">File upload</a>
-                  </li>
-                  <li>
-                    <a href="#complete-a-file-upload" class="toc-h2 toc-link" data-title="complete-a-file-upload">Complete a file upload</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#most-common-errors" class="toc-h2 toc-link" data-title="most-common-errors">Most common errors</a>
-                  </li>
-                  <li>
-                    <a href="#a-note-about-file-upload-errors" class="toc-h2 toc-link" data-title="a-note-about-file-upload-errors">A note about file upload errors</a>
-                  </li>
-                  <li>
-                    <a href="#error-codes" class="toc-h2 toc-link" data-title="error-codes">Error codes</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#changelog" class="toc-h1 toc-link" data-title="changelog">Changelog</a>
-          </li>
-      </div>
-    </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <div class="v1-notice">
-  <div class="v1-notice__content">
-    <p>👋 Big news: on 2018-09-25 we released V2 of our API - introducing the Transfer & Board APIs. <br/> For the latest and greatest documentation please visit <a href="/v2/index.html">API V2</a>. 👈</p>
-  </div>
-</div>
-<h1 id='introduction'>Introduction</h1>
-<p>Welcome to WeTransfer&#39;s public API! You can use our API to create transfer links and share files and love all over the world.</p>
-<h2 id='flow-diagram'>Flow Diagram</h2>
-<section class="flow-diagram">
-  <ol>
-    <li class="flow-diagram__section">
-      <h3>Authorize</h3>
-      <p>First, we have to make sure you’re fully authorized to create a new transfer. You do this by sending two authentication headers with the authorize request.</p>
-      <ul>
-        <li class="flow-diagram__item">
-          <a href="#send-request">
-            <h4>1.1 - Send authorization request</h4>
-            <code><em>POST</em> /authorize</code>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="flow-diagram__section">
-      <h3>Create a Transfer Object</h3>
-      <p>Next up, we create an empty transfer object and tell it what items to expect in the next step. This is also where we retrieve the URL for the transfer itself.</p>
-      <ul>
-        <li class="flow-diagram__item">
-          <a href="#create-object">
-            <h4>2.1 - Create an empty transfer object</h4>
-            <code><em>POST</em> /transfers</code>
-          </a>
-        </li>
-        <li class="flow-diagram__item">
-          <a href="#send-items">
-            <h4>2.2 - Send list of items to transfer object</h4>
-            <code><em>POST</em> /transfers/{transfer_id}/items</code>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="flow-diagram__section">
-      <h3>Upload each file to Transfer Object</h3>
-      <p>Then for each file part you request an upload URL that will show you where on Amazon to put it. Repeat until you’ve uploaded all parts and move on to next file.</p>
-      <fieldset>
-        <legend>for each part</legend>
-        <ul>
-          <li class="flow-diagram__item">
-            <a href="#request-upload-url">
-              <h4>3.1 - Request upload URL for part</h4>
-              <code><em>GET</em> /files/{file_id}/uploads/{part_number}/{multipart_upload_id}</code>
-            </a>
-          </li>
-          <li class="flow-diagram__item">
-            <a href="#upload-part">
-              <h4>3.2 - Upload part</h4>
-              <code><em>PUT</em> {signed_s3_url}</code>
-            </a>
-          </li>
-        </ul>
-      </fieldset>
-      <ul>
-        <li class="flow-diagram__item">
-          <a href="#complete-upload" class="call">
-            <h4>3.3 - Complete file upload</h4>
-            <code><em>POST</em> /files/{file_id}/uploads/complete</code>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="flow-diagram__section">
-      <h3>Transfer completed</h3>
-    </li>
-  </ol>
-</section>
-=======
-=======
->>>>>>> Merge from master
     <div class="page-wrapper">
       <div class="v2-notice">
         <div class="v2-notice__content">
           <h3>Welcome to the V2 version of our Public API</h3>
-          <p>On XXXX we released this new version of our API, which simplifies some of the concepts used and introduces the all new <em>Board API</em>. If you're looking for the V1 documentation, you can find that <a href="/documentation/v1/">here</a>.</p>
+          <p>On 2018-09-25 we released this new version of our API, which simplifies some of the concepts used and introduces the all new <em>Board API</em>. If you're looking for the V1 documentation, you can find that <a href="/v1/index.html">here</a>.</p>
         </div>
       </div>
       <div class="content">
@@ -441,8 +264,45 @@ issues or PRs to help speed the process. :-)</p>
 </section>
 <h2 id='v1-compatible-sdks'>V1 compatible SDKs</h2>
 <p>These SDKs are <em>only</em> compatible with V1 of the SDK.</p>
-<h2 id='community-developed-sdks'>Community Developed SDKs</h2>
-<p>You make them, we present them: community made SDKs!</p>
+
+<section class="sdks">
+  <article class="sdk sdk-php">
+    <img src="images/sdks/php-ab3973ac.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">PHP</h4>
+      <p>Created and maintained by Arkaitz Garro</p>
+    </div>
+    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-r">
+    <img src="images/sdks/r-c8f72e0e.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">R</h4>
+      <p>Created and maintained by Tim Faber</p>
+    </div>
+    <a href="https://github.com/tfaber/wetransfeR" class="button" target="blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-c-sharp">
+    <img src="images/sdks/c-sharp-6c75ce29.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">C#</h4>
+      <p>Created and maintained by André Steffens</p>
+    </div>
+    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-python">
+    <img src="images/sdks/python-dc794a59.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Python</h4>
+      <p>Created and maintained by Andreas Strikos</p>
+    </div>
+    <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="blank">View on GitHub</a>
+  </article>
+</section>
+
+<!-- ## Community Developed SDKs
+
+You make them, we present them: community made SDKs!
 
 <section class="sdks">
   <article class="sdk sdk-php">
@@ -480,7 +340,7 @@ issues or PRs to help speed the process. :-)</p>
   <aside class="notice">
 Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
 
-</section>
+</section> -->
 <h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
 <p>To use our APIs you must provide your API key with every request. Create yourself an API key on our <a href="https://developers.wetransfer.com/">Developer Portal</a> - currently we require you to have a github account to login. Once you&#39;ve done so make sure you&#39;re on the
 dashboard page, and select &quot;Create new application&quot; to get started generating an API key.</p>
@@ -1554,7 +1414,7 @@ for (
 <th>Product affected</th>
 </tr>
 </thead><tbody><tr>
-<td>2018-XX-XX</td>
+<td>2018-09-25</td>
 <td>API V2</td>
 <td>API and Portal</td>
 </tr>
@@ -1610,9 +1470,10 @@ for (
           <select id="language_switcher" class="lang-selector__picker">
                 <option data-language-name="shell">shell</option>
                 <option data-language-name="javascript">javascript</option>
-          </select>
+            </select>
+
         </div>
-      <ul id="toc" class="toc-list-h1">
+      <div id="toc" class="toc-list-h1">
           <li>
             <a href="#welcome-to-wetransfer-39-s-public-api" class="toc-h1 toc-link" data-title="welcome-to-wetransfer-s-public-api">Welcome to WeTransfer's public API!</a>
               <ul class="toc-list-h2">
@@ -1632,9 +1493,6 @@ for (
                   </li>
                   <li>
                     <a href="#v1-compatible-sdks" class="toc-h2 toc-link" data-title="v1-compatible-sdks">V1 compatible SDKs</a>
-                  </li>
-                  <li>
-                    <a href="#community-developed-sdks" class="toc-h2 toc-link" data-title="community-developed-sdks">Community Developed SDKs</a>
                   </li>
               </ul>
           </li>
@@ -1712,7 +1570,7 @@ for (
           <li>
             <a href="#changelog" class="toc-h1 toc-link" data-title="changelog">Changelog</a>
           </li>
-      </ul>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
