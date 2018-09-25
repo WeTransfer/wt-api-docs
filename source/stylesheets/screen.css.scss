@@ -47,141 +47,66 @@ body {
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
 
-.documentation {
-  height: calc(100vh - 80px);
-  display: flex;
-  flex-direction: column;
-}
-
-#toc > ul > li > a > span {
-  float: right;
-  background-color: #2484ff;
-  border-radius: 40px;
-  width: 20px;
-}
-
 .toc-wrapper {
-  transition: left 0.3s ease-in-out;
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
   top: 0;
-  left: 0;
+  left: -($nav-width);
   bottom: 0;
   width: $nav-width;
-  background-color: $nav-bg;
-  font-size: 14px;
+  font-size: 1em;
+  // line-height: 1;
   font-weight: 500;
   border-right: 1px solid $gray-light;
+  transition: left 0.3s ease-in-out;
+  background: $white;
 
-  // language selector for mobile devices
-  .lang-selector {
-    display: none;
-    a {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-    }
-  }
-
-  // This is the logo at the top of the ToC
-  .logo {
-    display: block;
-    max-width: 100%;
-    margin-bottom: $logo-margin;
-  }
-
-  & > .search {
-    position: relative;
-
-    input {
-      background: #fff;
-      border-width: 0 0 1px 0;
-      border-color: $gray-light;
-      padding: 6px 0 6px 20px;
-      box-sizing: border-box;
-      margin: $nav-v-padding $nav-padding;
-      width: $nav-width - 30;
-      outline: none;
-      color: $nav-text;
-      border-radius: 0; /* ios has a default border radius */
-    }
-
-    &:before {
-      position: absolute;
-      top: 17px;
-      left: $nav-padding;
-      color: $nav-text;
-    }
-  }
-
-  .search-results {
-    margin-top: 0;
-    box-sizing: border-box;
-    height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    transition-property: height, margin;
-    transition-duration: 400ms;
-    transition-timing-function: ease-in-out;
-    background: $nav-subitem-bg;
-    &.visible {
-      height: 30%;
-      margin-bottom: 1em;
-    }
-
-    li {
-      margin: 1em $nav-padding;
-      line-height: 1;
-    }
-
-    a {
-      color: $nav-text;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  &.open {
+    left: 0;
   }
 
   #toc > li {
     a {
-      padding: 10px $main-padding;
+      padding: 0.5em 1em;
 
       &:hover {
         color: $gray-dark;
       }
     }
 
-    ul li a {
-      padding: 0 $main-padding;
-      text-decoration: underline;
-      transition: padding 0.2s;
-      position: relative;
-      &:before {
-        content: '>';
-        position: absolute;
-        left: 26px;
-        opacity: 0;
-        transition: 0.2s;
-      }
+    ul li {
+      line-height: 1.2em;
 
-      &.active {
-        font-weight: 500;
-        padding-left: 40px;
+      a {
+        padding: 0.2em 1em;
+        color: $gray-medium;
+        transition: padding 0.2s;
+        position: relative;
 
         &:before {
-          opacity: 1;
-          left: 30px;
+          content: '→';
+          position: absolute;
+          left: 0.5em;
+          opacity: 0;
+          transition: 0.2s;
+        }
+
+        &.active {
+          font-weight: 500;
+          padding-left: 2em;
+          color: $gray-dark;
+
+          &:before {
+            opacity: 1;
+            left: 1em;
+          }
         }
       }
     }
   }
 
-  // The Table of Contents is composed of multiple nested
-  // unordered lists.  These styles remove the default
-  // styling of an unordered list because it is ugly.
   ul,
   li {
     list-style: none;
@@ -192,55 +117,37 @@ body {
   li {
     color: $nav-text;
     transition: background 0.4s;
-    line-height: 16px;
+    line-height: 1.2em;
   }
 
-  // This is the currently selected ToC entry
-  .toc-link.active {
-    background-color: $nav-active-bg;
-    color: $nav-active-text;
-  }
+  .toc-h1 {
+    font-size: 1em;
+    color: $gray-dark;
+    border-right: 2px solid transparent;
+    transition: border 0.2s;
 
-  // this is parent links of the currently selected ToC entry
-  .toc-link.active-parent {
-    background-color: $nav-active-parent-bg;
-    color: $nav-active-parent-text;
+    &.active,
+    &.active-parent {
+      border-right: 2px solid $gray-mediumlight;
+    }
   }
 
   .toc-list-h2 {
-    display: none;
-    background-color: $nav-subitem-bg;
-    font-size: 12px;
+    font-size: 0.9em;
     font-weight: 400;
-    padding-bottom: 12px;
-  }
+    padding-bottom: 0.8em;
+    border-right: 2px solid transparent;
+    transition: border 0.2s;
 
-  .toc-footer {
-    padding: 1em 0;
-    margin-top: 1em;
-    border-top: 1px dashed $nav-footer-border-color;
-
-    li,
-    a {
-      color: $nav-text;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    li {
-      font-size: 0.8em;
-      line-height: 1.7;
-      text-decoration: none;
+    &.active {
+      border-right: 2px solid $gray-mediumlight;
     }
   }
 }
 
 .toc-link,
 .toc-footer li {
-  padding: 0 $nav-padding 0 $nav-padding;
+  padding: 0 $nav-padding;
   display: block;
   overflow-x: hidden;
   white-space: nowrap;
@@ -252,20 +159,32 @@ body {
   transition-duration: 130ms;
 }
 
+.lang-selector {
+  padding: 10px 15px;
+  border-bottom: 1px solid #d3d3d3;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &__title {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: $gray-dark;
+    margin-right: 10px;
+  }
+  &__picker {
+    font-size: 0.8em;
+    padding: 4px;
+    border: 1px solid $gray-light;
+    background: $white;
+  }
+}
+
 // button to show navigation on mobile devices
 #nav-button {
-  span {
-    display: block;
-    $side-pad: $main-padding / 2 - 8px;
-    padding: $side-pad $side-pad $side-pad;
-    background-color: #fff;
-    transform-origin: 0 0;
-    transform: rotate(-90deg) translate(-100%, 0);
-    box-shadow: -1px 1px 0 $gray-light;
-  }
-
   padding: 0 1.5em 5em 0; // increase touch size area
-  display: none;
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -273,19 +192,28 @@ body {
   color: #000;
   text-decoration: none;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 0.8em;
   line-height: 16px;
+  transition: left 0.3s ease-in-out;
+
+  span {
+    display: block;
+    padding: 0.3em;
+    background-color: #fff;
+    transform-origin: 0 0;
+    transform: rotate(-90deg) translate(-100%, 0);
+    box-shadow: -1px 1px 0 $gray-light;
+  }
 
   img {
     height: 16px;
     vertical-align: middle;
   }
 
-  transition: left 0.3s ease-in-out;
-
   &:hover {
     opacity: 1;
   }
+
   &.open {
     left: $nav-width;
   }
@@ -296,68 +224,37 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 
 .page-wrapper {
-  margin-left: $nav-width;
   z-index: 10;
-  background-color: $main-bg;
+  background: #fff;
   min-height: 100%;
   padding-bottom: 1px; // prevent margin overflow
-
-  // The dark box is what gives the code samples their dark background.
-  // It sits essentially under the actual content block, which has a
-  // transparent background.
-  // I know, it's hackish, but it's the simplist way to make the left
-  // half of the content always this background color.
-  .dark-box {
-    width: $nav-width;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-
-  .lang-selector {
-    z-index: 50;
-  }
 }
 
-.lang-selector {
-  background-color: #fff;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: $nav-width - 1;
-  border-top: 1px solid $gray-light;
-  text-align: center;
-
-  a {
-    font-size: 12px;
-    padding: 0 5px;
-    line-height: 30px;
-    display: inline-block;
-    color: $gray-medium;
-    text-decoration: none;
-    outline: 0;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &:active,
-    &:focus {
-      color: $gray-medium;
-    }
-
-    &.active {
-      color: $gray-dark;
+.error_container {
+  .error {
+    margin-bottom: 20px;
+    &__title {
+      font-size: 18px;
       font-weight: 500;
-      text-decoration: underline;
     }
-  }
 
-  &:after {
-    content: '';
-    clear: both;
-    display: block;
+    &__code {
+      margin: 4px 0;
+      display: inline-block;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 0.8em;
+      background: none;
+      padding: 0;
+    }
+
+    .col {
+      span {
+        font-weight: 500;
+      }
+      p {
+        margin: 0;
+      }
+    }
   }
 }
 
@@ -384,22 +281,17 @@ body {
   }
 }
 
+.v2-notice {
+  padding: 20px 25px;
+  border-bottom: 2px solid #e8e8e8;
+  background: #fffee6;
+  position: relative;
+}
+
 .content {
   z-index: 30;
-  max-width: 740px;
-  padding: 50px;
-
-  & > ul,
-  & > ol {
-    padding-left: $main-padding + 15px;
-  }
-
-  // the div is the tocify hidden div for placeholding stuff
-  & > h1,
-  & > h2,
-  & > div {
-    clear: both;
-  }
+  min-height: calc(100vh - 42px);
+  padding: 25px;
 
   h1 {
     margin-top: 50px;
@@ -417,7 +309,6 @@ body {
   div:first-child + h1 {
     border-top-width: 0;
     margin-top: 0;
-    padding-top: 0;
   }
 
   h2 {
@@ -431,8 +322,10 @@ body {
   }
 
   h3.call {
-    margin-top: 10px;
-    padding-top: 10px;
+    padding: 10px 10px 10px 0;
+    white-space: nowrap;
+    overflow-x: scroll;
+    position: relative;
 
     span {
       @extend %code-font;
@@ -455,17 +348,21 @@ body {
     border-bottom: 2px solid $main-bg;
   }
 
+  .table-wrapper {
+    overflow-x: scroll;
+  }
+
   table {
     margin-bottom: 1em;
     overflow: auto;
+    width: 100%;
 
     th,
     td {
       text-align: left;
       padding: 5px 20px 5px 0;
-      line-height: 18px;
       border-bottom: 1px solid $gray-light;
-      font-size: 14px;
+      font-size: 1em;
 
       code {
         white-space: nowrap;
@@ -496,7 +393,7 @@ body {
   }
 
   dd {
-    margin-left: 15px;
+    margin-left: 1em;
   }
 
   p,
@@ -517,7 +414,7 @@ body {
   code {
     background-color: $gray-light;
     color: $gray-dark;
-    padding: 0 3px;
+    padding: 0 0.2em;
     font-size: 0.9em;
     @extend %break-words;
     @extend %code-font;
@@ -531,9 +428,8 @@ body {
 
   aside {
     margin: $main-padding 0;
-    padding: 5px 10px;
+    padding: 0.5em 0 0.5em 1em;
     border-left: 3px solid $aside-notice-bg;
-    line-height: 1.6;
 
     &.warning {
       border-color: $aside-warning-bg;
@@ -545,21 +441,24 @@ body {
 
     code {
       background-color: rgba(232, 232, 232, 0.4);
+      word-break: break-word;
+    }
+
+    a {
+      color: #111;
     }
   }
 
-  aside:before {
-    vertical-align: middle;
-    padding-right: 0.5em;
-    font-size: 14px;
-  }
+  .two-col {
+    .col {
+      margin-bottom: 1.2em;
+    }
 
-  .search-highlight {
-    padding: 2px;
-    margin: -3px;
-    border-radius: 4px;
-    border: 1px solid #f7e633;
-    background: linear-gradient(to top left, #f7e633 0%, #f1d32f 100%);
+    .two-col__title {
+      @extend h3;
+      display: block;
+      margin: 0 0 0.6em;
+    }
   }
 }
 
@@ -574,7 +473,6 @@ body {
     background-color: none;
     color: #fff;
     margin: 0 0 20px;
-    @extend %right-col;
 
     & > p {
       margin: 0;
@@ -589,12 +487,12 @@ body {
 
   pre {
     @extend %code-font;
-    padding: 20px;
+    padding: 1em;
   }
 
   blockquote {
     & > p {
-      font-size: 12px;
+      font-size: 0.8em;
       padding: $code-annotation-padding 30px;
       color: $gray-ultralight;
     }
@@ -604,88 +502,47 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 // RESPONSIVE DESIGN
 ////////////////////////////////////////////////////////////////////////////////
-// These are the styles for phones and tablets
-// There are also a couple styles disperesed
 
-@media (max-width: $tablet-width) {
-  .v1-notice {
-    margin-top: -20px;
-    margin-left: -20px;
-    margin-bottom: 20px;
+@media (min-width: $tablet-width) {
+  .page-wrapper {
+    margin-left: $nav-width;
+    background: $white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 50;
+  }
+
+  .v2-notice {
+    padding: 20px 60px;
+
+    &__content {
+      max-width: $content-width - 120px;
+    }
   }
 
   .content {
-    padding: 20px;
+    padding: 0 60px 60px;
+    max-width: $content-width;
+    .two-col {
+      display: flex;
+      justify-content: space-between;
+
+      .col {
+        width: 48%;
+        margin-bottom: 0;
+      }
+    }
   }
 
   .toc-wrapper {
-    left: -$nav-width;
-    padding: 0;
-
-    &.open {
-      left: 0;
-    }
-
-    #toc > li a {
-      padding: 10px 15px;
-    }
-
-    #toc > li ul li a {
-      padding: 0px 15px;
-    }
-
-  }
-
-  .page-wrapper {
-    margin-left: 0;
+    left: 0;
+    background-color: $main-bg;
+    border: 0;
+    padding-bottom: 1em;
   }
 
   #nav-button {
-    display: block;
-  }
-
-  .toc-link {
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-  }
-
-  .lang-selector {
-    position: static;
-    border-top: 0;
-    border-bottom: 1px solid $gray-light;
-    text-align: left;
-    padding: 0 10px;
-  }
-}
-
-@media (max-width: $phone-width) {
-  .dark-box {
     display: none;
-  }
-
-  %left-col {
-    margin-right: 0;
-  }
-
-  .toc-wrapper .lang-selector {
-    display: block;
-  }
-
-  .page-wrapper .lang-selector {
-    display: none;
-  }
-
-  %right-col {
-    width: auto;
-    background: $code-bg;
-
-    .hightlight {
-      background: $code-bg;
-    }
-  }
-
-  %right-col + %left-col {
-    margin-top: $main-padding;
   }
 }
 

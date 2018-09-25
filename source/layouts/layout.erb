@@ -45,16 +45,34 @@ under the License.
       </span>
     </a>
 
+    <div class="page-wrapper">
+      <div class="v2-notice">
+        <div class="v2-notice__content">
+          <h3>Welcome to the V2 version of our Public API</h3>
+          <p>On 2018-09-25 we released this new version of our API, which simplifies some of the concepts used and introduces the all new <em>Board API</em>. If you're looking for the V1 documentation, you can find that <a href="/v1/index.html">here</a>.</p>
+        </div>
+      </div>
+      <div class="content">
+        <%= page_content %>
+      </div>
+
+    </div>
+
     <div class="toc-wrapper">
       <% if language_tabs.any? %>
         <div class="lang-selector">
-          <% language_tabs.each do |lang| %>
-            <% if lang.is_a? Hash %>
-              <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-            <% else %>
-              <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+          <span class="lang-selector__title">Syntax shown</span>
+
+          <select id="language_switcher" class="lang-selector__picker">
+            <% language_tabs.each do |lang| %>
+              <% if lang.is_a? Hash %>
+                <option data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></option>
+              <% else %>
+                <option data-language-name="<%= lang %>"><%= lang %></option>
+              <% end %>
             <% end %>
-          <% end %>
+            </select>
+
         </div>
       <% end %>
       <% if current_page.data.search %>
@@ -77,25 +95,6 @@ under the License.
               </ul>
             <% end %>
           </li>
-        <% end %>
-      </div>
-    </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <%= page_content %>
-      </div>
-      <div class="dark-box">
-        <% if language_tabs.any? %>
-          <div class="lang-selector">
-            <% language_tabs.each do |lang| %>
-              <% if lang.is_a? Hash %>
-                <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-              <% else %>
-                <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-              <% end %>
-            <% end %>
-          </div>
         <% end %>
       </div>
     </div>
