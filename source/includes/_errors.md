@@ -6,81 +6,91 @@ In working with the WeTransfer API you might come across some errors. Here are s
 
 <section class="error_container">
   <div class="error">
-    <div class="error__title">Missing Authentication Token</div>
-    <code class="error__code">{"message":"Missing Authentication Token"}</code>
+    <div class="error__title">401 Unauthorized</div>
+    <code class="error__code">{"message":"Unauthorized"}</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation:</span>
+        <p>You've forgotten to send us your API key, or it's being improperly sent.</p>
+      </div>
+      <div class="col">
+        <span>Solution:</span>
+        <p>Make sure that you're sending your API key with each request - see the example code, or add a header like so: <code>`x-api-key: your_api_key`</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <div class="error__title">404 Resource not found</div>
+    <code class="error__code">{"message":"Resource not found"}</code>
     <div class="two-col">
       <div class="col">
         <span>Explanation</span>
-        <p>Despite what you might think, this actually just means that you're hitting an endpoint that doesn't exist.</p>
+        <p>The endpoint you are trying to hit doesn't exist.</p>
       </div>
       <div class="col">
         <span>Solution</span>
-        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v1/authorize will.</p>
+        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v2/authorize will.</p>
       </div>
     </div>
   </div>
 
   <div class="error">
-    <div class="error__title">Forbidden</div>
-    <code class="error__code">{"message":"Forbidden"}</code>
+    <div class="error__title">415 Unsupported Content-Type header</div>
+    <code class="error__code">{"message":"Unsupported Content-Type header. Please set Content-Type to 'application/json'."</code>
     <div class="two-col">
       <div class="col">
-        <p><span>Explanation:</span> You've forgotten to send us your API key, or it's being improperly sent.</p>
+        <span>Explanation:</span>
+        <p>You've sent a request to the API without a `Content-Type` set, or incorrectly set.</p>
       </div>
       <div class="col">
-        <p><span>Solution:</span> Make sure that you're sending your API key with each request - see the example code, or add a header like so: <code>`X-API-KEY: <your api key>`</code>.</p>
+        <span>Solution:</span>
+        <p>Make sure that you're sending a <code>Content-Type: application/json</code> header with each request.</p>
       </div>
     </div>
   </div>
 
   <div class="error">
-    <div class="error__title">Unsupported Media Type</div>
-    <code class="error__code">{"message":"Unsupported Media Type"</code>
+    <div class="error__title">405 Unsupported HTTP Method</div>
+    <code class="error__code">{"message":"The HTTP method or resources may not be supported."}</code>
     <div class="two-col">
       <div class="col">
-        <p><span>Explanation:</span> You've sent a request to the API without a `Content-Type` set, or incorrectly set.</p>
+        <span>Explanation:</span>
+        <p>You've sent a request to an endpoint using the wrong HTTP method. For example, you've sent a POST request to an endpoint that expects a GET.</p>
       </div>
       <div class="col">
-        <p><span>Solution:</span> Make sure that you're sending a <code>Content-Type: application/json</code> header with each request.</p>
+        <span>Solution:</span>
+        <p>Make sure that you're using the correct HTTP verb for each endpoint.</p>
       </div>
     </div>
   </div>
 
   <div class="error">
-    <div class="error__title">Unsupported HTTP Method</div>
-    <code class="error__code">{"message":"Unsupported HTTP method"}</code>
-    <div class="two-col">
-      <div class="col">
-        <p><span>Explanation:</span> You've sent a request to an endpoint using the wrong HTTP method. For example, you've sent a POST request to an endpoint that expects a GET.</p>
-      </div>
-      <div class="col">
-        <p><span>Solution:</span> Make sure that you're using the correct HTTP verb for each endpoint.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="error">
-    <div class="error__title">API Rate Limit</div>
+    <div class="error__title">429 API Rate Limit</div>
     <code class="error__code">{"message":"Limit Exceeded Exception"} or 429 response</code>
     <div class="two-col">
       <div class="col">
-        <p><span>Explanation:</span> You've exceeded your rate limit.</p>
+        <span>Explanation:</span>
+        <p>You've exceeded your rate limit.</p>
       </div>
       <div class="col">
-        <p><span>Solution:</span> Try again but with fewer requests in a given time period, wait until tomorrow, or even better: email us (developers@wetransfer.com) and we can talk extending the limit.</p>
+        <span>Solution:</span>
+        <p>Try again but with fewer requests in a given time period, wait until tomorrow, or even better: email us (developers@wetransfer.com) and we can talk extending the limit.</p>
       </div>
     </div>
   </div>
 
   <div class="error">
-    <div class="error__title">Expected X to be Y</div>
+    <div class="error__title">400 Expected X to be Y</div>
     <code class="error__code">{"message":"Expected 1200 to be 3243214"}</code>
     <div class="two-col">
       <div class="col">
-        <p><span>Explanation:</span> If the size of the file you send does not match the size of the file you told us to expect, you'll see this message when you send a /complete request.</p>
+        <span>Explanation:</span>
+        <p>If the size of the file you send does not match the size of the file you told us to expect, you'll see this message when you send a /complete request.</p>
       </div>
       <div class="col">
-        <p><span>Solution:</span> Check that you're properly computing the size of the file, or that you're uploading all the required chunks (before sending the complete call).</p>
+        <span>Solution:</span>
+        <p>Check that you're properly computing the size of the file, or that you're uploading all the required chunks (before sending the complete call).</p>
       </div>
     </div>
   </div>
