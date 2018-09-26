@@ -261,8 +261,7 @@ curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
 ```
 
 ```javascript
-// Use your favourite JS
-const fs = require('fs);
+const fs = require('fs');
 
 const file = fileItems.files[0];
 const fileContent = fs.readFileSync('/path/to/file');
