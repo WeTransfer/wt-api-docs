@@ -1,6 +1,6 @@
 # Board API
 
-The Board API is the latest addition to our Public API. It was originally built with our [iOS](https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8) and [Android](https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal) apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too). It supports both files and links. Boards can be changed - if you hold on to the board's public ID you are able to add and remove items from a board as long as it is live.
+The Board API is the latest addition to our Public API. It was originally built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8" target="_blank">iOS</a> and , <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal" target="_blank">Android</a> apps in mind, but it's also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too). It supports both files and links. Boards can be changed - if you hold on to the board's public ID you are able to add and remove items from a board as long as it is live.
 
 Note that boards are "live" indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted!
 
@@ -9,7 +9,7 @@ Note that boards are "live" indefinitely, so long as they are being viewed. If a
 Boards are created without items. One the board has been created, items can be added at any time. If you don't add any items, the API will create an empty board.
 
 ```shell
-curl https://dev.wetransfer.com/v2/boards \
+curl -i -X POST "https://dev.wetransfer.com/v2/boards" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
@@ -34,10 +34,10 @@ const transfer = await wtClient.board.create({
 
 #### Parameters
 
-| name          | type   | required | description                                   |
-| ------------- | ------ | -------- | --------------------------------------------- |
-| `name`        | String | Yes      | A name or title for your board                |
-| `description` | String | No       | A description, if needed                      |
+| name          | type   | required | description                    |
+| ------------- | ------ | -------- | ------------------------------ |
+| `name`        | String | Yes      | A name or title for your board |
+| `description` | String | No       | A description, if needed       |
 
 #### Response
 
@@ -46,7 +46,7 @@ const transfer = await wtClient.board.create({
   "id": "random-hash",
   "name": "Little kittens",
   "description": null,
-  "state": "uploading",
+  "state": "downloadable",
   "url": "https://we.tl/b-random-hash",
   "items": []
 }
@@ -59,9 +59,9 @@ const transfer = await wtClient.board.create({
 Once a board has been created you can add links like so:
 
 ```shell
-curl https://dev.wetransfer.com/v2/boards/{board_id}/links \
-  -H "x-api-key: your_api_key" \
+curl -i -X POST "https://dev.wetransfer.com/v2/boards/{board_id}/links" \
   -H "Content-Type: application/json" \
+  -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
   -d '[{"url": "https://wetransfer.com/", "title": "WeTransfer"}]'
 ```
@@ -117,11 +117,11 @@ Note that files need a name and a size in bytes - you'll need to compute the siz
 Once a board has been created you can add files like so:
 
 ```shell
-curl https://dev.wetransfer.com/v2/boards/{board_id}/files \
-  -H "x-api-key: your_api_key" \
+curl -i -X POST "https://dev.wetransfer.com/v2/boards/{board_id}/files" \
   -H "Content-Type: application/json" \
+  -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '[{"name": "kittie.gif", "size": 1024}]'
+  -d '[{"name": "big-bobis.jpg", "size": 195906}]'
 ```
 
 ```javascript
@@ -143,9 +143,9 @@ const fileItems = await apiClient.board.addFiles(board, [{
 
 #### Parameters
 
-| name    | type        | required | description                                  |
-| ------- | ----------- | -------- | -------------------------------------------- |
-| `files` | Array(File) | Yes      | A list of files to send to an existing board |
+| name    | required | description                                                     |
+| ------- | -------- | --------------------------------------------------------------- |
+| `files` | Yes      | A list of file objects to send to an existing board (see below) |
 
 #### File object
 
@@ -160,7 +160,7 @@ const fileItems = await apiClient.board.addFiles(board, [{
 [
   {
     "id": "random-hash",
-    "name": "kittie.gif",
+    "name": "big-bobis.jpg",
     "size": 195906,
     "multipart": {
       "id": "some.random-id--",
@@ -180,12 +180,12 @@ Board chunks _must_ be 6 megabytes in size, except for the very last chunk, whic
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 
-<h3 class="call"><span>GET</span> /boards/{board_id}/files/{file_id}/uploads/{part_number}/{multipart_upload_id}</h3>
+<h3 class="call"><span>GET</span> /boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}</h3>
 
 To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.
 
 ```shell
-curl "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/uploads/{part_number}/{multipart_upload_id}" \
+curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
@@ -228,7 +228,7 @@ for (
 | `board_id`            | String | Yes      | The public ID of the board where you added the files                                                                  |
 | `file_id`             | String | Yes      | The public ID of the file to upload, returned when adding items                                                       |
 | `part_number`         | Number | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart.part_numbers` response |
-| `multipart_upload_id` | Number | Yes      | The upload ID issued by AWS S3, which is available at `multipart.part_numbers`                                        |
+| `multipart_upload_id` | Number | Yes      | The upload ID issued by AWS S3, which is available at `multipart.id`                                                  |
 
 #### Responses
 
@@ -257,7 +257,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
 
 ```shell
-curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
+curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
 ```
 
 ```javascript
@@ -294,12 +294,10 @@ for (
 
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
 
-<h3 id="board-complete-upload" class="call"><span>POST</span> /files/{file_id}/uploads/complete</h3>
-
 After all of the file parts have been uploaded, the file must be marked as complete.
 
 ```shell
-curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-complete \
+curl -i -X PUT "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-complete" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
@@ -309,7 +307,7 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-c
 await wtClient.board.completeFileUpload(board, file);
 ```
 
-<h3 id="board-complete-upload" class="call"><span>POST</span> /boards/{board_id}/files/{file_id}/uploads/complete</h3>
+<h3 id="board-complete-upload" class="call"><span>PUT</span> /boards/{board_id}/files/{file_id}/upload-complete</h3>
 
 #### Headers
 
@@ -333,7 +331,7 @@ await wtClient.board.completeFileUpload(board, file);
 Retrieve information about a previously-sent board.
 
 ```shell
-curl -X https://dev.wetransfer.com/v2/boards/{board_id} \
+curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
@@ -349,9 +347,9 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id} \
 
 #### Parameters
 
-| name       | type   | required | description                                                     |
-| ---------- | ------ | -------- | --------------------------------------------------------------- |
-| `board_id` | String | Yes      | The public ID of the board where you added the files            |
+| name       | type   | required | description                                          |
+| ---------- | ------ | -------- | ---------------------------------------------------- |
+| `board_id` | String | Yes      | The public ID of the board where you added the files |
 
 #### Responses
 
@@ -392,5 +390,5 @@ curl -X https://dev.wetransfer.com/v2/boards/{board_id} \
 If the requester tries to request a board that is not in one of the requester's boards, we will respond with 403 FORBIDDEN.
 
 ```json
- {"success":false,"message":"This board does not belong to you"}
+  {"success":false, "message":"This board does not belong to you"}
 ```
