@@ -21,7 +21,7 @@ These JWTs can be used to retrieve boards, and will identify the user to our bac
 To retrieve a JWT, send a request including your API key to the following endpoint:
 
 ```shell
-curl -X POST "https://dev.wetransfer.com/v2/authorize" \
+curl -i -X POST "https://dev.wetransfer.com/v2/authorize" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -d '{"user_identifier":"5eb6b98e-ddaa-4f5b-9d03-7bd4d91aa05f"}'

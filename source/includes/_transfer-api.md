@@ -11,7 +11,7 @@ A transfer request consists of the endpoint itself, the headers, and the body, w
 Transfers must be created with files. Once the transfer has been created and finalized, the transfer is locked and cannot be further modified.
 
 ```shell
-curl -X POST "https://dev.wetransfer.com/v2/transfers" \
+curl -i -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
@@ -87,7 +87,7 @@ Creates a new transfer with specified files.
 To be able to upload a file, it must be split into parts and then each part will be uploaded to presigned AWS S3 URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. NB: They are valid for an <em>hour</em> and must be re-requested if they expire.
 
 ```shell
-curl "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}" \
+curl -i -X GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
@@ -158,7 +158,7 @@ If the requester tries to request an upload URL for a file that is not in one of
 Important: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
 
 ```shell
-curl -T "./path/to/kittie.gif" "https://signed-s3-upload-url"
+curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
 ```
 
 ```javascript
@@ -198,7 +198,7 @@ for (
 Finalize a file. Once all the parts have been uploaded succesfully, you use this endpoint to tell the system that it can start splicing the parts together to form one whole file.
 
 ```shell
-curl -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete" \
+curl -i -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
@@ -246,7 +246,7 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 Finalize the whole transfer. Once all the parts have been uploaded and finalized, you use this endpoint to tell the system that everything has been completely uploaded.
 
 ```shell
-curl -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize" \
+curl -i -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
