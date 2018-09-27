@@ -17,7 +17,7 @@ _Put an `x` in the boxes that apply. You can also fill these out after creating 
 
 - [ ] I have read the [CONTRIBUTING](https://github.com/WeTransfer/wt-api-docs/blob/master/.github/CONTRIBUTING.md) doc
 - [ ] I have added necessary documentation (if appropriate)
-- [ ] I have rebuilt the docs (`bundle exec middleman build --clean`) if necessary
+- [ ] I have rebuilt the docs (`bundle exec middleman build --no-clean`) if necessary
 - [ ] Any dependent changes have been merged and published in downstream modules
 
 ## Further comments
