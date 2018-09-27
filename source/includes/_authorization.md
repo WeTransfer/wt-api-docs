@@ -1,10 +1,10 @@
 # Authorization
 
 ### API keys - where and how
-To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a github account to login. Once you've done so make sure you're on the
-dashboard page, and select "Create new application" to start generating an API key.
+To use our APIs you must provide your API key with every request. Create yourself an API key on our <a href="https://developers.wetransfer.com/" target="_blank">Developer Portal</a> - currently we require you to have a github account to login. Once you've done so make sure you're on the
+dashboard page, and select "Create new application" to get started generating an API key.
 
-Once you have a key or keys, please make sure that you keep them in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
+Once you have a key or keys, please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
 
 <aside class="notice">
 In all of our examples remember to replace <code>your_api_key</code> with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Content-Type" error.
