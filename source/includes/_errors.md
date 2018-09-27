@@ -30,7 +30,7 @@ In working with the WeTransfer API you might come across some errors. Here are s
       </div>
       <div class="col">
         <span>Solution</span>
-        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v2/authorize will. Also make sure that you're using the correct version of the API - dev.wetransfer.com/v1/boards won't work!</p>
+        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v2/authorize will.</p>
       </div>
     </div>
   </div>

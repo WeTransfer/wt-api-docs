@@ -210,8 +210,8 @@
     <div class="page-wrapper">
       <div class="v2-notice">
         <div class="v2-notice__content">
-          <h3>Welcome to V2 of the WeTransfer Public API</h3>
-          <p>On 2018-09-25 we released a new version of our API, which introduces the Transfer and Board APIs. If you're looking for the V1 documentation, you can find that <a href="/wt-api-docs/v1/">here</a>.</p>
+          <h3>Welcome to the V2 version of our Public API</h3>
+          <p>On 2018-09-25 we released this new version of our API, which simplifies some of the concepts used and introduces the all new <em>Board API</em>. If you're looking for the V1 documentation, you can find that <a href="/wt-api-docs/v1/">here</a>.</p>
         </div>
       </div>
       <div class="content">
@@ -232,7 +232,9 @@
 </div>
 <h1 id='sdks'>SDKs</h1><h2 id='v2-and-v1-compatible-sdks'>V2 and V1 Compatible SDKs</h2>
 <p>These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file
-issues or PRs to help them along! :)</p>
+issues or PRs to help speed the process. :-)</p>
+<h2 id='official-sdks'>Official SDKs</h2>
+<p>We make them, you use (and contribute to) them: WeTransfer made SDKs!</p>
 
 <section class="sdks">
   <article class="sdk sdk-node">
@@ -298,12 +300,52 @@ issues or PRs to help them along! :)</p>
   </article>
 </section>
 
-<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
-<h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
-<p>To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a github account to login. Once you&#39;ve done so make sure you&#39;re on the
-dashboard page, and select &quot;Create new application&quot; to start generating an API key.</p>
+<!-- ## Community Developed SDKs
 
-<p>Once you have a key or keys, please make sure that you keep them in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select &quot;Delete&quot; under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.</p>
+You make them, we present them: community made SDKs!
+
+<section class="sdks">
+  <article class="sdk sdk-php">
+    <img src="images/sdks/php-ab3973ac.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">PHP</h4>
+      <p>Created and maintained by Arkaitz Garro</p>
+    </div>
+    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-r">
+    <img src="images/sdks/r-c8f72e0e.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">R</h4>
+      <p>Created and maintained by Tim Faber</p>
+    </div>
+    <a href="https://github.com/tfaber/wetransfeR" class="button" target="blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-c-sharp">
+    <img src="images/sdks/c-sharp-6c75ce29.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">C#</h4>
+      <p>Created and maintained by André Steffens</p>
+    </div>
+    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-python">
+    <img src="images/sdks/python-dc794a59.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Python</h4>
+      <p>Created and maintained by Andreas Strikos</p>
+    </div>
+    <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="blank">View on GitHub</a>
+  </article>
+  <aside class="notice">
+Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
+
+</section> -->
+<h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
+<p>To use our APIs you must provide your API key with every request. Create yourself an API key on our <a href="https://developers.wetransfer.com/" target="_blank">Developer Portal</a> - currently we require you to have a github account to login. Once you&#39;ve done so make sure you&#39;re on the
+dashboard page, and select &quot;Create new application&quot; to get started generating an API key.</p>
+
+<p>Once you have a key or keys, please make sure that you keep your API key in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select &quot;Delete&quot; under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.</p>
 
 <aside class="notice">
 In all of our examples remember to replace <code>your_api_key</code> with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Content-Type" error.
@@ -752,7 +794,7 @@ The <code>url</code> field is where you get the link you will need to access the
 <h1 id='board-api'>Board API</h1>
 <p>The Board API is the latest addition to our Public API. It was originally built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8" target="_blank">iOS</a> and , <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal" target="_blank">Android</a> apps in mind, but it&#39;s also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too). It supports both files and links. Boards can be changed - if you hold on to the board&#39;s public ID you are able to add and remove items from a board as long as it is live.</p>
 
-<p>Note that boards are &quot;live&quot; indefinitely, so long as they are being viewed. If a board is not accessed for 90 days it is deleted!</p>
+<p>Note that boards are &quot;live&quot; indefinitely, so long as they are being viewed. If a board is not accessed for 3 months / 90 days it is deleted!</p>
 <h2 id='create-a-new-board'>Create a new board</h2>
 <p>Boards are created without items. One the board has been created, items can be added at any time. If you don&#39;t add any items, the API will create an empty board.</p>
 <pre class="highlight shell tab-shell"><code>curl -i -X POST <span class="s2">"https://dev.wetransfer.com/v2/boards"</span> <span class="se">\</span>
@@ -1262,7 +1304,7 @@ The <code>url</code> field is where you get the link you will need to access the
       </div>
       <div class="col">
         <span>Solution</span>
-        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v2/authorize will. Also make sure that you're using the correct version of the API - dev.wetransfer.com/v1/boards won't work!</p>
+        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v2/authorize will.</p>
       </div>
     </div>
   </div>
@@ -1454,6 +1496,9 @@ The <code>url</code> field is where you get the link you will need to access the
               <ul class="toc-list-h2">
                   <li>
                     <a href="#v2-and-v1-compatible-sdks" class="toc-h2 toc-link" data-title="v2-and-v1-compatible-sdks">V2 and V1 Compatible SDKs</a>
+                  </li>
+                  <li>
+                    <a href="#official-sdks" class="toc-h2 toc-link" data-title="official-sdks">Official SDKs</a>
                   </li>
                   <li>
                     <a href="#v1-compatible-sdks" class="toc-h2 toc-link" data-title="v1-compatible-sdks">V1 compatible SDKs</a>
