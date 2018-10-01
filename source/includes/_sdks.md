@@ -30,6 +30,15 @@ issues or PRs to help them along! :)
     </div>
     <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">V2 compatibility coming soon</a>
   </article>
+  <article class="sdk sdk-python">
+    <img src="images/sdks/python.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Python 3</h4>
+      <p>Created and maintained by Francois Liot</p>
+    </div>
+    <a href="https://github.com/fliot/py3wetransfer" class="button" target="blank">View on GitHub</a>
+  </article>
+
 </section>
 
 ## V1 compatible SDKs
@@ -64,7 +73,7 @@ These SDKs are <em>only</em> compatible with V1 of the SDK.
   <article class="sdk sdk-python">
     <img src="images/sdks/python.svg" class="sdk__logo">
     <div class="info">
-      <h4 class="sdk__title">Python</h4>
+      <h4 class="sdk__title">Python 2</h4>
       <p>Created and maintained by Andreas Strikos</p>
     </div>
     <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="blank">View on GitHub</a>
