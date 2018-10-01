@@ -12,7 +12,7 @@ issues or PRs to help them along! :)
       <h4 class="sdk__title">Node.js</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="_blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-ruby coming-soon">
     <img src="images/sdks/ruby.svg" class="sdk__logo">
@@ -20,7 +20,7 @@ issues or PRs to help them along! :)
       <h4 class="sdk__title">Ruby</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="blank">V2 compatibility coming soon</a>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="_blank">V2 compatibility coming soon</a>
   </article>
   <article class="sdk sdk-swift coming-soon">
     <img src="images/sdks/swift.svg" class="sdk__logo">
@@ -28,8 +28,17 @@ issues or PRs to help them along! :)
       <h4 class="sdk__title">Swift</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="blank">V2 compatibility coming soon</a>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="_blank">V2 compatibility coming soon</a>
   </article>
+  <article class="sdk sdk-python">
+    <img src="images/sdks/python.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Python 3</h4>
+      <p>Created and maintained by Francois Liot</p>
+    </div>
+    <a href="https://github.com/fliot/py3wetransfer" class="button" target="_blank">View on GitHub</a>
+  </article>
+
 </section>
 
 ## V1 compatible SDKs
@@ -43,7 +52,7 @@ These SDKs are <em>only</em> compatible with V1 of the SDK.
       <h4 class="sdk__title">PHP</h4>
       <p>Created and maintained by Arkaitz Garro</p>
     </div>
-    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="_blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-r">
     <img src="images/sdks/r.svg" class="sdk__logo">
@@ -51,7 +60,7 @@ These SDKs are <em>only</em> compatible with V1 of the SDK.
       <h4 class="sdk__title">R</h4>
       <p>Created and maintained by Tim Faber</p>
     </div>
-    <a href="https://github.com/tfaber/wetransfeR" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/tfaber/wetransfeR" class="button" target="_blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-c-sharp">
     <img src="images/sdks/c-sharp.svg" class="sdk__logo">
@@ -59,15 +68,15 @@ These SDKs are <em>only</em> compatible with V1 of the SDK.
       <h4 class="sdk__title">C#</h4>
       <p>Created and maintained by André Steffens</p>
     </div>
-    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="_blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-python">
     <img src="images/sdks/python.svg" class="sdk__logo">
     <div class="info">
-      <h4 class="sdk__title">Python</h4>
+      <h4 class="sdk__title">Python 2</h4>
       <p>Created and maintained by Andreas Strikos</p>
     </div>
-    <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="blank">View on GitHub</a>
+    <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="_blank">View on GitHub</a>
   </article>
 </section>
 
