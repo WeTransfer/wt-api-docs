@@ -14,13 +14,13 @@ issues or PRs to help them along! :)
     </div>
     <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="_blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-ruby coming-soon">
+  <article class="sdk sdk-ruby">
     <img src="images/sdks/ruby.svg" class="sdk__logo">
     <div class="info">
-      <h4 class="sdk__title">Ruby</h4>
+      <h4 class="sdk__title">Ruby (beta)</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="_blank">V2 compatibility coming soon</a>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="_blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-swift coming-soon">
     <img src="images/sdks/swift.svg" class="sdk__logo">
