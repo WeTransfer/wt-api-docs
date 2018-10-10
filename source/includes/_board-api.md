@@ -17,9 +17,32 @@ curl -i -X POST "https://dev.wetransfer.com/v2/boards" \
 ```
 
 ```javascript
-const transfer = await wtClient.board.create({
+const board = await wtClient.board.create({
   name: 'Little kittens'
 });
+```
+
+```ruby
+# In the current Ruby SDK (version 0.9.x), you can only create a board
+# and upload the items in one go. This behavior will be split in the upcoming
+# major (version 1.0) release.
+
+client = WeTransfer::Client.new(api_key: wetransfer_api_key)
+
+board = client.create_board_and_upload_items(name: 'Kittens') do |builder|
+  builder.add_file(
+    name: 'bobis.jpg',
+    io: File.open('/path/to/kitty.jpg', 'rb')
+  )
+  builder.add_file_at(path: '/path/to/kitty.jpg')
+  builder.add_web_url(
+    url: 'http://www.wetransfer.com',
+    title: 'the title that defaults to the url'
+  )
+end
+
+# Access the board in your browser:
+puts "The board can be viewed on #{board.url}"
 ```
 
 <h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
@@ -70,6 +93,10 @@ curl -i -X POST "https://dev.wetransfer.com/v2/boards/{board_id}/links" \
 const linkItems = await apiClient.board.addLinks(board, [{
   url: 'https://wetransfer.com/'
 }]);
+```
+
+```ruby
+# This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
@@ -129,6 +156,10 @@ const fileItems = await apiClient.board.addFiles(board, [{
   name: 'kittie.gif',
   size: 1024
 }]);
+```
+
+```ruby
+# This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="board-send-files" class="call"><span>POST</span> /boards/{board_id}/files</h3>
@@ -213,6 +244,10 @@ for (
 }
 ```
 
+```ruby
+# This functionality is currently not enabled in the SDK.
+```
+
 #### Headers
 
 | name            | type   | required | description                    |
@@ -291,6 +326,10 @@ for (
 }
 ```
 
+```ruby
+# This functionality is currently not enabled in the SDK.
+```
+
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
 
 After all of the file parts have been uploaded, the file must be marked as complete.
@@ -304,6 +343,10 @@ curl -i -X PUT "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/
 
 ```javascript
 await wtClient.board.completeFileUpload(board, file);
+```
+
+```ruby
+# This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="board-complete-upload" class="call"><span>PUT</span> /boards/{board_id}/files/{file_id}/upload-complete</h3>
