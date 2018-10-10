@@ -7,14 +7,14 @@ dashboard page, and select "Create new application" to start generating an API k
 Once you have a key or keys, please make sure that you keep them in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
 
 <aside class="notice">
-In all of our examples remember to replace <code>your_api_key</code> with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Content-Type" error.
+In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Content-Type" error.
 </aside>
 
 When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
-Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You may want to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems. In our example below we used Ruby's `SecureRandom.uuid` to generate an identifier.
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You may want to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems. In our example below we use a uuid as identifier.
 
 These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers. If you do not include the identifier, anyone using your application can potentially access any other boards created by your application.
 
@@ -51,13 +51,31 @@ const auth = await apiClient.authorize();
 | ----------------- | ------ | -------- | -------------------------------------------------- |
 | `user_identifier` | String | No       | A unique (per user of your application) identifier |
 
-
 #### Response
+
+If everything worked out, your response has a status code of `200` , and the body looks like this:
 
 ```json
 {
   "success": true,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqdXN0IGEgc2FtcGxlIHRva2VuLCB0aGUgYWN0dWFsIG9uZSB3aWxsIGhhdmUgZGlmZmVyZW50IGNvbnRlbnQiLCJuYW1lIjoiQW5nZWxhIEJlbm5ldHQiLCJpYXQiOjE1MTYyMzkwMjJ9.fd14EeU1vbj40WtHIYaDwpCOE972DKnrrP8mffioEdg"
+}
+```
+
+If you send a wrong API key, the response will have a status code of `403`, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "Forbidden: invalid API Key"
+}
+```
+
+In case you send data that the server cannot handle (like an empty string for the API key, the response of will have a status code of `401`, and a body as follows:
+
+```json
+{
+  "message": "Unauthorized"
 }
 ```
 
