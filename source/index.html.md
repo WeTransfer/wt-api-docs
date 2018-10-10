@@ -31,6 +31,6 @@ Depending on what you want to make we have two different APIs: transfers and boa
   </div>
   <div class="col">
     <span class="two-col__title">Board API</span>
-    <p>Our Board API is similar to what you'll experience with our mobile collecting apps. It can store traditional files as well as links, and is flexible in how it displays your items. Additionally - boards can be changed as long as they are live, so you can add items as you see fit.</p>
+    <p>Our Board API is similar to what you'll experience in our mobile app. It can store traditional files as well as links, and is flexible in how it displays your items. Additionally - boards do not have an expiry time as long as they receive activity, so you can add items as you see fit. If untouched, they expire after 3 months.</p>
   </div>
 </div>
