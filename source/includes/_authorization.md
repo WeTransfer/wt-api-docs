@@ -38,6 +38,28 @@ const apiClient = await createWTClient('/* YOUR PRIVATE API KEY GOES HERE */');
 const auth = await apiClient.authorize();
 ```
 
+```ruby
+# Using the WeTransfer Ruby SDK...
+require 'we_transfer_client'
+
+# Create a WeTransfer client that authorizes requests on your api_key
+client = WeTransfer::Client.new(api_key: 'WETRANSFER_API_KEY')
+
+# Or, by hand.
+# If you aren't using the WeTransfer gem, you could POST yourself:
+require 'faraday'
+
+faraday = Faraday.new('https://dev.wetransfer.com')
+response = faraday.post(
+  '/v2/authorize',
+  '{}',
+  {
+    'Content-Type' => 'application/json',
+    'x-api-key' => 'WETRANSFER_API_KEY',
+  }
+)
+```
+
 #### Headers
 
 | name           | type   | required | description              |
