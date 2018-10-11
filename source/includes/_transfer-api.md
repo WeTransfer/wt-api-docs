@@ -10,14 +10,15 @@ Transfers must be created with files. Once the transfer has been created and fin
 
 ## Create a new transfer
 
-When you create a transfer, you must inform the transfer of at least 1 file you're adding to it.
+When you create a transfer, you must include at least one file in the transfer create request.
 
 ```shell
 curl -i -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"message":"My very first transfer!","files":[{"name":"big-bobis.jpg", "size":195906}]}'
+  -d '{"message":"My very first transfer!","files":[
+    {"name":"big-bobis.jpg", "size":195906}, "name":"kitty.jpg", "size":369785]}'
 ```
 
 ```javascript
@@ -27,6 +28,10 @@ const transfer = await wtClient.transfer.create({
     {
       name: 'big-bobis.jpg',
       size: 195906
+    },
+    {
+      name: 'kitty.jpg',
+      size: 369785
     }
   ]
 });
@@ -40,12 +45,9 @@ const transfer = await wtClient.transfer.create({
 client = WeTransfer::Client.new(api_key: wetransfer_api_key)
 
 client.create_transfer_and_upload_files(message: 'My very first transfer!') do |builder|
+  # Add as many files as you need, using `add_file`, or `add_file_at`
   builder.add_file(name: 'big-bobis.jpg', io: File.open('/path/to/cat_image.jpg', 'rb'))
-
-  # Add as many files as you need.
-  #
-  # builder.add_file(name: 'meow.txt', io: File.open('/path/to/cat.txt', 'rb'))
-  # builder.add_file_at(path: '/path/to/kitty.jpg')
+  builder.add_file_at(path: '/path/to/kitty.jpg')
 end
 
 # Access the transfer in your browser:
@@ -88,6 +90,15 @@ puts "The transfer can be viewed on #{transfer.url}"
       "id": "random-hash",
       "name": "big-bobis.jpg",
       "size": 195906,
+      "multipart": {
+        "part_numbers": 1,
+        "chunk_size": 5242880
+      }
+    },
+    {
+      "id": "random-hash",
+      "name": "kitty.jpg",
+      "size": 369785,
       "multipart": {
         "part_numbers": 1,
         "chunk_size": 5242880

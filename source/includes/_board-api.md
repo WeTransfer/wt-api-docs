@@ -27,7 +27,7 @@ const board = await wtClient.board.create({
 # and upload the items in one go. This behavior will be split in the upcoming
 # major (version 1.0) release.
 
-client = WeTransfer::Client.new(api_key: wetransfer_api_key)
+client = WeTransfer::Client.new(api_key: 'YOUR PRIVATE API KEY GOES HERE')
 
 board = client.create_board_and_upload_items(name: 'Kittens') do |builder|
   builder.add_file(

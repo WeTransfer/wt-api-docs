@@ -14,7 +14,7 @@ When you or a user starts your app / script / etc, it/they will need to authoriz
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
-Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You may want to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems. In our example below we use a uuid as identifier.
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You may want to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems.
 
 These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers. If you do not include the identifier, anyone using your application can potentially access any other boards created by your application.
 
@@ -23,7 +23,7 @@ To retrieve a JWT, send a request including your API key to the following endpoi
 ```shell
 curl -i -X POST "https://dev.wetransfer.com/v2/authorize" \
   -H "Content-Type: application/json" \
-  -H "x-api-key: your_api_key" \
+  -H "x-api-key: YOUR PRIVATE API KEY GOES HERE" \
   -d '{"user_identifier":"5eb6b98e-ddaa-4f5b-9d03-7bd4d91aa05f"}'
 ```
 
@@ -43,7 +43,7 @@ const auth = await apiClient.authorize();
 require 'we_transfer_client'
 
 # Create a WeTransfer client that authorizes requests on your api_key
-client = WeTransfer::Client.new(api_key: 'WETRANSFER_API_KEY')
+client = WeTransfer::Client.new(api_key: 'YOUR PRIVATE API KEY GOES HERE')
 
 # Or, by hand.
 # If you aren't using the WeTransfer gem, you could POST yourself:
@@ -55,7 +55,7 @@ response = faraday.post(
   '{}',
   {
     'Content-Type' => 'application/json',
-    'x-api-key' => 'WETRANSFER_API_KEY',
+    'x-api-key' => 'YOUR PRIVATE API KEY GOES HERE',
   }
 )
 ```
@@ -84,7 +84,7 @@ If everything worked out, your response has a status code of `200` , and the bod
 }
 ```
 
-If you send a wrong API key, the response will have a status code of `403`, and a body that looks like this:
+If you send an API key that is invalid, the response will have a status code of `403`, and a body that looks like this:
 
 ```json
 {
@@ -93,7 +93,7 @@ If you send a wrong API key, the response will have a status code of `403`, and 
 }
 ```
 
-In case you send data that the server cannot handle (like an empty string for the API key, the response of will have a status code of `401`, and a body as follows:
+In case you send data that the server cannot handle (like an empty string for the API key) the response of will have a status code of `401`, and a body as follows:
 
 ```json
 {
