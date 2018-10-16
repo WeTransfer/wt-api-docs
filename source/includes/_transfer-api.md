@@ -1,21 +1,24 @@
 # Transfer API
 
-The Transfer API is classic WeTransfer. You might know it well (or you're about to) - upload files, get link, share magic. We've been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12" target="blank">macOS app</a> and our <a href="https://we.tl/wtclient" target="_blank">Command Line Client</a> and now we're opening it up to you and all your users.
+The Transfer API is classic WeTransfer. You might know it well (or you're about to). Use it to upload files, get the link and share magic. We've been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12" target="blank">macOS app</a> and our <a href="https://we.tl/wtclient" target="_blank">Command Line Client</a> and now we're opening it up to you and all your users.
 
 Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you'll need to store the transfer link somewhere - just like a web link transfer, there's no way to get the link back if it gets misplaced.
 
 A transfer request consists of the endpoint itself, the headers, and the body, which can contain a message and must contain a list of file objects. The files themselves need a name and a size in bytes - you'll need to compute the size yourself. Most languages provide a way to do this.
 
+Transfers must be created with files. Once the transfer has been created and finalized, the transfer is locked and cannot be further modified.
+
 ## Create a new transfer
 
-Transfers must be created with files. Once the transfer has been created and finalized, the transfer is locked and cannot be further modified.
+When you create a transfer, you must include at least one file in the transfer create request.
 
 ```shell
 curl -i -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token" \
-  -d '{"message":"My very first transfer!","files":[{"name":"big-bobis.jpg", "size":195906}]}'
+  -d '{"message":"My very first transfer!","files":[
+    {"name":"big-bobis.jpg", "size":195906}, "name":"kitty.jpg", "size":369785]}'
 ```
 
 ```javascript
@@ -23,15 +26,32 @@ const transfer = await wtClient.transfer.create({
   message: 'My very first transfer!',
   files: [
     {
-      name: 'hello.txt',
-      size: 1024
+      name: 'big-bobis.jpg',
+      size: 195906
     },
     {
-      name: 'big-bobis.jpg',
-      size: 13370099
+      name: 'kitty.jpg',
+      size: 369785
     }
   ]
 });
+```
+
+```ruby
+# In the current Ruby SDK (version 0.9.x), you can only create a transfer
+# and upload the files in one go. This behavior will be split in the upcoming
+# major (version 1.0) release.
+
+client = WeTransfer::Client.new(api_key: wetransfer_api_key)
+
+client.create_transfer_and_upload_files(message: 'My very first transfer!') do |builder|
+  # Add as many files as you need, using `add_file`, or `add_file_at`
+  builder.add_file(name: 'big-bobis.jpg', io: File.open('/path/to/cat_image.jpg', 'rb'))
+  builder.add_file_at(path: '/path/to/kitty.jpg')
+end
+
+# Access the transfer in your browser:
+puts "The transfer can be viewed on #{transfer.url}"
 ```
 
 <h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
@@ -58,19 +78,27 @@ const transfer = await wtClient.transfer.create({
 | `name` | String | Yes      | The name of the file you want to show on items list                  |
 | `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down! |
 
-
 #### Response
 
 ```json
 {
   "id": "random-hash",
-  "message": "Little kittens",
+  "message": "My very first transfer!",
   "state": "uploading",
   "files": [
     {
       "id": "random-hash",
       "name": "big-bobis.jpg",
       "size": 195906,
+      "multipart": {
+        "part_numbers": 1,
+        "chunk_size": 5242880
+      }
+    },
+    {
+      "id": "random-hash",
+      "name": "kitty.jpg",
+      "size": 369785,
       "multipart": {
         "part_numbers": 1,
         "chunk_size": 5242880
@@ -113,6 +141,10 @@ for (
 
   console.log(uploadURL.url)
 }
+```
+
+```ruby
+# This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
@@ -193,6 +225,10 @@ for (
 }
 ```
 
+```ruby
+# This functionality is currently not enabled in the SDK.
+```
+
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
 Finalize a file. Once all the parts have been uploaded succesfully, you use this endpoint to tell the system that it can start splicing the parts together to form one whole file.
@@ -207,6 +243,10 @@ curl -i -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{fil
 
 ```javascript
 await wtClient.transfer.completeFileUpload(transfer, file);
+```
+
+```ruby
+# This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
@@ -257,6 +297,10 @@ curl -i -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize" 
 const finalTransfer = await wtClient.transfer.finalize(transfer);
 
 console.log(finalTransfer.url);
+```
+
+```ruby
+# This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
