@@ -116,7 +116,6 @@ To be able to upload a file, it must be split into parts and then each part will
 
 ```shell
 curl -i -X GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}" \
-  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```

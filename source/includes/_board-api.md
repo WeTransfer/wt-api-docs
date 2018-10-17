@@ -217,7 +217,6 @@ To be able to upload a file, it must be split into chunks, and uploaded to diffe
 
 ```shell
 curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}" \
-  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
@@ -254,7 +253,6 @@ for (
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
@@ -374,7 +372,6 @@ Retrieve information about a previously-sent board.
 
 ```shell
 curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
-  -H "Content-Type: application/json" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
 ```
@@ -385,7 +382,6 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 | --------------- | ------ | -------- | ------------------------------ |
 | `x-api-key`     | String | Yes      | Private API key                |
 | `Authorization` | String | Yes      | Bearer JWT authorization token |
-| `Content-Type`  | String | Yes      | Must be application/json       |
 
 #### Parameters
 
