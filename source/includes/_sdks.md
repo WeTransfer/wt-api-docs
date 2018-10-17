@@ -38,7 +38,14 @@ issues or PRs to help them along! :)
     </div>
     <a href="https://github.com/fliot/py3wetransfer" class="button" target="_blank">View on GitHub</a>
   </article>
-
+  <article class="sdk sdk-c-sharp">
+    <img src="images/sdks/c-sharp.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">C#</h4>
+      <p>Created and maintained by André Steffens</p>
+    </div>
+    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="_blank">View on GitHub</a>
+  </article>
 </section>
 
 ## V1 compatible SDKs
@@ -61,14 +68,6 @@ These SDKs are <em>only</em> compatible with V1 of the SDK.
       <p>Created and maintained by Tim Faber</p>
     </div>
     <a href="https://github.com/tfaber/wetransfeR" class="button" target="_blank">View on GitHub</a>
-  </article>
-  <article class="sdk sdk-c-sharp">
-    <img src="images/sdks/c-sharp.svg" class="sdk__logo">
-    <div class="info">
-      <h4 class="sdk__title">C#</h4>
-      <p>Created and maintained by André Steffens</p>
-    </div>
-    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="_blank">View on GitHub</a>
   </article>
   <article class="sdk sdk-python">
     <img src="images/sdks/python.svg" class="sdk__logo">
