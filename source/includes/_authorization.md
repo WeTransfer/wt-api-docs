@@ -7,7 +7,7 @@ dashboard page, and select "Create new application" to start generating an API k
 Once you have a key or keys, please make sure that you keep them in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
 
 <aside class="notice">
-In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Content-Type" error.
+In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every POST and PUT request, otherwise you will receive an "Unsupported Content-Type" error.
 </aside>
 
 When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.

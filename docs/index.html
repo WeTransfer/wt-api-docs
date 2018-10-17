@@ -315,7 +315,7 @@ dashboard page, and select &quot;Create new application&quot; to start generatin
 <p>Once you have a key or keys, please make sure that you keep them in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select &quot;Delete&quot; under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.</p>
 
 <aside class="notice">
-In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every request, otherwise you will receive an "Unsupported Content-Type" error.
+In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every POST and PUT request, otherwise you will receive an "Unsupported Content-Type" error.
 </aside>
 
 <p>When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.</p>
@@ -557,7 +557,6 @@ In all of our examples remember to replace `your_api_key` with your own API key.
 <h2 id='request-upload-url'>Request upload URL</h2>
 <p>To be able to upload a file, it must be split into parts and then each part will be uploaded to presigned AWS S3 URLs. This route can be used to fetch presigned upload URLS for each of a file&#39;s parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. NB: They are valid for an <em>hour</em> and must be re-requested if they expire.</p>
 <pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">transfer</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
@@ -1077,7 +1076,6 @@ The <code>url</code> field is where you get the link you will need to access the
 
 <p>To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file&#39;s parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.</p>
 <pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">fileItems</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
@@ -1117,12 +1115,6 @@ The <code>url</code> field is where you get the link you will need to access the
 <td>String</td>
 <td>Yes</td>
 <td>Bearer JWT authorization token</td>
-</tr>
-<tr>
-<td><code>Content-Type</code></td>
-<td>String</td>
-<td>Yes</td>
-<td>Must be application/json</td>
 </tr>
 </tbody></table></div><h4 id='parameters-3'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
@@ -1260,7 +1252,6 @@ The <code>url</code> field is where you get the link you will need to access the
 
 <p>Retrieve information about a previously-sent board.</p>
 <pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}"</span> <span class="se">\</span>
-  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre><h4 id='headers-6'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -1280,12 +1271,6 @@ The <code>url</code> field is where you get the link you will need to access the
 <td>String</td>
 <td>Yes</td>
 <td>Bearer JWT authorization token</td>
-</tr>
-<tr>
-<td><code>Content-Type</code></td>
-<td>String</td>
-<td>Yes</td>
-<td>Must be application/json</td>
 </tr>
 </tbody></table></div><h4 id='parameters-5'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
