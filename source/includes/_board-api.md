@@ -117,10 +117,10 @@ const linkItems = await apiClient.board.addLinks(board, [{
 
 #### Link object
 
-| name    | type   | required | description                                |
-| ------- | ------ | -------- | ------------------------------------------ |
-| `url`   | String | Yes      | The complete URL of the link               |
-| `title` | String | No       | The title of the page, defaults to the url |
+| name    | type   | required | description                                                                      |
+| ------- | ------ | -------- | -------------------------------------------------------------------------------- |
+| `url`   | String | Yes      | The complete URL of the link. _Must_ be less than 2000 characters!               |
+| `title` | String | No       | The title of the page, defaults to the url. _Must_ be less than 2980 characters! |
 
 #### Response
 
@@ -180,10 +180,10 @@ const fileItems = await apiClient.board.addFiles(board, [{
 
 #### File object
 
-| name   | type   | required | description                                                          |
-| ------ | ------ | -------- | -------------------------------------------------------------------- |
-| `name` | String | Yes      | The name of the file you want to show on items list                  |
-| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down! |
+| name   | type   | required | description                                                                                               |
+| ------ | ------ | -------- | --------------------------------------------------------------------------------------------------------- |
+| `name` | String | Yes      | The name of the file you want to show on items list. _Must_ be less than 255 characters.                  |
+| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down!                                      |
 
 #### Response
 
