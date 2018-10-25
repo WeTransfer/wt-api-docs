@@ -258,7 +258,7 @@ issues or PRs to help them along! :)</p>
       <h4 class="sdk__title">Swift</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="_blank">V2 compatibility coming soon</a>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="_blank">View on Github</a>
   </article>
   <article class="sdk sdk-python">
     <img src="images/sdks/python-dc794a59.svg" class="sdk__logo">
@@ -964,13 +964,13 @@ The <code>url</code> field is where you get the link you will need to access the
 <td><code>url</code></td>
 <td>String</td>
 <td>Yes</td>
-<td>The complete URL of the link</td>
+<td>The complete URL of the link. <em>Must</em> be less than 2000 characters!</td>
 </tr>
 <tr>
 <td><code>title</code></td>
 <td>String</td>
 <td>No</td>
-<td>The title of the page, defaults to the url</td>
+<td>The title of the page, defaults to the url. <em>Must</em> be less than 2980 characters!</td>
 </tr>
 </tbody></table></div><h4 id='response-2'>Response</h4><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -1042,7 +1042,7 @@ The <code>url</code> field is where you get the link you will need to access the
 <td><code>name</code></td>
 <td>String</td>
 <td>Yes</td>
-<td>The name of the file you want to show on items list</td>
+<td>The name of the file you want to show on items list. <em>Must</em> be less than 255 characters.</td>
 </tr>
 <tr>
 <td><code>size</code></td>
@@ -1462,6 +1462,11 @@ The <code>url</code> field is where you get the link you will need to access the
 <th>Product affected</th>
 </tr>
 </thead><tbody><tr>
+<td>2018-10-24</td>
+<td>Updated V2 and V1 with character limits for link &amp; file listings</td>
+<td>APIs / Docs</td>
+</tr>
+<tr>
 <td>2018-09-25</td>
 <td>Release of V2 of the API with Transfers and Boards!</td>
 <td>All</td>

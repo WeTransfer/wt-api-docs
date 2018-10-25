@@ -2,6 +2,7 @@
 
 | date       | Changes made                                                     | Product affected |
 | ---------- | ---------------------------------------------------------------- | ---------------- |
+| 2018-10-24 | Updated V2 and V1 with character limits for link & file listings | APIs / Docs      |
 | 2018-09-25 | Release of V2 of the API with Transfers and Boards!              | All              |
 | 2018-07-25 | Clarify shortened_url, copy fixes                                | Documentation    |
 | 2018-07-24 | Add PHP code snippets                                            | Documentation    |
