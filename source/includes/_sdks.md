@@ -28,7 +28,7 @@ issues or PRs to help them along! :)
       <h4 class="sdk__title">Swift</h4>
       <p>Created and maintained by WeTransfer</p>
     </div>
-    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="_blank">V2 compatibility coming soon</a>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="_blank">View on Github</a>
   </article>
   <article class="sdk sdk-python">
     <img src="images/sdks/python.svg" class="sdk__logo">
