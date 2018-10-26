@@ -441,9 +441,16 @@ In all of our examples remember to replace `your_api_key` with your own API key.
   -H <span class="s2">"Authorization: Bearer REPLACE_WITH_YOUR_TOKEN"</span> <span class="se">\</span>
   -d <span class="s1">'
     {
-      "message":"My very first transfer!","files":[
-        {"name":"big-bobis.jpg", "size":195906},
-        {"name":"kitty.jpg", "size":369785}
+      "message":"My very first transfer!",
+      "files":[
+        {
+          "name":"big-bobis.jpg",
+          "size":195906
+        },
+        {
+          "name":"kitty.jpg",
+          "size":369785
+        }
       ]
     }'</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">transfer</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>

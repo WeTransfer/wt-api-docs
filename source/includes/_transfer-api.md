@@ -23,9 +23,16 @@ curl -i -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Authorization: Bearer REPLACE_WITH_YOUR_TOKEN" \
   -d '
     {
-      "message":"My very first transfer!","files":[
-        {"name":"big-bobis.jpg", "size":195906},
-        {"name":"kitty.jpg", "size":369785}
+      "message":"My very first transfer!",
+      "files":[
+        {
+          "name":"big-bobis.jpg",
+          "size":195906
+        },
+        {
+          "name":"kitty.jpg",
+          "size":369785
+        }
       ]
     }'
 ```
