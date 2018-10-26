@@ -12,13 +12,29 @@ Transfers must be created with files. Once the transfer has been created and fin
 
 When you create a transfer, you must include at least one file in the transfer create request.
 
+Creating a transfer is to inform the API that you want to create a transfer (with at least one file), but you aren't sending the files already.
+
+What you are sending is the `message`, a property that describes what this transfer is about, and a collection of file `name`s and their `size`. This allows the API to set up a place where your files can be uploaded to in a later state. Make sure the size of the file is accurate. Please don't lie to us; we will not be able to handle your files in a later stage...
+
 ```shell
 curl -i -X POST "https://dev.wetransfer.com/v2/transfers" \
   -H "Content-Type: application/json" \
-  -H "x-api-key: your_api_key" \
-  -H "Authorization: Bearer jwt_token" \
-  -d '{"message":"My very first transfer!","files":[
-    {"name":"big-bobis.jpg", "size":195906}, "name":"kitty.jpg", "size":369785]}'
+  -H "x-api-key: REPLACE_WITH_YOUR_API_KEY" \
+  -H "Authorization: Bearer REPLACE_WITH_YOUR_TOKEN" \
+  -d '
+    {
+      "message":"My very first transfer!",
+      "files":[
+        {
+          "name":"big-bobis.jpg",
+          "size":195906
+        },
+        {
+          "name":"kitty.jpg",
+          "size":369785
+        }
+      ]
+    }'
 ```
 
 ```javascript
@@ -82,37 +98,44 @@ puts "The transfer can be viewed on #{transfer.url}"
 
 ```json
 {
-  "id": "random-hash",
-  "message": "My very first transfer!",
-  "state": "uploading",
-  "files": [
+  "message" : "My very first transfer!",
+  "files" : [
     {
-      "id": "random-hash",
-      "name": "big-bobis.jpg",
-      "size": 195906,
-      "multipart": {
-        "part_numbers": 1,
-        "chunk_size": 5242880
-      }
+      "multipart" : {
+        "part_numbers" : 1,
+        "chunk_size" : 195906
+      },
+      "size" : 195906,
+      "type" : "file",
+      "name" : "big-bobis.jpg",
+      "id" : "c964caf6c54343f3b6e9610cb4ac5ea220181019143517"
     },
     {
-      "id": "random-hash",
-      "name": "kitty.jpg",
-      "size": 369785,
-      "multipart": {
-        "part_numbers": 1,
-        "chunk_size": 5242880
-      }
+      "multipart" : {
+        "part_numbers" : 1,
+        "chunk_size" : 369785
+      },
+      "size" : 369785,
+      "type" : "file",
+      "id" : "e7f74773661f2be2bec90e6322864abd20181019143517",
+      "name" : "kitty.jpg"
     }
-  ]
+  ],
+  "url" : null,
+  "id" : "32a6ef6003f1429be0cf1674dd8fbdef20181019143517",
+  "state" : "uploading"
 }
 ```
 
 Creates a new transfer with specified files.
 
-## Request upload URL
+## Request upload URLs
 
-To be able to upload a file, it must be split into parts and then each part will be uploaded to presigned AWS S3 URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. NB: They are valid for an <em>hour</em> and must be re-requested if they expire.
+If you look at that response above, you see some pointers that are needed now. All files should be uploaded to a specific place. You just have to get the place from our API. To do that, you ask the API based on the `transfer.id`, each and every `file.id`, and for each part (based on the `file.multipart.part_numbers` property).
+
+To be able to upload a file, it must be split into parts and then each part will be uploaded to pre-signed AWS S3 URLs.
+
+This endpoint can be used to get pre-signed upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. NOTE: They are valid for an **hour** and must be re-requested if they expire.
 
 ```shell
 curl -i -X GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}" \
@@ -176,15 +199,37 @@ Transfer chunks must be 5 megabytes in size, except for the very last chunk, whi
 }
 ```
 
-The Response Body contains the presigned S3 upload `url`.
+The Response Body contains the pre-signed S3 upload `url`.
 
 ##### 404 (Not found)
 
-If the requester tries to request an upload URL for a file that is not in one of the requester's transfers, we will respond with 404 Not found.
+If you try to request an upload URL for a file that is not in the transfers, the API will respond with 404 Not found.
+
+```json
+{
+  "success" : false,
+  "message" : "Couldn't find FileObject"
+}
+```
+
+##### 417 (Expectation Failed)
+
+If you request to upload part `0`, our API will tell you that our parts are numbered for humans; we start counting at part 1:
+
+```json
+{
+  "success" : false,
+  "message" : "Chunk numbers are 1-based"
+}
+```
 
 <h2 id="transfer-file-upload">File Upload</h2>
 
 <h3 id="transfer-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
+
+Time to actually upload (chunks of) your file. With the pre-signed-upload-url you retrieved in the previous step, you can start uploading!
+
+You will interact directly with Amazon S3. As such, we have no control over the messages sent by S3.
 
 Important: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
 
@@ -193,7 +238,7 @@ curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
 ```
 
 ```javascript
-// Use your favourite JS
+// Use your favorite JS
 const fs = require('fs');
 
 const file = transfer.files[0];
@@ -230,7 +275,9 @@ for (
 
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
-Finalize a file. Once all the parts have been uploaded succesfully, you use this endpoint to tell the system that it can start splicing the parts together to form one whole file.
+In the previous step, you've uploaded your file (potentially in parts) directly to S3. The WeTransfer API has no idea when that is complete. This call informs your transfer object that all the uploading for your file is done.
+
+Again, to inform the API about this event, you need both the transfer id and the file id. Not only that, you currently also have to inform this endpoint on the amount of part numbers.
 
 ```shell
 curl -i -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete" \
@@ -280,9 +327,22 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 }
 ```
 
+##### 417
+
+If you try to finalise a file, but didn't actually upload all chunks it will respond with something like this:
+
+```json
+{
+  "success": false,
+  "message": "Chunks 1 are still missing"
+}
+```
+
 <h2 id="finalize-a-transfer">Finalize a transfer</h2>
 
-Finalize the whole transfer. Once all the parts have been uploaded and finalized, you use this endpoint to tell the system that everything has been completely uploaded.
+After all files are uploaded and finalized, you can close the transfer for modification, and make it available for download.
+
+You do that by calling this endpoint. It informs the API that everything has been completely uploaded.
 
 ```shell
 curl -i -X PUT "https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize" \
@@ -322,12 +382,14 @@ console.log(finalTransfer.url);
 
 ##### 200 (OK)
 
+If all went well, the API sends you a lot of data. One of them being the `url`. That is the thing you will use to access the files in a browser.
+
 ```json
 {
   "id": "random-hash",
   "state": "processing",
-  "message": "Little kittens",
-  "url": "https://we.tl/t-smaller-random-hash",
+  "message": "My first transfer!",
+  "url": "https://we.tl/t-12344657",
   "files": [
     {
       "id": "random-hash",
@@ -343,7 +405,7 @@ console.log(finalTransfer.url);
 ```
 
 <aside class="notice">
-The <code>url</code> field is where you get the link you will need to access the transfer!
+The `url` field is where you get the link you will need to access the transfer!
 </aside>
 
 ##### 400 (Bad Request)
@@ -352,4 +414,4 @@ This is returned if the transfer can no longer be written to, or is it ready to 
 
 ##### 403 (Unauthorized)
 
-When you try to access something you don't have access to.
+When you try to finalize a transfer you don't have access to.

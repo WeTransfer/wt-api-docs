@@ -29,7 +29,7 @@ const board = await wtClient.board.create({
 
 client = WeTransfer::Client.new(api_key: 'YOUR PRIVATE API KEY GOES HERE')
 
-board = client.create_board_and_upload_items(name: 'Kittens') do |builder|
+board = client.create_board_and_upload_items(name: 'Little kittens') do |builder|
   builder.add_file(
     name: 'bobis.jpg',
     io: File.open('/path/to/kitty.jpg', 'rb')
@@ -75,11 +75,15 @@ puts "The board can be viewed on #{board.url}"
 }
 ```
 
-<aside class="warning"><strong>Note:</strong> The <code>url</code> in the response is the URL you will use to access the board you create! It is not returned at the end of the upload flow, rather right now when you create the empty board.</aside>
+<aside class="warning">**Note**: The `url` in the response is the URL you will use to access the board you created. It is not returned at the end of the upload flow, rather only right now when you create the (empty) board.</aside>
+
+Later you'll want to interact with your board. Add files and links to it. In order to do that, make sure to note the value of the `id` property.
 
 ## Add links to a board
 
-Once a board has been created you can add links like so:
+A board can hold files *and* URLs. Lets have a look at how you can add URLs to your board. For that you need the `id` of the board you created earlier, unless your SDK will handle that for you.
+
+Once a board has been created you can add links like below:
 
 ```shell
 curl -i -X POST "https://dev.wetransfer.com/v2/boards/{board_id}/links" \
@@ -194,7 +198,7 @@ const fileItems = await apiClient.board.addFiles(board, [{
     "name": "big-bobis.jpg",
     "size": 195906,
     "multipart": {
-      "id": "some.random-id--",
+      "id": "some random id",
       "part_numbers": 1,
       "chunk_size": 195906
     },
@@ -203,17 +207,23 @@ const fileItems = await apiClient.board.addFiles(board, [{
 ]
 ```
 
-The endpoint will return an object for each file you want to add to the board. Each file must be split into chunks, and uploaded to a pre-signed S3 URL, provided by the following endpoint.
+The endpoint will return an object for each file you want to add to the board. The data returned is helpful in the next step when we want to request a place where we can upload our file.
+
+The important parts in the response are the `id` of the file, the `id` of the multipart object, together with its `part_numbers`.
 
 **Important**
 
-Board chunks _must_ be 6 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
+Board chunks _must_ be 6 megabytes (or more precisely 6291456 bytes) in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 
+Now that you've informed us about the file(s) you want to upload, it is time to request upload URLs. Each chunk of the file has its own upload url.
+
 <h3 class="call"><span>GET</span> /boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}</h3>
 
-To be able to upload a file, it must be split into chunks, and uploaded to different presigned URLs. This route can be used to fetch presigned upload URLS for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.
+To be able to upload a file, it must be split into chunks, and uploaded to different pre-signed URLs. This endpoint can be used to get pre-signed upload URLs for each of a file's parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.
+
+Use the fields from the previous response; now you need the `id` of the file, the `id` of the multipart, and you must request a upload-url for all of your `part_numbers`.
 
 ```shell
 curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}" \
@@ -269,15 +279,15 @@ for (
 
 ```json
 {
-  "url": "https://presigned-s3-put-url"
+  "url": "https://a-very-long-pre-signed-s3-put-url"
 }
 ```
 
-The Response Body contains the presigned S3 upload `url`.
+The response body contains the pre-signed S3 upload `url`. You will use that in the next step, when you upload the contents.
 
 ##### 401 (Unauthorized)
 
-If the requester tries to request an upload URL for a file that is not in one of the requester's boards, we will respond with 401 UNAUTHORIZED.
+If you try to request an upload URL for a file that is not in one of your boards, the response will have a status code of 401 UNAUTHORIZED.
 
 ##### 400 (Bad request)
 
@@ -287,7 +297,7 @@ If a request is made for a part, but no `multipart_upload_id` is provided; we wi
 
 <h3 id="board-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
 
-Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
+You're communicating directly with Amazons' S3, not with our API. Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS' <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.
 
 ```shell
 curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
@@ -404,10 +414,10 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
     {
       "id": "random-hash",
       "name": "kittie.gif",
-      "size": 1024,
+      "size": 195906,
       "multipart": {
         "part_numbers": 1,
-        "chunk_size": 1024
+        "chunk_size": 195906
       },
       "type": "file"
     },
@@ -425,8 +435,11 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 
 ##### 403 (Forbidden)
 
-If the requester tries to request a board that is not in one of the requester's boards, we will respond with 403 FORBIDDEN.
+If you try to request a board that is not yours, we will respond with 403 FORBIDDEN.
 
 ```json
-  {"success":false, "message":"This board does not belong to you"}
+{
+  "success":false,
+  "message":"This board does not belong to you"
+}
 ```

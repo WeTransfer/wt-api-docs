@@ -2,8 +2,7 @@
 
 ## V2 and V1 Compatible SDKs
 
-These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file
-issues or PRs to help them along! :)
+These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file issues or PRs to help them along! :)
 
 <section class="sdks">
   <article class="sdk sdk-node">
