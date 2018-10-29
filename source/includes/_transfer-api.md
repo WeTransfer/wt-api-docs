@@ -182,7 +182,7 @@ for (
 ```
 
 ```swift
-// This step is not necessary as the request is done by the SDK right before uploading each file
+// This step is not necessary as the request is performed by the SDK right before uploading each file
 ```
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
