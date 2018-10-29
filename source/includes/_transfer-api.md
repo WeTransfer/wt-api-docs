@@ -70,6 +70,18 @@ end
 puts "The transfer can be viewed on #{transfer.url}"
 ```
 
+```swift
+let files: [URL] = [..] // URLs pointing to local files
+WeTransfer.createTransfer(saying: "My very first transfer!", fileURLs: files) { result in
+    switch result {
+    case .success(let transfer):
+        // Transfer created
+    case .failure(let error):
+        // Error creating transfer
+    }
+}
+```
+
 <h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
 
 #### Headers
@@ -167,6 +179,10 @@ for (
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+// This step is not necessary in the Swift SDK.
 ```
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
@@ -273,6 +289,22 @@ for (
 # This functionality is currently not enabled in the SDK.
 ```
 
+```swift
+// Either use the transfer object from the `createTransfer` call
+// or to skip the transfer creation step, use the single method
+// `WeTransfer.uploadTransfer(saying message: containing files:)`
+WeTransfer.upload(transfer) { state in
+    switch state {
+    case .uploading(let progress):
+        // Use the progress object to track progress
+    case .completed:
+        // Transfer is complete
+    case .failed(let error):
+        // Uploading transfer failed
+    }
+}
+```
+
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
 In the previous step, you've uploaded your file (potentially in parts) directly to S3. The WeTransfer API has no idea when that is complete. This call informs your transfer object that all the uploading for your file is done.
@@ -293,6 +325,10 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+// This step is not necessary in the Swift SDK.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
@@ -360,6 +396,10 @@ console.log(finalTransfer.url);
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+// This step is not necessary in the Swift SDK.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>

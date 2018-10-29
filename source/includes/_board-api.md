@@ -45,6 +45,12 @@ end
 puts "The board can be viewed on #{board.url}"
 ```
 
+```swift
+// This does not create the board server-side, yet. The request is performed
+// when files are added to the board for the first time
+let board = Board(name: "Little kittens", description: nil)
+```
+
 <h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
 
 #### Headers
@@ -101,6 +107,10 @@ const linkItems = await apiClient.board.addLinks(board, [{
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```Swift
+// This functionality is currently not enabled in the SDK.
 ```
 
 <h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
@@ -164,6 +174,21 @@ const fileItems = await apiClient.board.addFiles(board, [{
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+let fileURLs: [URL] = [..] // URLs pointing to local files
+let files: [File]
+do {
+    // Create a File object for each URL.
+    // When initialization fails, an error will be thrown
+    files = try fileURLs.map({ try File(url: $0) })
+} catch {
+    // Please handle thrown errors gracefully
+}
+WeTransfer.add(files, to: board) { result in
+    // Handle result success or failure
+}
 ```
 
 <h3 id="board-send-files" class="call"><span>POST</span> /boards/{board_id}/files</h3>
@@ -257,6 +282,10 @@ for (
 # This functionality is currently not enabled in the SDK.
 ```
 
+```swift
+// This step is not necessary in the Swift SDK.
+```
+
 #### Headers
 
 | name            | type   | required | description                    |
@@ -338,6 +367,22 @@ for (
 # This functionality is currently not enabled in the SDK.
 ```
 
+```swift
+// Either use a board object with files added to it, or to skip
+// the creation and file adding steps, use the single method
+// `WeTransfer.uploadBoard(named: description: containing:)`
+WeTransfer.upload(board) { state in
+    switch state {
+    case .uploading(let progress):
+        // Use the progress object to track progress
+    case .completed:
+        // File upload is complete
+    case .failed(let error):
+        // Uploading files failed
+    }
+}
+```
+
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
 
 After all of the file parts have been uploaded, the file must be marked as complete.
@@ -355,6 +400,10 @@ await wtClient.board.completeFileUpload(board, file);
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+// This step is not necessary in the Swift SDK.
 ```
 
 <h3 id="board-complete-upload" class="call"><span>PUT</span> /boards/{board_id}/files/{file_id}/upload-complete</h3>
@@ -384,6 +433,10 @@ Retrieve information about a previously-sent board.
 curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
   -H "x-api-key: your_api_key" \
   -H "Authorization: Bearer jwt_token"
+```
+
+```Swift
+// This functionality is currently not enabled in the SDK.
 ```
 
 #### Headers
