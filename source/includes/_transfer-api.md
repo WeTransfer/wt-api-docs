@@ -171,7 +171,7 @@ for (
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
-Transfer chunks must be 5 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.
+Transfer chunks must be 5 megabytes (or more specifically: 5242880 bytes) in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file.
 
 #### Headers
 
@@ -414,4 +414,65 @@ This is returned if the transfer can no longer be written to, or is it ready to 
 
 ##### 403 (Unauthorized)
 
-When you try to finalize a transfer you don't have access to.
+When you try to access a transfer you don't have access to.
+
+<h2 id="retrieve-transfer-information"class="call">Retrieve transfer information</h2>
+
+Once you're done, you'd might want to know about your transfer and all of its files. With your `transfer_id` you can use this endpoint.
+
+<h3 id="get-transfer" class="call"><span>GET</span> /transfers/{transfer_id}</h3>
+
+```shell
+curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
+  -H "x-api-key: your_api_key" \
+  -H "Authorization: Bearer jwt_token"
+```
+
+#### Headers
+
+| name            | type   | required | description                    |
+| --------------- | ------ | -------- | ------------------------------ |
+| `x-api-key`     | String | Yes      | Private API key                |
+| `Authorization` | String | Yes      | Bearer JWT authorization token |
+
+#### Parameters
+
+| name | type | required | description |
+| --- | --- | --- | --- |
+| `transfer_id` | String | Yes | The ID of the transfer you've finalized |
+
+#### Responses
+
+##### 200 (OK)
+
+```json
+{
+   "message": "My very first transfer!",
+   "id": "random-hash",
+   "state": "downloadable",
+   "url": "https://we.tl/t-ABcdEFgHi12",
+   "files": [
+      {
+         "id": "another-random-hash",
+         "type": "file",
+         "name": "big-bobis.jpg",
+         "multipart": {
+            "chunk_size": 195906,
+            "part_numbers": 1
+         },
+         "size": 195906
+      }
+   ]
+}
+```
+
+##### 404 (Not Found)
+
+When you try to get information from a transfer we cannot find in (your account, or at all) we will respond with  `404 Not Found`.
+
+```json
+{
+   "message" : "Couldn't find Transfer",
+   "success" : false
+}
+```

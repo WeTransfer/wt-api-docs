@@ -2,8 +2,6 @@
 
 ## V2 and V1 Compatible SDKs
 
-These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file issues or PRs to help them along! :)
-
 <section class="sdks">
   <article class="sdk sdk-node">
     <img src="images/sdks/node-js.svg" class="sdk__logo">
@@ -21,7 +19,7 @@ These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. 
     </div>
     <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="_blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-swift coming-soon">
+  <article class="sdk sdk-swift">
     <img src="images/sdks/swift.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Swift</h4>
@@ -49,7 +47,7 @@ These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. 
 
 ## V1 compatible SDKs
 
-These SDKs are <em>only</em> compatible with V1 of the SDK.
+These SDKs are **only** compatible with V1 of the API. Based on community efforts they will become compatible with V1 **and V2** of the WeTransfer API. Feel free to file issues or PRs to help them along! :)
 
 <section class="sdks">
   <article class="sdk sdk-php">
@@ -78,4 +76,4 @@ These SDKs are <em>only</em> compatible with V1 of the SDK.
   </article>
 </section>
 
-<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
+<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and we will make it happen!</aside>
