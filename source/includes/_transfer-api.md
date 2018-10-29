@@ -182,7 +182,7 @@ for (
 ```
 
 ```swift
-// This step is not necessary in the Swift SDK.
+// This step is not necessary as the request is done by the SDK right before uploading each file
 ```
 
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
@@ -328,7 +328,7 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 ```
 
 ```swift
-// This step is not necessary in the Swift SDK.
+// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
@@ -399,7 +399,7 @@ console.log(finalTransfer.url);
 ```
 
 ```swift
-// This step is not necessary in the Swift SDK.
+// This step is not necessary as the request is performed by the SDK right after all files have been successfully uploaded.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>

@@ -283,7 +283,7 @@ for (
 ```
 
 ```swift
-// This step is not necessary in the Swift SDK.
+// This step is not necessary as the request is performed by the SDK right before uploading each file
 ```
 
 #### Headers
@@ -403,7 +403,7 @@ await wtClient.board.completeFileUpload(board, file);
 ```
 
 ```swift
-// This step is not necessary in the Swift SDK.
+// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.
 ```
 
 <h3 id="board-complete-upload" class="call"><span>PUT</span> /boards/{board_id}/files/{file_id}/upload-complete</h3>
