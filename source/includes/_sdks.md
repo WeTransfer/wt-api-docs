@@ -47,7 +47,7 @@
 
 ## V1 compatible SDKs
 
-These SDKs are **only** compatible with V1 of the API. Based on community efforts they will become compatible with V1 **and V2** of the WeTransfer API. Feel free to file issues or PRs to help them along! :)
+These SDKs are **only** compatible with V1 of the API. As they are entirely community-created, feel free to lend a hand and help them become compatible with **V2** of the WeTransfer API as well!
 
 <section class="sdks">
   <article class="sdk sdk-php">

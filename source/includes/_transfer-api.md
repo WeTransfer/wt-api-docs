@@ -418,7 +418,7 @@ When you try to access a transfer you don't have access to.
 
 <h2 id="retrieve-transfer-information"class="call">Retrieve transfer information</h2>
 
-Once you're done, you'd might want to know about your transfer and all of its files. With your `transfer_id` you can use this endpoint.
+Once you're done, you might want to know about your transfer and all of its files. You can use your `transfer_id` and this endpoint to retrieve that information.
 
 <h3 id="get-transfer" class="call"><span>GET</span> /transfers/{transfer_id}</h3>
 
@@ -468,7 +468,7 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 
 ##### 404 (Not Found)
 
-When you try to get information from a transfer we cannot find in (your account, or at all) we will respond with  `404 Not Found`.
+When you try to get information from a transfer we cannot find, or you don't have access to, we will respond with `404 Not Found`.
 
 ```json
 {
