@@ -447,32 +447,32 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 
 ```json
 {
-   "message": "My very first transfer!",
-   "id": "random-hash",
-   "state": "downloadable",
-   "url": "https://we.tl/t-ABcdEFgHi12",
-   "files": [
-      {
-         "id": "another-random-hash",
-         "type": "file",
-         "name": "big-bobis.jpg",
-         "multipart": {
-            "chunk_size": 195906,
-            "part_numbers": 1
-         },
-         "size": 195906
-      }
-   ]
+  "message": "My very first transfer!",
+  "id": "random-hash",
+  "state": "downloadable",
+  "url": "https://we.tl/t-ABcdEFgHi12",
+  "files": [
+    {
+      "id": "another-random-hash",
+      "type": "file",
+      "name": "big-bobis.jpg",
+      "multipart": {
+        "chunk_size": 195906,
+        "part_numbers": 1
+      },
+      "size": 195906
+    }
+  ]
 }
 ```
 
 ##### 404 (Not Found)
 
-When you try to get information from a transfer we cannot find, or you don't have access to, we will respond with `404 Not Found`.
+When you try to get information from a transfer we cannot find, or that you don't have access to, we will respond with `404 Not Found`.
 
 ```json
 {
-   "message" : "Couldn't find Transfer",
-   "success" : false
+  "message" : "Couldn't find Transfer",
+  "success" : false
 }
 ```
