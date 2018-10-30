@@ -23,7 +23,7 @@ You can use our API to share files, links and love all over the world.
 
 ## Our APIs
 
-Depending on what you want to make we have two main tastes: **transfers** and **boards**.
+Depending on what you want to make we have two main flavors: **transfers** and **boards**.
 
 <div class="two-col">
   <div class="col">
