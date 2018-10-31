@@ -20,22 +20,7 @@ You can use your preferred file names, but the API strips the kind of characters
 
 A file with an empty name is not valid. Since the API removes problematic characters, you might hit this issue for files that have a name that consists solely of emojis and special characters. No judgement on your file naming scheme, but after we strip all those characters, we expect there to be something left. If the resulting file name is empty, the API will return an error. See below for an example
 
-This is what the error looks like for a transfer with a file with an empty name:
-
-```bash
-curl -iX POST https://dev.wetransfer.com/v2/transfers \
-  -H "x-api-key: REPLACE_WITH_YOUR_API_KEY" \
-  -H "Authorization: Bearer REPLACE_WITH_YOUR_TOKEN" \
-  -H 'Content-Type: application/json'
-  -d '{
-    "message":"Test",
-    "files":[
-      {"name":"","size":195906}
-    ]
-  }'
-```
-
-This results in this error with HTTP status code `400 Bad Request`:
+If you create a transfer for a file with an empty name, the API responds with an HTTP status code `400 Bad Request`, and this body:
 
 ```json
 {
@@ -44,24 +29,12 @@ This results in this error with HTTP status code `400 Bad Request`:
 }
 ```
 
-This is what the error looks like for a transfer with a file with an empty name:
-
-```bash
-curl -X POST https://dev.wetransfer.com/v2/boards/{board_id}/files \
-  -H "x-api-key: REPLACE_WITH_YOUR_API_KEY" \
-  -H "Authorization: Bearer REPLACE_WITH_YOUR_TOKEN" \
-  -H 'Content-Type: application/json' \
-  -d '[
-    {"name":"", "size":195906}
-  ]'
-```
-
-This results in this error with HTTP status code `400 Bad Request`:
+If you create a board for a file with an empty name, the API responds with an HTTP status code `400 Bad Request`, and this body:
 
 ```json
 {
   "success": false,
-  "message": "\"transfer.files.name\" is not allowed to be empty"
+  "message": "\"board.files.name\" is not allowed to be empty"
 }
 ```
 
