@@ -329,7 +329,7 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 
 ##### 417
 
-If you try to finalise a file, but didn't actually upload all chunks it will respond with something like this:
+If you try to finalize a file, but didn't actually upload all chunks it will respond with something like this:
 
 ```json
 {

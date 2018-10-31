@@ -41,3 +41,21 @@ If you create a board for a file with an empty name, the API responds with an HT
 ## Unique names
 
 Your file names should be unique within your board or transfer. If you want to store two files with the same name, we will return an error. In the API we consider file names to be case sensitive. That means that the files `polish.txt` and `Polish.txt` are treated as two different files.
+
+If you create a transfer with duplicate file names, the API will return an HTTP status code `400 Bad Request`, and this body:
+
+```json
+{
+  "success": false,
+  "message": "\"transfer.files\" position 1 contains a duplicate value"
+}
+```
+
+If you create a board with duplicate file names, the API will return an HTTP status code `400 Bad Request`, and this body:
+
+```json
+{
+  "success": false,
+  "message": "\"board.files\" position 1 contains a duplicate value"
+}
+```
