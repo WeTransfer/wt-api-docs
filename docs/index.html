@@ -219,7 +219,7 @@
         <h1 id='welcome-to-wetransfer-39-s-public-api'>Welcome to WeTransfer&#39;s public API!</h1>
 <p>You can use our API to share files, links and love all over the world.</p>
 <h2 id='our-apis'>Our APIs</h2>
-<p>Depending on what you want to make we have two main tastes: <strong>transfers</strong> and <strong>boards</strong>.</p>
+<p>Depending on what you want to make we have two main flavors: <strong>transfers</strong> and <strong>boards</strong>.</p>
 
 <div class="two-col">
   <div class="col">
@@ -419,7 +419,45 @@ In all of our examples remember to replace `your_api_key` with your own API key.
 </tr>
 </tbody></table></div>
 <p>The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorise on startup.</p>
-<h1 id='transfer-api'>Transfer API</h1>
+<h1 id='file-names'>File names</h1>
+<p>Both the <a href="#transfer-api">transfer API</a> and the <a href="#board-api">board API</a> have the ability to work with files. No matter which API you&#39;re using, there are constraints that apply to file names.</p>
+<h2 id='removal-of-characters'>Removal of characters</h2>
+<p>Some characters in file names don&#39;t interact well with our systems or in some cases with the systems of the receiver. Therefore we will remove them from the file name. This does not alter the <em>content</em> of the file, only the <em>name</em> of the file.</p>
+<h3 id='emojis'>Emojis</h3>
+<p>Emojis will be removed from a file name. That means that a file with the name <code>the-weather-is-☀️.jpg</code> will be converted into <code>the-weather-is-.jpg</code>.</p>
+<h3 id='special-file-system-characters'>Special file system characters</h3>
+<p>We remove characters that have a special meaning to file systems. Think of the <code>/</code>, <code>\</code> (forward and backward slash), and the <code>:</code> (colon) character, to name a few. A file that has these characters in its name could potentially break a file system. That means that a file with the name <code>the-weather-is-:\.jpg</code> will be converted into <code>the-weather-is-.jpg</code>.</p>
+
+<p>You can use your preferred file names, but the API strips the kind of characters listed above. That means that the upload of an affected file will succeed, but it will end up with a different name than you might expect when it reaches its destination.</p>
+<h2 id='file-names-should-have-characters'>File names should have characters</h2>
+<p>A file with an empty name is not valid. Since the API removes problematic characters, you might hit this issue for files that have a name that consists solely of emojis and special characters. No judgement on your file naming scheme, but after we strip all those characters, we expect there to be something left. If the resulting file name is empty, the API will return an error. See below for an example</p>
+
+<p>If you create a transfer for a file with an empty name, the API responds with an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">transfer.files.name</span><span class="se">\"</span><span class="s2"> is not allowed to be empty"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you create a board for a file with an empty name, the API responds with an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.name</span><span class="se">\"</span><span class="s2"> is not allowed to be empty"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='unique-names'>Unique names</h2>
+<p>Your file names should be unique within your board or transfer. If you want to store two files with the same name, we will return an error. In the API we consider file names to be case sensitive. That means that the files <code>polish.txt</code> and <code>Polish.txt</code> are treated as two different files.</p>
+
+<p>If you create a transfer with duplicate file names, the API will return an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">transfer.files</span><span class="se">\"</span><span class="s2"> position 1 contains a duplicate value"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you create a board with duplicate file names, the API will return an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files</span><span class="se">\"</span><span class="s2"> position 1 contains a duplicate value"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='transfer-api'>Transfer API</h1>
 <p>The Transfer API is classic WeTransfer. You might know it well (or you&#39;re about to). Use it to upload files, get the link and share magic. We&#39;ve been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12" target="blank">macOS app</a> and our <a href="https://we.tl/wtclient" target="_blank">Command Line Client</a> and now we&#39;re opening it up to you and all your users.</p>
 
 <p>Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you&#39;ll need to store the transfer link somewhere - just like a web link transfer, there&#39;s no way to get the link back if it gets misplaced.</p>
@@ -780,7 +818,7 @@ In all of our examples remember to replace `your_api_key` with your own API key.
   </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h5 id='417'>417</h5>
-<p>If you try to finalise a file, but didn&#39;t actually upload all chunks it will respond with something like this:</p>
+<p>If you try to finalize a file, but didn&#39;t actually upload all chunks it will respond with something like this:</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chunks 1 are still missing"</span><span class="w">
@@ -1677,6 +1715,20 @@ The `url` field is where you get the link you will need to access the transfer!
                   </li>
                   <li>
                     <a href="#send-request" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#file-names" class="toc-h1 toc-link" data-title="file-names">File names</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#removal-of-characters" class="toc-h2 toc-link" data-title="removal-of-characters">Removal of characters</a>
+                  </li>
+                  <li>
+                    <a href="#file-names-should-have-characters" class="toc-h2 toc-link" data-title="file-names-should-have-characters">File names should have characters</a>
+                  </li>
+                  <li>
+                    <a href="#unique-names" class="toc-h2 toc-link" data-title="unique-names">Unique names</a>
                   </li>
               </ul>
           </li>
