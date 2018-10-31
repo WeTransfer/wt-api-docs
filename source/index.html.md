@@ -11,6 +11,7 @@ search: false
 includes:
  - sdks
  - authorization
+ - file-names
  - transfer-api
  - board-api
  - errors
