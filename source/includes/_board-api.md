@@ -94,7 +94,7 @@ curl -i -X POST "https://dev.wetransfer.com/v2/boards/{board_id}/links" \
 ```
 
 ```javascript
-const linkItems = await apiClient.board.addLinks(board, [{
+const linkItems = await wtClient.board.addLinks(board, [{
   url: 'https://wetransfer.com/'
 }]);
 ```
@@ -156,7 +156,7 @@ curl -i -X POST "https://dev.wetransfer.com/v2/boards/{board_id}/files" \
 ```
 
 ```javascript
-const fileItems = await apiClient.board.addFiles(board, [{
+const fileItems = await wtClient.board.addFiles(board, [{
   name: 'kittie.gif',
   size: 1024
 }]);
@@ -232,16 +232,13 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/
 ```
 
 ```javascript
-const file = fileItems.files[0];
+const file = fileItems[0];
 
 for (
   let partNumber = 0;
   partNumber < file.multipart.part_numbers;
   partNumber++
 ) {
-  const chunkStart = partNumber * file.multipart.chunk_size;
-  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
-
   // Get the upload url for the chunk we want to upload
   const uploadURL = await wtClient.board.getFileUploadURL(
     board.id,
@@ -304,9 +301,10 @@ curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
 ```
 
 ```javascript
+const axios = require('axios');
 const fs = require('fs');
 
-const file = fileItems.files[0];
+const file = fileItems[0];
 const fileContent = fs.readFileSync('/path/to/file');
 
 for (
@@ -319,9 +317,10 @@ for (
 
   // Get the upload url for the chunk we want to upload
   const uploadURL = await wtClient.board.getFileUploadURL(
-    transfer.id,
+    board.id,
     file.id,
-    partNumber + 1
+    partNumber + 1,
+    file.multipart.id
   );
 
   // Use whichever JavaScript library you prefer to upload the chunk:

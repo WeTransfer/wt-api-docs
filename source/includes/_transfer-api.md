@@ -151,9 +151,6 @@ for (
   partNumber < file.multipart.part_numbers;
   partNumber++
 ) {
-  const chunkStart = partNumber * file.multipart.chunk_size;
-  const chunkEnd = (partNumber + 1) * file.multipart.chunk_size;
-
   // Get the upload url for the chunk we want to upload
   const uploadURL = await wtClient.transfer.getFileUploadURL(
     transfer.id,
@@ -238,7 +235,7 @@ curl -i -T "./path/to/big-bobis.jpg" "https://signed-s3-upload-url"
 ```
 
 ```javascript
-// Use your favorite JS
+const axios = require('axios');
 const fs = require('fs');
 
 const file = transfer.files[0];
