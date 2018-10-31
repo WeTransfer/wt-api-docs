@@ -232,8 +232,6 @@
   </div>
 </div>
 <h1 id='sdks'>SDKs</h1><h2 id='v2-and-v1-compatible-sdks'>V2 and V1 Compatible SDKs</h2>
-<p>These SDKs are or soon will be compatible with V1 and V2 of the WeTransfer API. Feel free to file issues or PRs to help them along! :)</p>
-
 <section class="sdks">
   <article class="sdk sdk-node">
     <img src="images/sdks/node-js-df9dffeb.svg" class="sdk__logo">
@@ -251,7 +249,7 @@
     </div>
     <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="_blank">View on GitHub</a>
   </article>
-  <article class="sdk sdk-swift coming-soon">
+  <article class="sdk sdk-swift">
     <img src="images/sdks/swift-b38afa16.svg" class="sdk__logo">
     <div class="info">
       <h4 class="sdk__title">Swift</h4>
@@ -277,7 +275,7 @@
   </article>
 </section>
 <h2 id='v1-compatible-sdks'>V1 compatible SDKs</h2>
-<p>These SDKs are <em>only</em> compatible with V1 of the SDK.</p>
+<p>These SDKs are <strong>only</strong> compatible with V1 of the API. As they are entirely community-created, feel free to lend a hand and help them become compatible with <strong>V2</strong> of the WeTransfer API as well!</p>
 
 <section class="sdks">
   <article class="sdk sdk-php">
@@ -306,7 +304,7 @@
   </article>
 </section>
 
-<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and hopefully we can make that happen!</aside>
+<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and we will make it happen!</aside>
 <h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
 <p>To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a github account to login. Once you&#39;ve done so make sure you&#39;re on the
 dashboard page, and select &quot;Create new application&quot; to start generating an API key.</p>
@@ -604,7 +602,7 @@ In all of our examples remember to replace `your_api_key` with your own API key.
 </code></pre>
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
-<p>Transfer chunks must be 5 megabytes in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a 400 Bad Request error when you finalise the file.</p>
+<p>Transfer chunks must be 5 megabytes (or more specifically: 5242880 bytes) in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a <code>400 Bad Request</code> error when you finalize the file.</p>
 <h4 id='headers-2'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
 <th>type</th>
@@ -866,8 +864,71 @@ The `url` field is where you get the link you will need to access the transfer!
 <h5 id='400-bad-request'>400 (Bad Request)</h5>
 <p>This is returned if the transfer can no longer be written to, or is it ready to be downloaded.</p>
 <h5 id='403-unauthorized'>403 (Unauthorized)</h5>
-<p>When you try to finalize a transfer you don&#39;t have access to.</p>
-<h1 id='board-api'>Board API</h1>
+<p>When you try to access a transfer you don&#39;t have access to.</p>
+
+<h2 id="retrieve-transfer-information"class="call">Retrieve transfer information</h2>
+
+<p>Once you&#39;re done, you might want to know about your transfer and all of its files. You can use your <code>transfer_id</code> and this endpoint to retrieve that information.</p>
+
+<h3 id="get-transfer" class="call"><span>GET</span> /transfers/{transfer_id}</h3>
+<pre class="highlight shell tab-shell"><code>curl -iX GET <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><h4 id='headers-5'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table></div><h4 id='parameters-5'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>transfer_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The ID of the transfer you&#39;ve finalized</td>
+</tr>
+</tbody></table></div><h4 id='responses-3'>Responses</h4><h5 id='200-ok-4'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My very first transfer!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"downloadable"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/t-ABcdEFgHi12"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"another-random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='404-not-found-2'>404 (Not Found)</h5>
+<p>When you try to get information from a transfer we cannot find, or that you don&#39;t have access to, we will respond with <code>404 Not Found</code>.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Couldn't find Transfer"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"success"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='board-api'>Board API</h1>
 <p>The Board API is the latest addition to our Public API. It was originally built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8" target="_blank">iOS</a> and , <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal" target="_blank">Android</a> apps in mind, but it&#39;s also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too). It supports both files and links. Boards can be changed - if you hold on to the board&#39;s public ID you are able to add and remove items from a board as long as it is live.</p>
 
 <p>Note that boards are &quot;live&quot; indefinitely, so long as they are being viewed. If a board is not accessed for 90 days it is deleted!</p>
@@ -1636,6 +1697,9 @@ The `url` field is where you get the link you will need to access the transfer!
                   </li>
                   <li>
                     <a href="#finalize-a-transfer" class="toc-h2 toc-link" data-title="finalize-a-transfer">Finalize a transfer</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-transfer-information" class="toc-h2 toc-link" data-title="retrieve-transfer-information">Retrieve transfer information</a>
                   </li>
               </ul>
           </li>
