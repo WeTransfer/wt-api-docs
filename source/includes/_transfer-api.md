@@ -290,17 +290,32 @@ for (
 ```
 
 ```swift
-// Either use the transfer object from the `createTransfer` call
-// or to skip the transfer creation step, use the single method
-// `WeTransfer.uploadTransfer(saying message: containing files:)`
+// To immediately create a transfer and upload its files
+let fileURLs: [URL] = [..] // URLs pointing to local files
+WeTransfer.uploadTransfer(saying: 'My very first transfer!', containing: fileURLS) { state in
+    switch state {
+    case .created(let transfer):
+        // Transfer created on the server
+    case .uploading(let progress):
+        // Use the progress object to track the total file upload progress
+    case .completed:
+        // Transfer is complete
+    case .failed(let error):
+        // Creating transfer or uploading files failed
+    }
+}
+
+// Or use the transfer object from the `createTransfer` call
 WeTransfer.upload(transfer) { state in
     switch state {
     case .uploading(let progress):
-        // Use the progress object to track progress
+        // Use the progress object to track the total file upload progress
     case .completed:
         // Transfer is complete
     case .failed(let error):
         // Uploading transfer failed
+    default:
+        break
     }
 }
 ```

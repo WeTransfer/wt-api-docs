@@ -62,7 +62,7 @@ response = faraday.post(
 
 ```swift
 // The client is configured with your private API key
-// The SDK performs the authorize request once, right before the first other request
+// The SDK performs the authorize request once, right before the actual transfer or board creation request
 WeTransfer.configure(with: WeTransfer.Configuration(apiKey: "YOUR PRIVATE API KEY GOES HERE"))
 ```
 

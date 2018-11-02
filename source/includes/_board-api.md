@@ -48,6 +48,7 @@ puts "The board can be viewed on #{board.url}"
 ```swift
 // This does not create the board server-side, yet. The request is performed
 // when files are added to the board for the first time
+// (adding links is currently unsupported)
 let board = Board(name: "Little kittens", description: nil)
 ```
 
@@ -110,7 +111,7 @@ const linkItems = await apiClient.board.addLinks(board, [{
 ```
 
 ```Swift
-// This functionality is currently not enabled in the SDK.
+// Adding links is currently not supported in the SDK but will be added later
 ```
 
 <h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
@@ -177,6 +178,8 @@ const fileItems = await apiClient.board.addFiles(board, [{
 ```
 
 ```swift
+let board = Board(name: "Little kittens", discription: nil)
+
 let fileURLs: [URL] = [..] // URLs pointing to local files
 let files: [File]
 do {
@@ -368,17 +371,32 @@ for (
 ```
 
 ```swift
-// Either use a board object with files added to it, or to skip
-// the creation and file adding steps, use the single method
-// `WeTransfer.uploadBoard(named: description: containing:)`
+// To immediately create a board and upload files
+let fileURLs: [URL] = [..] // URLs pointing to local files
+WeTransfer.uploadBoard(named: "Little Kittens", description: nil, containing: fileURLs) { state in
+    switch state {
+      case .created(let board):
+          // Board created, public URL available
+      case .uploading(let progress)
+          // Use the progress object to track the total file upload progress
+      case .completed:
+          // All files in board have completed uploading
+      case .failed(let error):
+          // Either creating the board or uploading files has failed
+    }
+}
+
+// Or use an existing board with files added to it that aren't yet uploaded
 WeTransfer.upload(board) { state in
     switch state {
     case .uploading(let progress):
-        // Use the progress object to track progress
+        // Use the progress object to track the total file upload progress
     case .completed:
         // File upload is complete
     case .failed(let error):
         // Uploading files failed
+    default:
+        break
     }
 }
 ```
@@ -436,7 +454,7 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 ```
 
 ```Swift
-// This functionality is currently not enabled in the SDK.
+// Retrieving board information is currently not supported in the SDK but will be added later
 ```
 
 #### Headers
