@@ -1,10 +1,10 @@
 # Authorization
 
 ### API keys - where and how
-To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a github account to login. Once you've done so make sure you're on the
+To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Gmail account to login. Once you've done so make sure you're on the
 dashboard page, and select "Create new application" to start generating an API key.
 
-Once you have a key or keys, please make sure that you keep them in a secret place, and do not share it on Github, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
+Once you have a key (or multiple keys), please make sure that you keep them in a secret place, and do not share it on GitHub, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
 
 <aside class="notice">
 In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every POST and PUT request, otherwise you will receive an "Unsupported Content-Type" error.
@@ -14,7 +14,7 @@ When you or a user starts your app / script / etc, it/they will need to authoriz
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
-Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <em>other than the authorize request</em>. You may want to submit an authorisation request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems.
+Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests **other than the authorize request**. You may want to submit an authorization request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems.
 
 These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers. If you do not include the identifier, anyone using your application can potentially access any other boards created by your application.
 
@@ -75,7 +75,9 @@ response = faraday.post(
 
 #### Response
 
-If everything worked out, your response has a status code of `200` , and the body looks like this:
+##### 200 (OK)
+
+If everything worked out, the body looks like this:
 
 ```json
 {
@@ -84,20 +86,14 @@ If everything worked out, your response has a status code of `200` , and the bod
 }
 ```
 
-If you send an API key that is invalid, the response will have a status code of `403`, and a body that looks like this:
+##### 403 (Forbidden)
+
+If you send an API key that is invalid, or you don't send an API key at all, the response will have a status code of `403`, and a body that looks like this:
 
 ```json
 {
   "success": false,
-  "message": "Forbidden: invalid API Key"
-}
-```
-
-In case you send data that the server cannot handle (like an empty string for the API key) the response of will have a status code of `401`, and a body as follows:
-
-```json
-{
-  "message": "Unauthorized"
+  "message": "Forbidden: invalid API Key. See https://developers.wetransfer.com/documentation"
 }
 ```
 
@@ -105,5 +101,7 @@ In case you send data that the server cannot handle (like an empty string for th
 | --------- | ------- | ---------------------------------------------------------- |
 | `success` | Boolean | Successful request, or not.                                |
 | `token`   | String  | A JWT token valid for one year, if authorization succeeded |
+| `message` | String  | An explaining what went wrong, and where to look for help  |
 
-The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorise on startup.
+The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorize on startup.
+The (optional) `user_identifier` attribute is very well suited to create different tokens for different clients, using the same API key.
