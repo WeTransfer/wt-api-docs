@@ -48,7 +48,7 @@ puts "The board can be viewed on #{board.url}"
 ```swift
 // This does not create the board server-side, yet. The request is performed
 // when files are added to the board for the first time
-// (adding links is currently unsupported)
+// (adding links will be supported in the SDK version 2.1)
 let board = Board(name: "Little kittens", description: nil)
 ```
 
@@ -111,7 +111,7 @@ const linkItems = await apiClient.board.addLinks(board, [{
 ```
 
 ```Swift
-// Adding links is currently not supported in the SDK but will be added later
+// Adding links is currently not supported in the SDK but will be added in the SDK version 2.1
 ```
 
 <h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
@@ -454,7 +454,7 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 ```
 
 ```Swift
-// Retrieving board information is currently not supported in the SDK but will be added later
+// Retrieving board information is currently not supported in the SDK but will be added in the SDK version 2.1
 ```
 
 #### Headers
