@@ -1,6 +1,7 @@
 # Authorization
 
 ### API keys - where and how
+
 To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Gmail account to login. Once you've done so make sure you're on the
 dashboard page, and select "Create new application" to start generating an API key.
 

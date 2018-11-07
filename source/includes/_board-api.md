@@ -60,9 +60,13 @@ puts "The board can be viewed on #{board.url}"
 | name          | type   | required | description                    |
 | ------------- | ------ | -------- | ------------------------------ |
 | `name`        | String | Yes      | A name or title for your board |
-| `description` | String | No       | A description, if needed       |
+| `description` | String | No       | A description of your board, if you want it |
 
 #### Response
+
+##### 200 (OK)
+
+If everything goes fine, the API responds with a status code of `200`, and a body that looks like this:
 
 ```json
 {
@@ -78,6 +82,26 @@ puts "The board can be viewed on #{board.url}"
 <aside class="warning">**Note**: The `url` in the response is the URL you will use to access the board you created. It is not returned at the end of the upload flow, rather only right now when you create the (empty) board.</aside>
 
 Later you'll want to interact with your board. Add files and links to it. In order to do that, make sure to note the value of the `id` property.
+
+##### 400 (Bad Request)
+
+If you forget to set a name for the board, the API will respond with an HTTP status code of 400, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "\"board.name\" is required. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If you don't send any request body (that holds a board) the API will respond with an HTTP status code of 400, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "\"board\" must be an object. See https://developers.wetransfer.com/documentation"
+}
+```
 
 ## Add links to a board
 
@@ -115,18 +139,22 @@ const linkItems = await wtClient.board.addLinks(board, [{
 
 #### Request Body
 
-| type   | required | description                                                    |
-| ------ | -------- | -------------------------------------------------------------- |
-| Array  | Yes      | A list of link objects(see below) to send to an existing board |
+| type   | required | description |
+| ------ | -------- | ----------- |
+| Array  | Yes      | A list of link objects(see below) to add to an existing board |
 
 #### Link object
 
-| name    | type   | required | description                                                                      |
-| ------- | ------ | -------- | -------------------------------------------------------------------------------- |
+| name    | type   | required | description |
+| ------- | ------ | -------- | ----------- |
 | `url`   | String | Yes      | The complete URL of the link. _Must_ be less than 2000 characters!               |
 | `title` | String | No       | The title of the page, defaults to the url. _Must_ be less than 2980 characters! |
 
 #### Response
+
+##### 200 (OK)
+
+If you add a link and a board, and everything works fine, the API responds with an HTTP status code of `200`, and a body as below.
 
 ```json
 [
@@ -139,6 +167,57 @@ const linkItems = await wtClient.board.addLinks(board, [{
     "type": "link"
   }
 ]
+```
+
+##### 400 (Bad Request)
+
+If you don't send any request body (that holds the link) the API will respond with an HTTP status code of 400, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "\"board.links\" must be an array. See https://developers.wetransfer.com/documentation"
+}
+```
+
+##### 400 (Bad Request)
+
+If the `url` of the link is longer that 2000 characters, the API will respond with an HTTP status code of 400, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "\"board.links.url\" length must be less than or equal to 2000 characters long. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If the `title` of the link is longer that 2980 characters, the API will respond with an HTTP status code of 400, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "\"board.links.title\" length must be less than or equal to 2980 characters long. See https://developers.wetransfer.com/documentation"
+}
+```
+
+##### 404 (Not Found)
+
+If you try to add links to a board that we cannot find, or that doesn't belong to you, the API will respond with an HTTP status code of 404, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message":"This board does not exist. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If you forget the fill the board_id in the request, the API will respond with an HTTP status code of 404, and a body that looks like this:
+
+```json
+{
+  "success": false,
+  "message": "use correct endpoint. See https://developers.wetransfer.com/documentation"
+}
 ```
 
 ## Add files to a board
@@ -191,6 +270,10 @@ const fileItems = await wtClient.board.addFiles(board, [{
 
 #### Response
 
+##### 200 (OK)
+
+If you add a files collection with a file object that has a valid name and a size, the API responds with an HTTP status code of `200`, and a body as below.
+
 ```json
 [
   {
@@ -207,13 +290,69 @@ const fileItems = await wtClient.board.addFiles(board, [{
 ]
 ```
 
-The endpoint will return an object for each file you want to add to the board. The data returned is helpful in the next step when we want to request a place where we can upload our file.
+##### 400 (Bad Request)
+
+In case you forget to send the body that holds the files list, the API responds with an HTTP status code of `400`, and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"board.files\" must be an array. See https://developers.wetransfer.com/documentation"
+}
+```
+
+In case you send a file with a **size of `0`** (zero), the API responds with an HTTP status code of `400`, and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"board.files.size\" must be greater than 1. See https://developers.wetransfer.com/documentation"
+}
+```
+
+In case you send a file with an **empty name**, the API responds with an HTTP status code of `400`, and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"board.files.name\" is not allowed to be empty. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If case you forget to send the file **name** property key and value altogether, the API responds with an HTTP status code of `400`, and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"board.files.name\" is required. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If case you forget to send the file **size** property key and value altogether, the API responds with an HTTP status code of `400`, and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"board.files.size\" is required. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If case you use a file name that is longer than 255 characters, the API responds with an HTTP status code of `400`, and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"board.files.name\" length must be less than or equal to 255 characters long. See https://developers.wetransfer.com/documentation"
+}
+```
+
+In case everything worked out, this endpoint will return an object for each file you want to add to the board. The data returned is helpful in the next step when we want to request a place where we can upload our file.
 
 The important parts in the response are the `id` of the file, the `id` of the multipart object, together with its `part_numbers`.
 
 **Important**
 
-Board chunks _must_ be 6 megabytes (or more precisely 6291456 bytes) in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
+Files on a board _must_ have a chunks size of 6 megabytes (or more precisely 6291456 bytes), except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 
@@ -282,13 +421,24 @@ for (
 
 The response body contains the pre-signed S3 upload `url`. You will use that in the next step, when you upload the contents.
 
+##### 400 (Bad request)
+
+If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
+
 ##### 401 (Unauthorized)
 
 If you try to request an upload URL for a file that is not in one of your boards, the response will have a status code of 401 UNAUTHORIZED.
 
-##### 400 (Bad request)
+##### 404 (Not Found)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
+If you try to request an upload URL for a file, but you provide a wrong file id, the response will have a status code of 404 and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "File not found. See https://developers.wetransfer.com/documentation"
+}
+```
 
 <h2 id="board-file-upload">File Upload</h2>
 
@@ -373,11 +523,46 @@ await wtClient.board.completeFileUpload(board, file);
 | `board_id` | String | Yes      | The public ID of the board where you added the files            |
 | `file_id`  | String | Yes      | The public ID of the file to upload, returned when adding items |
 
+#### Responses
+
+##### 200 (OK)
+
+If you've uploaded all chunks of the file to their respective S3 buckets, using this endpoint will return an HTTP response with a status code of `200` and a body as below.
+
+```json
+{
+  "success": true,
+  "message": "File is marked as complete."
+}
+```
+
+##### 400 (Bad Request)
+
+If you call this endpoint before you upload all chunks to their respective S3 buckets, the API will return an HTTP response with a status code of `400` and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "expected at least 1 part. See https://developers.wetransfer.com/documentation"
+}
+```
+
+##### 404 (Not Found)
+
+If you call this endpoint but use the wrong `file_id` in the URL, the API will return an HTTP response with a status code of `404` and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "File not found. See https://developers.wetransfer.com/documentation"
+}
+```
+
 <h2 id="retrieve-boards-information">Retrieve a board's information</h2>
 
 <h3 id="get-board" class="call"><span>GET</span> /boards/{board_id}</h3>
 
-Retrieve information about a previously-sent board.
+Retrieve information about an existing board.
 
 ```shell
 curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
@@ -434,11 +619,11 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 
 ##### 403 (Forbidden)
 
-If you try to request a board that is not yours, we will respond with 403 FORBIDDEN.
+If you try to request info from a board that is not yours, the API will respond with an HTTP status code `403` and a body as below.
 
 ```json
 {
-  "success":false,
-  "message":"This board does not belong to you"
+  "success": false,
+  "message": "You'\''re not a member of this board (123456). See https://developers.wetransfer.com/documentation"
 }
 ```
