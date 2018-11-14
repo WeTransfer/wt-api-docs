@@ -91,6 +91,9 @@ If you successfully authenticate, this endpoint will return an HTTP response wit
 }
 ```
 
+The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorize on startup.
+The (optional) `user_identifier` attribute is very well suited to create different tokens for different clients, using the same API key.
+
 ##### 403 (Forbidden)
 
 If you send an API key that is invalid, or you don't send an API key at all, this endpoint will return an HTTP response with a status code of `403` and a body as below.
@@ -101,12 +104,3 @@ If you send an API key that is invalid, or you don't send an API key at all, thi
   "message": "Forbidden: invalid API Key. See https://developers.wetransfer.com/documentation"
 }
 ```
-
-| name      | type    | description |
-| --------- | ------- | ----------- |
-| `success` | Boolean | Successful request, or not. |
-| `token`   | String  | A JWT token valid for one year, if authorization succeeded |
-| `message` | String  | An explanation what went wrong, and where to look for help |
-
-The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorize on startup.
-The (optional) `user_identifier` attribute is very well suited to create different tokens for different clients, using the same API key.

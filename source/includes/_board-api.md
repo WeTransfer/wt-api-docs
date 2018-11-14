@@ -288,6 +288,10 @@ If you add one file (or many files) that have a valid name and a size, this endp
 ]
 ```
 
+After this successful request, this endpoint will return an JSON holding an object for each file you want to add to the board. That object is helpful in the next step when we want to request a place where we can upload our file.
+
+The important parts in the response are the `id` of the file, the `id` of the multipart object, together with its `part_numbers`.
+
 ##### 400 (Bad Request)
 
 If the request does not have a properly formatted file list in the body of the request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
@@ -343,14 +347,6 @@ If case you use a file name that is longer than 255 characters, this endpoint wi
   "message": "\"board.files.name\" length must be less than or equal to 255 characters long. See https://developers.wetransfer.com/documentation"
 }
 ```
-
-After a successful request (see the 200 (OK) paragraph above), this endpoint will return an JSON holding an object for each file you want to add to the board. That object is helpful in the next step when we want to request a place where we can upload our file.
-
-The important parts in the response are the `id` of the file, the `id` of the multipart object, together with its `part_numbers`.
-
-**Important**
-
-Files on a board _must_ have a chunk size of 6 megabytes (or more precisely 6291456 bytes), except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 
@@ -419,6 +415,10 @@ If you successfully request an upload-url, this endpoint will return an HTTP res
   "url": "https://a-very-long-pre-signed-s3-put-url"
 }
 ```
+
+**Important**
+
+Files on a board _must_ have a chunk size of 6 megabytes (or more precisely 6291456 bytes), except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
 
 The response body contains the pre-signed S3 upload `url`. You will use that in the next step when you upload the contents.
 
