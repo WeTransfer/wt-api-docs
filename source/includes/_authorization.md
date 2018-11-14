@@ -2,10 +2,10 @@
 
 ### API keys - where and how
 
-To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Gmail account to login. Once you've done so make sure you're on the
+To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Google account to login. Once you've done so make sure you're on the
 dashboard page, and select "Create new application" to start generating an API key.
 
-Once you have a key (or multiple keys), please make sure that you keep them in a secret place, and do not share it on GitHub, other version control systems, or in client side code. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
+Once you have a key (or multiple keys), please make sure that you keep them in a secret place, and do not share them. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select "Delete" under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.
 
 <aside class="notice">
 In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every POST and PUT request, otherwise you will receive an "Unsupported Content-Type" error.
@@ -17,7 +17,11 @@ When you or a user starts your app / script / etc, it/they will need to authoriz
 
 Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests **other than the authorize request**. You may want to submit an authorization request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems.
 
-These JWTs can be used to retrieve boards, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers. If you do not include the identifier, anyone using your application can potentially access any other boards created by your application.
+These JWTs can be used to interact with the API, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob's transfers. If you do not include the identifier, anyone using your application can potentially access any other transfers and boards created by your application.
+
+Where the API key can be seen as the key to the front door of a house, the `user_identifier` can be used to create an isolated room within that house.
+
+If you don't use a user identifier when authenticating, you can interact with all boards and transfers you create for your API key. On the other hand, if Alice and Bob are two users using the same API key, but using different `user_identifier`s, they can interact with their *own* boards and transfers only, *not* with the other boards and transfers created with the same API key, for other users.
 
 To retrieve a JWT, send a request including your API key to the following endpoint:
 
@@ -78,7 +82,7 @@ response = faraday.post(
 
 ##### 200 (OK)
 
-If everything worked out, the body looks like this:
+If you successfully authenticate, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ```json
 {
@@ -89,7 +93,7 @@ If everything worked out, the body looks like this:
 
 ##### 403 (Forbidden)
 
-If you send an API key that is invalid, or you don't send an API key at all, the response will have a status code of `403`, and a body that looks like this:
+If you send an API key that is invalid, or you don't send an API key at all, this endpoint will return an HTTP response with a status code of `403` and a body as below.
 
 ```json
 {
@@ -98,11 +102,11 @@ If you send an API key that is invalid, or you don't send an API key at all, the
 }
 ```
 
-| name      | type    | description                                                |
-| --------- | ------- | ---------------------------------------------------------- |
-| `success` | Boolean | Successful request, or not.                                |
+| name      | type    | description |
+| --------- | ------- | ----------- |
+| `success` | Boolean | Successful request, or not. |
 | `token`   | String  | A JWT token valid for one year, if authorization succeeded |
-| `message` | String  | An explaining what went wrong, and where to look for help  |
+| `message` | String  | An explanation what went wrong, and where to look for help |
 
 The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorize on startup.
 The (optional) `user_identifier` attribute is very well suited to create different tokens for different clients, using the same API key.

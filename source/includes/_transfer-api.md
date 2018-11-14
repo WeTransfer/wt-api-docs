@@ -98,7 +98,7 @@ puts "The transfer can be viewed on #{transfer.url}"
 
 ##### 201 (Created)
 
-If your request to create a transfer worked out, , the API will return an HTTP response with a status code of `200` and a body as below:
+After a successful request where a transfer has been created, this endpoint will return an HTTP response with a status code of `201` and a body as below.
 
 ```json
 {
@@ -134,7 +134,7 @@ If your request to create a transfer worked out, , the API will return an HTTP r
 
 ##### 400 (Bad Request)
 
-If the body in the request to this endpoint is not valid json, the API will return an HTTP response with a status code of `400` and a body as below:
+If the body in the request to this endpoint is not valid json, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -143,10 +143,9 @@ If the body in the request to this endpoint is not valid json, the API will retu
 }
 ```
 
-It will list your actual mistake in the JSON, the above result is just a response to a json string that starts with an exclamation point.
+It will list the actual error in the JSON, the above result is just a response to a json string that starts with an exclamation point.
 
-If you set the message for your transfer to something else than a string, the API will return an HTTP response with a status code of `400` and a body as below:
-
+If you set the message for your transfer to something other than a string, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -155,7 +154,7 @@ If you set the message for your transfer to something else than a string, the AP
 }
 ```
 
-If you forget to send the `files` in the JSON of your request, the API will return an HTTP response with a status code of `400` and a body as below:
+If you forget to send the `files` in the JSON of your request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -221,7 +220,7 @@ Transfer chunks must be 5 megabytes (or more specifically: 5242880 bytes) in siz
 | `file_id`     | String | Yes      | The public ID of the file to upload, returned the transfer was created                                                |
 | `part_number` | Number | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart.part_numbers` response |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
@@ -236,7 +235,7 @@ The Response Body contains the pre-signed S3 upload `url`.
 
 ##### 404 (Not found)
 
-If you try to request an upload URL for a file that is not in the transfers, the API will respond with 404 Not found.
+If you try to request an upload URL for a file that is not in the transfers,, this endpoint will return an HTTP response with a status code of `404` and a body as below.
 
 ```json
 {
@@ -247,7 +246,7 @@ If you try to request an upload URL for a file that is not in the transfers, the
 
 ##### 417 (Expectation Failed)
 
-If you request to upload part `0`, our API will tell you that our parts are numbered for humans; we start counting at part 1:
+The API starts counting chunks from number `1`, not `0`. If you request to upload part `0`, this endpoint will return an HTTP response with a status code of `417` and a body as below.
 
 ```json
 {
@@ -362,7 +361,7 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 
 ##### 417
 
-If you try to finalize a file, but didn't actually upload all chunks it will respond with something like this:
+If you try to finalize a file, but didn't actually upload all chunks, this endpoint will return an HTTP response with a status code of `417` and a body as below.
 
 ```json
 {
@@ -395,7 +394,7 @@ console.log(finalTransfer.url);
 # This functionality is currently not enabled in the SDK.
 ```
 
-<h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
+<h3 id="transfer-finalize" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
 
 #### Headers
 
@@ -411,7 +410,7 @@ console.log(finalTransfer.url);
 | ------------- | ------ | -------- | --------------------------------------------------------------- |
 | `transfer_id` | String | Yes      | The public ID of the transfer where you added the files         |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
@@ -463,10 +462,10 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 #### Parameters
 
 | name | type | required | description |
-| --- | --- | --- | --- |
+| ---- | ---- | -------- | ----------- |
 | `transfer_id` | String | Yes | The ID of the transfer you've finalized |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
@@ -493,7 +492,7 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 
 ##### 404 (Not Found)
 
-When you try to get information from a transfer we cannot find, or that you don't have access to, we will respond with `404 Not Found`.
+When you try to get information from a transfer we cannot find, or that you don't have access to, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {

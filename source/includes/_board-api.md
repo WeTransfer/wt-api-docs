@@ -66,7 +66,7 @@ puts "The board can be viewed on #{board.url}"
 
 ##### 200 (OK)
 
-If everything goes fine, the API responds with a status code of `200`, and a body that looks like this:
+If everything goes fine, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ```json
 {
@@ -85,7 +85,7 @@ Later you'll want to interact with your board. Add files and links to it. In ord
 
 ##### 400 (Bad Request)
 
-If you forget to set a name for the board, the API will respond with an HTTP status code of 400, and a body that looks like this:
+If you forget to set a name for the board, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -94,7 +94,7 @@ If you forget to set a name for the board, the API will respond with an HTTP sta
 }
 ```
 
-If you don't send any request body (that holds a board) the API will respond with an HTTP status code of 400, and a body that looks like this:
+If you don't send any request body (that holds a board), this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -154,7 +154,7 @@ const linkItems = await wtClient.board.addLinks(board, [{
 
 ##### 200 (OK)
 
-If you add a link and a board, and everything works fine, the API responds with an HTTP status code of `200`, and a body as below.
+If you successfully add a link and a board, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ```json
 [
@@ -171,7 +171,7 @@ If you add a link and a board, and everything works fine, the API responds with 
 
 ##### 400 (Bad Request)
 
-If you don't send any request body (that holds the link) the API will respond with an HTTP status code of 400, and a body that looks like this:
+If you don't send any request body (that holds the link), this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -180,9 +180,7 @@ If you don't send any request body (that holds the link) the API will respond wi
 }
 ```
 
-##### 400 (Bad Request)
-
-If the `url` of the link is longer that 2000 characters, the API will respond with an HTTP status code of 400, and a body that looks like this:
+If the `url` of the link is longer that 2000 characters, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -191,7 +189,7 @@ If the `url` of the link is longer that 2000 characters, the API will respond wi
 }
 ```
 
-If the `title` of the link is longer that 2980 characters, the API will respond with an HTTP status code of 400, and a body that looks like this:
+If the `title` of the link is longer that 2980 characters, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -202,7 +200,7 @@ If the `title` of the link is longer that 2980 characters, the API will respond 
 
 ##### 404 (Not Found)
 
-If you try to add links to a board that we cannot find, or that doesn't belong to you, the API will respond with an HTTP status code of 404, and a body that looks like this:
+If you try to add links to a board that we cannot find, or that doesn't belong to you, this endpoint will return an HTTP response with a status code of `404` and a body as below.
 
 ```json
 {
@@ -211,7 +209,7 @@ If you try to add links to a board that we cannot find, or that doesn't belong t
 }
 ```
 
-If you forget the fill the board_id in the request, the API will respond with an HTTP status code of 404, and a body that looks like this:
+If you forget the fill the board_id in the request, this endpoint will return an HTTP response with a status code of `404` and a body as below.
 
 ```json
 {
@@ -263,16 +261,16 @@ const fileItems = await wtClient.board.addFiles(board, [{
 
 #### File object
 
-| name   | type   | required | description                                                                                               |
-| ------ | ------ | -------- | --------------------------------------------------------------------------------------------------------- |
-| `name` | String | Yes      | The name of the file you want to show on items list. _Must_ be less than 255 characters.                  |
-| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down!                                      |
+| name   | type   | required | description |
+| ------ | ------ | -------- | ----------- |
+| `name` | String | Yes      | The name of the file you want to show on items list. _Must_ be less than 255 characters. |
+| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down! |
 
 #### Response
 
 ##### 200 (OK)
 
-If you add a files collection with a file object that has a valid name and a size, the API responds with an HTTP status code of `200`, and a body as below.
+If you add one file (or many files) that have a valid name and a size, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ```json
 [
@@ -292,7 +290,7 @@ If you add a files collection with a file object that has a valid name and a siz
 
 ##### 400 (Bad Request)
 
-In case you forget to send the body that holds the files list, the API responds with an HTTP status code of `400`, and a body as below.
+If the request does not have a properly formatted file list in the body of the request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -301,7 +299,7 @@ In case you forget to send the body that holds the files list, the API responds 
 }
 ```
 
-In case you send a file with a **size of `0`** (zero), the API responds with an HTTP status code of `400`, and a body as below.
+In case you send a file with a **size of `0`** (zero), this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -310,7 +308,7 @@ In case you send a file with a **size of `0`** (zero), the API responds with an 
 }
 ```
 
-In case you send a file with an **empty name**, the API responds with an HTTP status code of `400`, and a body as below.
+In case you send a file with an **empty name**, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -319,7 +317,7 @@ In case you send a file with an **empty name**, the API responds with an HTTP st
 }
 ```
 
-If case you forget to send the file **name** property key and value altogether, the API responds with an HTTP status code of `400`, and a body as below.
+If case you forget to send the file **name** property key and value altogether, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -328,7 +326,7 @@ If case you forget to send the file **name** property key and value altogether, 
 }
 ```
 
-If case you forget to send the file **size** property key and value altogether, the API responds with an HTTP status code of `400`, and a body as below.
+If case you forget to send the file **size** property key and value altogether, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -337,7 +335,7 @@ If case you forget to send the file **size** property key and value altogether, 
 }
 ```
 
-If case you use a file name that is longer than 255 characters, the API responds with an HTTP status code of `400`, and a body as below.
+If case you use a file name that is longer than 255 characters, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -346,13 +344,13 @@ If case you use a file name that is longer than 255 characters, the API responds
 }
 ```
 
-In case everything worked out, this endpoint will return an object for each file you want to add to the board. The data returned is helpful in the next step when we want to request a place where we can upload our file.
+After a successful request (see the 200 (OK) paragraph above), this endpoint will return an JSON holding an object for each file you want to add to the board. That object is helpful in the next step when we want to request a place where we can upload our file.
 
 The important parts in the response are the `id` of the file, the `id` of the multipart object, together with its `part_numbers`.
 
 **Important**
 
-Files on a board _must_ have a chunks size of 6 megabytes (or more precisely 6291456 bytes), except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
+Files on a board _must_ have a chunk size of 6 megabytes (or more precisely 6291456 bytes), except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file. As with transfers: Do not let us down.
 
 <h2 id="board-request-upload-url">Request upload URL</h2>
 
@@ -409,29 +407,32 @@ for (
 | `part_number`         | Number | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart.part_numbers` response |
 | `multipart_upload_id` | Number | Yes      | The upload ID issued by AWS S3, which is available at `multipart.id`                                                  |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
+If you successfully request an upload-url, this endpoint will return an HTTP response with a status code of `200` and a body as below.
+
 ```json
 {
+  "success": true,
   "url": "https://a-very-long-pre-signed-s3-put-url"
 }
 ```
 
-The response body contains the pre-signed S3 upload `url`. You will use that in the next step, when you upload the contents.
+The response body contains the pre-signed S3 upload `url`. You will use that in the next step when you upload the contents.
 
 ##### 400 (Bad request)
 
-If a request is made for a part, but no `multipart_upload_id` is provided; we will respond with a 400 BAD REQUEST as all consecutive parts must be uploaded with the same `multipart_upload_id`.
+If a request is made for a part, but no `multipart_upload_id` is provided, this endpoint will return an HTTP response with a status code of `400`.
 
 ##### 401 (Unauthorized)
 
-If you try to request an upload URL for a file that is not in one of your boards, the response will have a status code of 401 UNAUTHORIZED.
+If you try to request an upload URL for a file that is not in one of your boards, this endpoint will return an HTTP response with a status code of `401`.
 
 ##### 404 (Not Found)
 
-If you try to request an upload URL for a file, but you provide a wrong file id, the response will have a status code of 404 and a body as below.
+If you try to request an upload URL for a file, but you provide an invalid file id, this endpoint will return an HTTP response with a status code of `404`.
 
 ```json
 {
@@ -523,11 +524,11 @@ await wtClient.board.completeFileUpload(board, file);
 | `board_id` | String | Yes      | The public ID of the board where you added the files            |
 | `file_id`  | String | Yes      | The public ID of the file to upload, returned when adding items |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
-If you've uploaded all chunks of the file to their respective S3 buckets, using this endpoint will return an HTTP response with a status code of `200` and a body as below.
+Assuming you've uploaded all chunks of the file to their respective locations provided by the previous request, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ```json
 {
@@ -538,7 +539,7 @@ If you've uploaded all chunks of the file to their respective S3 buckets, using 
 
 ##### 400 (Bad Request)
 
-If you call this endpoint before you upload all chunks to their respective S3 buckets, the API will return an HTTP response with a status code of `400` and a body as below.
+If you call this endpoint before you've uploaded all chunks of the file to their respective locations provided by the previous request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -549,7 +550,7 @@ If you call this endpoint before you upload all chunks to their respective S3 bu
 
 ##### 404 (Not Found)
 
-If you call this endpoint but use the wrong `file_id` in the URL, the API will return an HTTP response with a status code of `404` and a body as below.
+If you call this endpoint but use in invalid `file_id` in the URL, this endpoint will return an HTTP response with a status code of `404` and a body as below.
 
 ```json
 {
@@ -583,7 +584,9 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 | ---------- | ------ | -------- | ---------------------------------------------------- |
 | `board_id` | String | Yes      | The public ID of the board where you added the files |
 
-#### Responses
+#### Response
+
+If you request a board that is yours, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ##### 200 (OK)
 
@@ -619,7 +622,7 @@ curl -i -X GET "https://dev.wetransfer.com/v2/boards/{board_id}" \
 
 ##### 403 (Forbidden)
 
-If you try to request info from a board that is not yours, the API will respond with an HTTP status code `403` and a body as below.
+If you try to request info from a board that is not yours, this endpoint will return an HTTP response with a status code of `403` and a body as below.
 
 ```json
 {
