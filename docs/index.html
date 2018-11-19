@@ -1495,19 +1495,19 @@ The `url` field is where you get the link you will need to access the transfer!
 <td>The public ID of the file to upload, returned when adding items</td>
 </tr>
 </tbody></table></div><h4 id='response-5'>Response</h4><h5 id='200-ok-5'>200 (OK)</h5>
-<p>Assuming you&#39;ve uploaded all chunks of the file to their respective locations provided by the previous request, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<p>Assuming you&#39;ve uploaded all chunks of the file to the signed link(s) provided by the previous request, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File is marked as complete."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h5 id='400-bad-request-5'>400 (Bad Request)</h5>
-<p>If you call this endpoint before you&#39;ve uploaded all chunks of the file to their respective locations provided by the previous request, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<p>If you call this endpoint before you&#39;ve uploaded all chunks of the file to the signed link(s) provided by the previous request, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"expected at least 1 part. See https://developers.wetransfer.com/documentation"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h5 id='404-not-found-3'>404 (Not Found)</h5>
-<p>If you call this endpoint but use in invalid <code>file_id</code> in the URL, this endpoint will return an HTTP response with a status code of <code>404</code> and a body as below.</p>
+<p>If you call this endpoint but use an invalid <code>file_id</code> in the URL, this endpoint will return an HTTP response with a status code of <code>404</code> and a body as below.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File not found. See https://developers.wetransfer.com/documentation"</span><span class="w">

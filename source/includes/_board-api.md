@@ -528,7 +528,7 @@ await wtClient.board.completeFileUpload(board, file);
 
 ##### 200 (OK)
 
-Assuming you've uploaded all chunks of the file to their respective locations provided by the previous request, this endpoint will return an HTTP response with a status code of `200` and a body as below.
+Assuming you've uploaded all chunks of the file to the signed link(s) provided by the previous request, this endpoint will return an HTTP response with a status code of `200` and a body as below.
 
 ```json
 {
@@ -539,7 +539,7 @@ Assuming you've uploaded all chunks of the file to their respective locations pr
 
 ##### 400 (Bad Request)
 
-If you call this endpoint before you've uploaded all chunks of the file to their respective locations provided by the previous request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
+If you call this endpoint before you've uploaded all chunks of the file to the signed link(s) provided by the previous request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
@@ -550,7 +550,7 @@ If you call this endpoint before you've uploaded all chunks of the file to their
 
 ##### 404 (Not Found)
 
-If you call this endpoint but use in invalid `file_id` in the URL, this endpoint will return an HTTP response with a status code of `404` and a body as below.
+If you call this endpoint but use an invalid `file_id` in the URL, this endpoint will return an HTTP response with a status code of `404` and a body as below.
 
 ```json
 {
