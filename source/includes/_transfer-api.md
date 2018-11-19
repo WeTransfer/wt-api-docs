@@ -84,20 +84,25 @@ puts "The transfer can be viewed on #{transfer.url}"
 
 | name      | type        | required | description                                        |
 | --------- | ----------- | -------- | -------------------------------------------------- |
-| `message` | String      | Yes      | Something about cats or coffee, most probably      |
+| `message` | String      | No      | Something about cats or coffee, most probably. Defaults to an empty string |
 | `files`   | Array       | Yes      | A list of file objects to be added to the transfer |
 
 #### File object
 
-| name   | type   | required | description                                                          |
-| ------ | ------ | -------- | -------------------------------------------------------------------- |
-| `name` | String | Yes      | The name of the file you want to show on items list                  |
-| `size` | Number | Yes      | File size in bytes. Must be accurate. No fooling. Don't let us down! |
+| name   | type   | required | description |
+| ------ | ------ | -------- | --- |
+| `name` | String | Yes      | The name of the file you want to show on items list |
+| `size` | Number | Yes      | File size in bytes. **Must** be accurate. No fooling. Don't let us down! |
 
 #### Response
 
+##### 201 (Created)
+
+After a successful request where a transfer has been created, this endpoint will return an HTTP response with a status code of `201` and a body as below.
+
 ```json
 {
+  "success" : true,
   "message" : "My very first transfer!",
   "files" : [
     {
@@ -127,7 +132,36 @@ puts "The transfer can be viewed on #{transfer.url}"
 }
 ```
 
-Creates a new transfer with specified files.
+##### 400 (Bad Request)
+
+If the body in the request to this endpoint is not valid json, this endpoint will return an HTTP response with a status code of `400` and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "Unexpected token ! in JSON at position 0. See https://developers.wetransfer.com/documentation"
+}
+```
+
+It will list the actual error in the JSON, the above result is just a response to a json string that starts with an exclamation point.
+
+If you set the message for your transfer to something other than a string, this endpoint will return an HTTP response with a status code of `400` and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"transfer.message\" must be a string. See https://developers.wetransfer.com/documentation"
+}
+```
+
+If you forget to send the `files` in the JSON of your request, this endpoint will return an HTTP response with a status code of `400` and a body as below.
+
+```json
+{
+  "success": false,
+  "message": "\"transfer.files\" must contain at least 1 items. See https://developers.wetransfer.com/documentation"
+}
+```
 
 ## Request upload URLs
 
@@ -186,12 +220,13 @@ Transfer chunks must be 5 megabytes (or more specifically: 5242880 bytes) in siz
 | `file_id`     | String | Yes      | The public ID of the file to upload, returned the transfer was created                                                |
 | `part_number` | Number | Yes      | Which part number of the file you want to upload. It will be limited to the maximum `multipart.part_numbers` response |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
 ```json
 {
+  "success": true,
   "url": "https://presigned-s3-put-url"
 }
 ```
@@ -200,23 +235,23 @@ The Response Body contains the pre-signed S3 upload `url`.
 
 ##### 404 (Not found)
 
-If you try to request an upload URL for a file that is not in the transfers, the API will respond with 404 Not found.
+If you try to request an upload URL for a file that is not in the transfers,, this endpoint will return an HTTP response with a status code of `404` and a body as below.
 
 ```json
 {
   "success" : false,
-  "message" : "Couldn't find FileObject"
+  "message" : "Invalid transfer or file id. See https://developers.wetransfer.com/documentation"
 }
 ```
 
 ##### 417 (Expectation Failed)
 
-If you request to upload part `0`, our API will tell you that our parts are numbered for humans; we start counting at part 1:
+The API starts counting chunks from number `1`, not `0`. If you request to upload part `0`, this endpoint will return an HTTP response with a status code of `417` and a body as below.
 
 ```json
 {
   "success" : false,
-  "message" : "Chunk numbers are 1-based"
+  "message" : "Chunk numbers are 1-based. See https://developers.wetransfer.com/documentation"
 }
 ```
 
@@ -320,18 +355,18 @@ await wtClient.transfer.completeFileUpload(transfer, file);
   "retries": 0,
   "name": "big-bobis.jpg",
   "size": 195906,
-  "chunk_size": 195906
+  "chunk_size": 5242880
 }
 ```
 
 ##### 417
 
-If you try to finalize a file, but didn't actually upload all chunks it will respond with something like this:
+If you try to finalize a file, but didn't actually upload all chunks, this endpoint will return an HTTP response with a status code of `417` and a body as below.
 
 ```json
 {
   "success": false,
-  "message": "Chunks 1 are still missing"
+  "message": "Chunks 1 are still missing. See https://developers.wetransfer.com/documentation"
 }
 ```
 
@@ -359,7 +394,7 @@ console.log(finalTransfer.url);
 # This functionality is currently not enabled in the SDK.
 ```
 
-<h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
+<h3 id="transfer-finalize" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
 
 #### Headers
 
@@ -375,11 +410,11 @@ console.log(finalTransfer.url);
 | ------------- | ------ | -------- | --------------------------------------------------------------- |
 | `transfer_id` | String | Yes      | The public ID of the transfer where you added the files         |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
-If all went well, the API sends you a lot of data. One of them being the `url`. That is the thing you will use to access the files in a browser.
+If all went well, the API sends you a lot of data. One of them being the `url`. That is the thing you will use to access the transfer in a browser.
 
 ```json
 {
@@ -405,14 +440,6 @@ If all went well, the API sends you a lot of data. One of them being the `url`. 
 The `url` field is where you get the link you will need to access the transfer!
 </aside>
 
-##### 400 (Bad Request)
-
-This is returned if the transfer can no longer be written to, or is it ready to be downloaded.
-
-##### 403 (Unauthorized)
-
-When you try to access a transfer you don't have access to.
-
 <h2 id="retrieve-transfer-information"class="call">Retrieve transfer information</h2>
 
 Once you're done, you might want to know about your transfer and all of its files. You can use your `transfer_id` and this endpoint to retrieve that information.
@@ -435,10 +462,10 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 #### Parameters
 
 | name | type | required | description |
-| --- | --- | --- | --- |
+| ---- | ---- | -------- | ----------- |
 | `transfer_id` | String | Yes | The ID of the transfer you've finalized |
 
-#### Responses
+#### Response
 
 ##### 200 (OK)
 
@@ -465,11 +492,11 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 
 ##### 404 (Not Found)
 
-When you try to get information from a transfer we cannot find, or that you don't have access to, we will respond with `404 Not Found`.
+When you try to get information from a transfer we cannot find, or that you don't have access to, this endpoint will return an HTTP response with a status code of `400` and a body as below.
 
 ```json
 {
-  "message" : "Couldn't find Transfer",
-  "success" : false
+  "success" : false,
+  "message": "Couldn't find Transfer. See https://developers.wetransfer.com/documentation"
 }
 ```
