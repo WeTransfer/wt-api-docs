@@ -567,7 +567,11 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
 <p>After a successful request where a transfer has been created, this endpoint will return an HTTP response with a status code of <code>201</code> and a body as below.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"success"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"32a6ef6003f1429be0cf1674dd8fbdef20181019143517"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"My very first transfer!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"uploading"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"files"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"multipart"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -589,10 +593,7 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
       </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"e7f74773661f2be2bec90e6322864abd20181019143517"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"kitty.jpg"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"32a6ef6003f1429be0cf1674dd8fbdef20181019143517"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"uploading"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h5 id='400-bad-request'>400 (Bad Request)</h5>
 <p>If the body in the request to this endpoint is not valid json, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
@@ -884,9 +885,10 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
 <p>If all went well, the API sends you a lot of data. One of them being the <code>url</code>. That is the thing you will use to access the transfer in a browser.</p>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My first transfer!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/t-12344657"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
@@ -943,10 +945,11 @@ The `url` field is where you get the link you will need to access the transfer!
 <td>The ID of the transfer you&#39;ve finalized</td>
 </tr>
 </tbody></table></div><h4 id='response-5'>Response</h4><h5 id='200-ok-4'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My very first transfer!"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My very first transfer!"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"downloadable"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/t-ABcdEFgHi12"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"another-random-hash"</span><span class="p">,</span><span class="w">
