@@ -103,7 +103,11 @@ After a successful request where a transfer has been created, this endpoint will
 ```json
 {
   "success" : true,
+  "id" : "32a6ef6003f1429be0cf1674dd8fbdef20181019143517",
   "message" : "My very first transfer!",
+  "state" : "uploading",
+  "url" : null,
+  "expires_at": "2018-01-01T00:00:00Z",
   "files" : [
     {
       "multipart" : {
@@ -125,10 +129,7 @@ After a successful request where a transfer has been created, this endpoint will
       "id" : "e7f74773661f2be2bec90e6322864abd20181019143517",
       "name" : "kitty.jpg"
     }
-  ],
-  "url" : null,
-  "id" : "32a6ef6003f1429be0cf1674dd8fbdef20181019143517",
-  "state" : "uploading"
+  ]
 }
 ```
 
@@ -419,9 +420,10 @@ If all went well, the API sends you a lot of data. One of them being the `url`. 
 ```json
 {
   "id": "random-hash",
-  "state": "processing",
   "message": "My first transfer!",
+  "state": "processing",
   "url": "https://we.tl/t-12344657",
+  "expires_at": "2018-01-01T00:00:00Z",
   "files": [
     {
       "id": "random-hash",
@@ -471,10 +473,11 @@ curl -iX GET "https://dev.wetransfer.com/v2/transfers/{transfer_id}" \
 
 ```json
 {
-  "message": "My very first transfer!",
   "id": "random-hash",
+  "message": "My very first transfer!",
   "state": "downloadable",
   "url": "https://we.tl/t-ABcdEFgHi12",
+  "expires_at": "2018-01-01T00:00:00Z",
   "files": [
     {
       "id": "another-random-hash",
