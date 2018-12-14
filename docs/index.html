@@ -199,7 +199,7 @@
     <link href="stylesheets/screen-e44caafe.css" rel="stylesheet" media="screen" />
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;ruby&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;ruby&quot;,&quot;swift&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -359,6 +359,9 @@ In all of our examples remember to replace `your_api_key` with your own API key.
     <span class="s1">'x-api-key'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR PRIVATE API KEY GOES HERE'</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">)</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// The client is configured with your private API key</span>
+<span class="c1">// The SDK performs the authorize request once, right before the actual transfer or board creation request</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">WeTransfer</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="nv">apiKey</span><span class="p">:</span> <span class="s">"YOUR PRIVATE API KEY GOES HERE"</span><span class="p">))</span>
 </code></pre><h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
 <th>type</th>
@@ -501,6 +504,15 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
 
 <span class="c1"># Access the transfer in your browser:</span>
 <span class="nb">puts</span> <span class="s2">"The transfer can be viewed on </span><span class="si">#{</span><span class="n">transfer</span><span class="p">.</span><span class="nf">url</span><span class="si">}</span><span class="s2">"</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="k">let</span> <span class="nv">files</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">createTransfer</span><span class="p">(</span><span class="nv">saying</span><span class="p">:</span> <span class="s">"My very first transfer!"</span><span class="p">,</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="n">files</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">transfer</span><span class="p">):</span>
+        <span class="c1">// Transfer created</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Error creating transfer</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
 <h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -641,6 +653,7 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right before uploading each file</span>
 </code></pre>
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
@@ -752,6 +765,34 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
   <span class="p">});</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// To immediately create a transfer and upload its files</span>
+<span class="k">let</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">uploadTransfer</span><span class="p">(</span><span class="nv">saying</span><span class="p">:</span> <span class="err">'</span><span class="kt">My</span> <span class="n">very</span> <span class="n">first</span> <span class="n">transfer</span><span class="o">!</span><span class="err">'</span><span class="p">,</span> <span class="nv">containing</span><span class="p">:</span> <span class="n">fileURLS</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">created</span><span class="p">(</span><span class="k">let</span> <span class="nv">transfer</span><span class="p">):</span>
+        <span class="c1">// Transfer created on the server</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">):</span>
+        <span class="c1">// Use the progress object to track the total file upload progress</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+        <span class="c1">// Transfer is complete</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Creating transfer or uploading files failed</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Or use the transfer object from the `createTransfer` call</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">upload</span><span class="p">(</span><span class="n">transfer</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">):</span>
+        <span class="c1">// Use the progress object to track the total file upload progress</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+        <span class="c1">// Transfer is complete</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Uploading transfer failed</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
@@ -765,6 +806,7 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
   -d <span class="s1">'{"part_numbers":1}'</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">completeFileUpload</span><span class="p">(</span><span class="nx">transfer</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.</span>
 </code></pre>
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
 <h4 id='headers-3'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -843,6 +885,7 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">finalTransfer</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right after all files have been successfully uploaded.</span>
 </code></pre>
 <h3 id="transfer-finalize" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
 <h4 id='headers-4'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -1003,6 +1046,10 @@ The `url` field is where you get the link you will need to access the transfer!
 
 <span class="c1"># Access the board in your browser:</span>
 <span class="nb">puts</span> <span class="s2">"The board can be viewed on </span><span class="si">#{</span><span class="n">board</span><span class="p">.</span><span class="nf">url</span><span class="si">}</span><span class="s2">"</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This does not create the board server-side, yet. The request is performed</span>
+<span class="c1">// when files are added to the board for the first time</span>
+<span class="c1">// (adding links will be supported in the SDK version 2.1)</span>
+<span class="k">let</span> <span class="nv">board</span> <span class="o">=</span> <span class="kt">Board</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Little kittens"</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
 </code></pre>
 <h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
 <h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -1086,6 +1133,7 @@ The `url` field is where you get the link you will need to access the transfer!
   <span class="na">url</span><span class="p">:</span> <span class="s1">'https://wetransfer.com/'</span>
 <span class="p">}]);</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight plaintext"><code>// Adding links is currently not supported in the SDK but will be added in the SDK version 2.1
 </code></pre>
 <h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
 <h4 id='headers-2'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -1196,6 +1244,20 @@ The `url` field is where you get the link you will need to access the transfer!
   <span class="na">size</span><span class="p">:</span> <span class="mi">1024</span>
 <span class="p">}]);</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="k">let</span> <span class="nv">board</span> <span class="o">=</span> <span class="kt">Board</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Little kittens"</span><span class="p">,</span> <span class="nv">discription</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="k">let</span> <span class="nv">files</span><span class="p">:</span> <span class="p">[</span><span class="kt">File</span><span class="p">]</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="c1">// Create a File object for each URL.</span>
+    <span class="c1">// When initialization fails, an error will be thrown</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="k">try</span> <span class="n">fileURLs</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="k">try</span> <span class="kt">File</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="nv">$0</span><span class="p">)</span> <span class="p">})</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="c1">// Please handle thrown errors gracefully</span>
+<span class="p">}</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="n">board</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="c1">// Handle result success or failure</span>
+<span class="p">}</span>
 </code></pre>
 <h3 id="board-send-files" class="call"><span>POST</span> /boards/{board_id}/files</h3>
 <h4 id='headers-3'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -1335,6 +1397,7 @@ The `url` field is where you get the link you will need to access the transfer!
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right before uploading each file</span>
 </code></pre><h4 id='headers-4'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
 <th>type</th>
@@ -1443,6 +1506,34 @@ The `url` field is where you get the link you will need to access the transfer!
   <span class="p">});</span>
 <span class="p">}</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// To immediately create a board and upload files</span>
+<span class="k">let</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">uploadBoard</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"Little Kittens"</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">containing</span><span class="p">:</span> <span class="n">fileURLs</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">created</span><span class="p">(</span><span class="k">let</span> <span class="nv">board</span><span class="p">):</span>
+          <span class="c1">// Board created, public URL available</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">)</span>
+          <span class="c1">// Use the progress object to track the total file upload progress</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+          <span class="c1">// All files in board have completed uploading</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+          <span class="c1">// Either creating the board or uploading files has failed</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Or use an existing board with files added to it that aren't yet uploaded</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">upload</span><span class="p">(</span><span class="n">board</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">):</span>
+        <span class="c1">// Use the progress object to track the total file upload progress</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+        <span class="c1">// File upload is complete</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Uploading files failed</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre>
 <h2 id="board-complete-file-upload">Complete a file upload</h2>
 
@@ -1453,6 +1544,7 @@ The `url` field is where you get the link you will need to access the transfer!
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">completeFileUpload</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
 </code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.</span>
 </code></pre>
 <h3 id="board-complete-upload" class="call"><span>PUT</span> /boards/{board_id}/files/{file_id}/upload-complete</h3>
 <h4 id='headers-5'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
@@ -1524,6 +1616,7 @@ The `url` field is where you get the link you will need to access the transfer!
 <pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}"</span> <span class="se">\</span>
   -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><pre class="highlight plaintext"><code>// Retrieving board information is currently not supported in the SDK but will be added in the SDK version 2.1
 </code></pre><h4 id='headers-6'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
 <th>name</th>
 <th>type</th>
@@ -1737,6 +1830,11 @@ The `url` field is where you get the link you will need to access the transfer!
 <th>Product affected</th>
 </tr>
 </thead><tbody><tr>
+<td>2018-10-29</td>
+<td>Add Swift code snippets</td>
+<td>Documentation</td>
+</tr>
+<tr>
 <td>2018-10-24</td>
 <td>Updated V2 and V1 with character limits for link &amp; file listings</td>
 <td>APIs / Docs</td>
@@ -1799,6 +1897,7 @@ The `url` field is where you get the link you will need to access the transfer!
                 <option data-language-name="shell">shell</option>
                 <option data-language-name="javascript">javascript</option>
                 <option data-language-name="ruby">ruby</option>
+                <option data-language-name="swift">swift</option>
             </select>
 
         </div>

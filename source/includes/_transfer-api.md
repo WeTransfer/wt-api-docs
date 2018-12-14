@@ -70,6 +70,18 @@ end
 puts "The transfer can be viewed on #{transfer.url}"
 ```
 
+```swift
+let files: [URL] = [..] // URLs pointing to local files
+WeTransfer.createTransfer(saying: "My very first transfer!", fileURLs: files) { result in
+    switch result {
+    case .success(let transfer):
+        // Transfer created
+    case .failure(let error):
+        // Error creating transfer
+    }
+}
+```
+
 <h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
 
 #### Headers
@@ -201,6 +213,10 @@ for (
 # This functionality is currently not enabled in the SDK.
 ```
 
+```swift
+// This step is not necessary as the request is performed by the SDK right before uploading each file
+```
+
 <h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
 
 Transfer chunks must be 5 megabytes (or more specifically: 5242880 bytes) in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a `400 Bad Request` error when you finalize the file.
@@ -306,6 +322,37 @@ for (
 # This functionality is currently not enabled in the SDK.
 ```
 
+```swift
+// To immediately create a transfer and upload its files
+let fileURLs: [URL] = [..] // URLs pointing to local files
+WeTransfer.uploadTransfer(saying: 'My very first transfer!', containing: fileURLS) { state in
+    switch state {
+    case .created(let transfer):
+        // Transfer created on the server
+    case .uploading(let progress):
+        // Use the progress object to track the total file upload progress
+    case .completed:
+        // Transfer is complete
+    case .failed(let error):
+        // Creating transfer or uploading files failed
+    }
+}
+
+// Or use the transfer object from the `createTransfer` call
+WeTransfer.upload(transfer) { state in
+    switch state {
+    case .uploading(let progress):
+        // Use the progress object to track the total file upload progress
+    case .completed:
+        // Transfer is complete
+    case .failed(let error):
+        // Uploading transfer failed
+    default:
+        break
+    }
+}
+```
+
 <h2 id="transfer-complete-file-upload">Complete a file upload</h2>
 
 In the previous step, you've uploaded your file (potentially in parts) directly to S3. The WeTransfer API has no idea when that is complete. This call informs your transfer object that all the uploading for your file is done.
@@ -326,6 +373,10 @@ await wtClient.transfer.completeFileUpload(transfer, file);
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.
 ```
 
 <h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
@@ -393,6 +444,10 @@ console.log(finalTransfer.url);
 
 ```ruby
 # This functionality is currently not enabled in the SDK.
+```
+
+```swift
+// This step is not necessary as the request is performed by the SDK right after all files have been successfully uploaded.
 ```
 
 <h3 id="transfer-finalize" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
