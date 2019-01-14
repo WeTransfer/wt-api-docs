@@ -8,4 +8,4 @@ gem 'middleman-autoprefixer', '~> 2.9.0'
 gem "middleman-sprockets", "~> 4.1.0"
 gem 'rouge', '~> 2.0.5'
 gem 'redcarpet', '~> 3.4.0'
-gem 'nokogiri', '~> 1.9.1'
+gem 'nokogiri', '~> 1.10.1'
