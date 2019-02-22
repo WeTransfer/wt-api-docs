@@ -43,6 +43,14 @@
     </div>
     <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="_blank">View on GitHub</a>
   </article>
+  <article class="sdk sdk-rust">
+    <img src="images/sdks/rust.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Rust</h4>
+      <p>Created and maintained by Sergio</p>
+    </div>
+    <a href="https://github.com/tehAnswer/wetransfer" class="button" target="_blank">View on GitHub</a>
+  </article>
 </section>
 
 ## V1 compatible SDKs
