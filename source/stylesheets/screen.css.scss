@@ -281,13 +281,6 @@ body {
   }
 }
 
-.v2-notice {
-  padding: 20px 25px;
-  border-bottom: 2px solid #e8e8e8;
-  background: #fffee6;
-  position: relative;
-}
-
 .content {
   z-index: 30;
   min-height: calc(100vh - 42px);
@@ -510,14 +503,6 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 50;
-  }
-
-  .v2-notice {
-    padding: 20px 60px;
-
-    &__content {
-      max-width: $content-width - 120px;
-    }
   }
 
   .content {
