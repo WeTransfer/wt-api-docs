@@ -10,6 +10,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
 search: false
 
 includes:
+ - embed
  - sdks
  - authorization
  - file-names

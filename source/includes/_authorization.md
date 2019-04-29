@@ -13,6 +13,10 @@ In all of our examples remember to replace `your_api_key` with your own API key.
 
 When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.
 
+### Key Limits
+
+Any API key is limited to 1000 requests per 24 hours. All requests to the public API count towards this limit.
+
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
 Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests **other than the authorize request**. You may want to submit an authorization request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems.

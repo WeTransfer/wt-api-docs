@@ -196,7 +196,7 @@
 }
     </style>
 
-    <link href="stylesheets/screen-e44caafe.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-e8df3c88.css" rel="stylesheet" media="screen" />
   </head>
 
   <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;ruby&quot;,&quot;swift&quot;]">
@@ -231,6 +231,119 @@
     <p>Our Board API is similar to what you'll experience in our mobile app. It can store traditional files as well as links, and is flexible in how it displays your items. Additionally - boards do not have an expiry time as long as they receive activity, so you can add items as you see fit. If untouched, they expire after 3 months.</p>
   </div>
 </div>
+<h1 id='embed'>Embed</h1>
+<p>WeTransfer Embed allows a way to receive files in a form on your website. Embed is not an API of its own, it is an integration using the (transfer) API.</p>
+
+<p><img src="images/EmbedInAForm-6bc5f6cb.png" alt="Embed example image" /></p>
+<h2 id='wetransfer-embed-enables-you-to-receive-big-files'>WeTransfer Embed enables you to receive big files</h2>
+<p><em>Or: Why you need Embed</em></p>
+
+<p>Web forms are those things where your users fill in fields, like a form for their name and address when they buy goods.
+These forms can handle files, but they aren&#39;t very good at it. There are two main problems:</p>
+
+<ol>
+<li>Receiving multiple files is hard to do well.</li>
+<li>Receiving large (gigantic) files can be problematic. And by large, we mean anything bigger than
+a picture from a phone camera.</li>
+</ol>
+
+<p>Embed utilizes the power of WeTransfer to solve these problems.</p>
+
+<p>In order to make use of WeTransfer Embed, there are two prerequisites</p>
+
+<ul>
+<li>You have a form that you want to receive files with</li>
+<li>An account on <a href="https://developers.wetransfer.com">developers.wetransfer.com</a></li>
+</ul>
+<h3 id='prerequisites'>Prerequisites</h3>
+<p>Create an account. From there, the creation of Embed will be straightforward.</p>
+
+<p>Go to <a href="https://developers.wetransfer.com">developers.wetransfer.com</a> and click
+on <a href="https://developers.wetransfer.com/sign-up">Sign in</a>. Create an account by
+using GitHub or Google. Once completed, this should present you with a link to
+the <a href="https://developers.wetransfer.com/dashboard">dashboard</a>.</p>
+
+<p>Using the dashboard you can create an Embed key, or an Apps key. To make sure
+you use Embed, click on
+<a href="https://developers.wetransfer.com/dashboard/embed_keys/new">Generate new code snippet</a>,
+just below the <strong>WeTransfer Embed</strong> heading.</p>
+
+<p>Fill out the form, and press &quot;Create&quot;.</p>
+
+<p>Now you are presented your embed snippet. Note that in the example below, the embed key is invalid.
+Please use this code as a reference only.</p>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/props"</span><span class="nt">&gt;</span>
+    <span class="p">{</span>
+      <span class="s2">"wtEmbedKey"</span><span class="p">:</span> <span class="s2">"0a2b5190-8914-442d-a877-cbd68d571101"</span><span class="p">,</span>
+      <span class="s2">"wtEmbedOutput"</span><span class="p">:</span> <span class="s2">".wt_embed_output"</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre><h2 id='adding-embed-to-your-form'>Adding Embed to your form</h2>
+<p>That snippet is a piece of code you can place in your form. Open the html page that has your form in your favorite editor.</p>
+
+<p>Somewhere in between your form open and close tags (<code>&lt;form&gt;</code> and <code>&lt;/form&gt;</code>), paste this snippet.</p>
+
+<p>Then, just below the snippet, create a new input element that will be used by Embed to hold the url to the uploads.</p>
+
+<p>The resulting addition could look like the code below.</p>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/props"</span><span class="nt">&gt;</span>
+    <span class="p">{</span>
+      <span class="s2">"wtEmbedKey"</span><span class="p">:</span> <span class="s2">"0a2b5190-8914-442d-a877-cbd68d571101"</span><span class="p">,</span>
+      <span class="s2">"wtEmbedOutput"</span><span class="p">:</span> <span class="s2">".wt_embed_output"</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
+</code></pre>
+<p>With the above setup, whenever a user fills out the form; a link to the uploaded material will be submitted in a field with the name <code>wt_embed_output</code>.</p>
+<h3 id='in-depth'>In depth</h3>
+<p>Let&#39;s go over that code part by part, to see what it actually does.</p>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
+</code></pre>
+<p>This line creates an element that will display the file selector.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/props"</span><span class="nt">&gt;</span>
+  <span class="p">{</span>
+    <span class="s2">"wtEmbedKey"</span><span class="p">:</span> <span class="s2">"0a2b5190-8914-442d-a877-cbd68d571101"</span><span class="p">,</span>
+    <span class="s2">"wtEmbedOutput"</span><span class="p">:</span> <span class="s2">".wt_embed_output"</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre>
+<p>This chunk of code is the configuration of WeTransfer Embed.</p>
+
+<ul>
+<li>The line that starts with <code>&quot;wtEmbedKey&quot;</code> holds the token that links the transfer to your account.</li>
+<li>The next line tells Embed to which form input in your page the resulting link will be put. For geeks: Under the hood, Embed uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector"><code>document.querySelector</code></a> to get the element specified here.</li>
+</ul>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;/div&gt;</span>
+</code></pre>
+<p>This closes the element created on the first line. Nothing important going on otherwise.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre>
+<p>This loads the script that has the code to make Embed do its magic.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
+</code></pre>
+<p>This is the (hidden) input field for your form that holds the link to your transfer. It has a <code>name</code> attribute of <code>&quot;wt_embed_output&quot;</code>, meaning that it will be sent to your backend system, using that name. The <code>class</code> attribute is used (in this example) to connect embed to it.</p>
+<h2 id='examples'>Examples</h2>
+<p>On <a href="https://github.com/WeTransfer/EmbedExamples">github.com/WeTransfer/EmbedExamples</a>, we&#39;ve collected some examples to help you get up to speed.</p>
+
+<p>There are examples for Netlify and Ruby on Rails*. Go over there to see either the end results, or the changes that focus just on adding embed to an existing form.</p>
+
+<p><em>* = With more to come if you add your examples!</em></p>
+<h2 id='find-us'>Find us</h2>
+<p>Feel free to mail your questions, remarks, feedback or praises regarding Embed on <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a>.</p>
 <h1 id='sdks'>SDKs</h1><h2 id='v2-and-v1-compatible-sdks'>V2 and V1 Compatible SDKs</h2>
 <section class="sdks">
   <article class="sdk sdk-node">
@@ -324,6 +437,8 @@ In all of our examples remember to replace `your_api_key` with your own API key.
 </aside>
 
 <p>When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.</p>
+<h3 id='key-limits'>Key Limits</h3>
+<p>Any API key is limited to 1000 requests per 24 hours. All requests to the public API count towards this limit.</p>
 
 <h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
 
@@ -1919,6 +2034,23 @@ The `url` field is where you get the link you will need to access the transfer!
               </ul>
           </li>
           <li>
+            <a href="#embed" class="toc-h1 toc-link" data-title="embed">Embed</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#wetransfer-embed-enables-you-to-receive-big-files" class="toc-h2 toc-link" data-title="wetransfer-embed-enables-you-to-receive-big-files">WeTransfer Embed enables you to receive big files</a>
+                  </li>
+                  <li>
+                    <a href="#adding-embed-to-your-form" class="toc-h2 toc-link" data-title="adding-embed-to-your-form">Adding Embed to your form</a>
+                  </li>
+                  <li>
+                    <a href="#examples" class="toc-h2 toc-link" data-title="examples">Examples</a>
+                  </li>
+                  <li>
+                    <a href="#find-us" class="toc-h2 toc-link" data-title="find-us">Find us</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#sdks" class="toc-h1 toc-link" data-title="sdks">SDKs</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1934,6 +2066,9 @@ The `url` field is where you get the link you will need to access the transfer!
               <ul class="toc-list-h2">
                   <li>
                     <a href="#api-keys-where-and-how" class="toc-h2 toc-link" data-title="api-keys-where-and-how">API keys - where and how</a>
+                  </li>
+                  <li>
+                    <a href="#key-limits" class="toc-h2 toc-link" data-title="key-limits">Key Limits</a>
                   </li>
                   <li>
                     <a href="#send-request" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
