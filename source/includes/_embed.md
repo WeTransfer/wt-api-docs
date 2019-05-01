@@ -20,20 +20,20 @@ Embed utilizes the power of WeTransfer to solve these problems.
 In order to make use of WeTransfer Embed, there are two prerequisites
 
 * You have a form that you want to receive files with
-* An account on [developers.wetransfer.com](https://developers.wetransfer.com)
+* An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a>
 
 ### Prerequisites
 
 Create an account. From there, the creation of Embed will be straightforward.
 
-Go to [developers.wetransfer.com](https://developers.wetransfer.com) and click
-on [Sign in](https://developers.wetransfer.com/sign-up). Create an account by
+Go to <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a> and click
+on <a target="_top" href="https://developers.wetransfer.com/sign-up">Sign in</a>. Create an account by
 using GitHub or Google. Once completed, this should present you with a link to
-the [dashboard](https://developers.wetransfer.com/dashboard).
+the <a target="_top" href="https://developers.wetransfer.com/dashboard">dashboard</a>.
 
 Using the dashboard you can create an Embed key, or an Apps key. To make sure
 you use Embed, click on
-[Generate new code snippet](https://developers.wetransfer.com/dashboard/embed_keys/new),
+<a target="_top" href="https://developers.wetransfer.com/dashboard/embed_keys/new">Generate new code snippet</a>,
 just below the **WeTransfer Embed** heading.
 
 Fill out the form, and press "Create".
@@ -102,7 +102,7 @@ This line creates an element that will display the file selector.
 This chunk of code is the configuration of WeTransfer Embed.
 
 * The line that starts with `"wtEmbedKey"` holds the token that links the transfer to your account.
-* The next line tells Embed to which form input in your page the resulting link will be put. For geeks: Under the hood, Embed uses [`document.querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to get the element specified here.
+* The next line tells Embed to which form input in your page the resulting link will be put. For geeks: Under the hood, Embed uses <a target="_top" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">`document.querySelector`</a> to get the element specified here.
 
 ---
 
@@ -131,7 +131,7 @@ This is the (hidden) input field for your form that holds the link to your trans
 
 ## Examples
 
-On [github.com/WeTransfer/EmbedExamples](https://github.com/WeTransfer/EmbedExamples), we've collected some examples to help you get up to speed.
+On <a target="_top" href="https://github.com/WeTransfer/EmbedExamples">github.com/WeTransfer/EmbedExamples</a>, we've collected some examples to help you get up to speed.
 
 There are examples for Netlify and Ruby on Rails*. Go over there to see either the end results, or the changes that focus just on adding embed to an existing form.
 
