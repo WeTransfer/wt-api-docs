@@ -274,26 +274,17 @@ Please use this code as a reference only.</p>
   <span class="nt">&lt;/script&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!--
+  The next input element will hold the transfer link. For testing purposes, you
+  could change the type attribute to "text", instead of "hidden".
+--&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
 </code></pre><h2 id='adding-embed-to-your-form'>Adding Embed to your form</h2>
 <p>That snippet is a piece of code you can place in your form. Open the html page that has your form in your favorite editor.</p>
 
 <p>Somewhere in between your form open and close tags (<code>&lt;form&gt;</code> and <code>&lt;/form&gt;</code>), paste this snippet.</p>
 
-<p>Then, just below the snippet, create a new input element that will be used by Embed to hold the url to the uploads.</p>
-
-<p>The resulting addition could look like the code below.</p>
-<pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/props"</span><span class="nt">&gt;</span>
-    <span class="p">{</span>
-      <span class="s2">"wtEmbedKey"</span><span class="p">:</span> <span class="s2">"0a2b5190-8914-442d-a877-cbd68d571101"</span><span class="p">,</span>
-      <span class="s2">"wtEmbedOutput"</span><span class="p">:</span> <span class="s2">".wt_embed_output"</span>
-    <span class="p">}</span>
-  <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
-</code></pre>
-<p>With the above setup, whenever a user fills out the form; a link to the uploaded material will be submitted in a field with the name <code>wt_embed_output</code>.</p>
+<p>With that setup, whenever a user fills out the form; a link to the uploaded material will be submitted in a field with the name <code>wt_embed_output</code>.</p>
 <h3 id='in-depth'>In depth</h3>
 <p>Let&#39;s go over that code part by part, to see what it actually does.</p>
 <pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
@@ -326,9 +317,18 @@ Please use this code as a reference only.</p>
 <p>This loads the script that has the code to make Embed do its magic.</p>
 
 <hr>
+<pre class="highlight html tab-html"><code><span class="c">&lt;!--
+  The next input element will hold the transfer link. For testing purposes, you
+  could change the type attribute to "text", instead of "hidden".
+--&gt;</span>
+</code></pre>
+<p>This is just a bit of inline documentation, for the developers that don&#39;t care to read these docs.
+Feel free to remove these lines from your code base. Or follow the advise and make the input field visible, by changing it from <code>&quot;hidden&quot;</code> to <code>&quot;text&quot;</code>.</p>
+
+<hr>
 <pre class="highlight html tab-html"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
 </code></pre>
-<p>This is the (hidden) input field for your form that holds the link to your transfer. It has a <code>name</code> attribute of <code>&quot;wt_embed_output&quot;</code>, meaning that it will be sent to your backend system, using that name. The <code>class</code> attribute is used (in this example) to connect embed to it.</p>
+<p>This is the input field for your form that holds the link to your transfer. It has a <code>name</code> attribute of <code>&quot;wt_embed_output&quot;</code>, meaning that it will be sent to your backend system, using that name. The <code>class</code> attribute is used (in this example) to connect embed to it.</p>
 <h2 id='examples'>Examples</h2>
 <p>On <a href="https://github.com/WeTransfer/EmbedExamples">github.com/WeTransfer/EmbedExamples</a>, we&#39;ve collected some examples to help you get up to speed.</p>
 

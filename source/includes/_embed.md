@@ -51,6 +51,11 @@ Please use this code as a reference only.
   </script>
 </div>
 <script async src="https://prod-embed-cdn.wetransfer.net/v1/latest.js"></script>
+<!--
+  The next input element will hold the transfer link. For testing purposes, you
+  could change the type attribute to "text", instead of "hidden".
+-->
+<input type="hidden" name="wt_embed_output" class="wt_embed_output" />
 ```
 
 ## Adding Embed to your form
@@ -59,24 +64,7 @@ That snippet is a piece of code you can place in your form. Open the html page t
 
 Somewhere in between your form open and close tags (`<form>` and `</form>`), paste this snippet.
 
-Then, just below the snippet, create a new input element that will be used by Embed to hold the url to the uploads.
-
-The resulting addition could look like the code below.
-
-```html
-<div data-widget-host="habitat" id="wt_embed">
-  <script type="text/props">
-    {
-      "wtEmbedKey": "0a2b5190-8914-442d-a877-cbd68d571101",
-      "wtEmbedOutput": ".wt_embed_output"
-    }
-  </script>
-</div>
-<script async src="https://prod-embed-cdn.wetransfer.net/v1/latest.js"></script>
-<input type="hidden" name="wt_embed_output" class="wt_embed_output" />
-```
-
-With the above setup, whenever a user fills out the form; a link to the uploaded material will be submitted in a field with the name `wt_embed_output`.
+With that setup, whenever a user fills out the form; a link to the uploaded material will be submitted in a field with the name `wt_embed_output`.
 
 ### In depth
 
@@ -124,10 +112,22 @@ This loads the script that has the code to make Embed do its magic.
 ---
 
 ```html
+<!--
+  The next input element will hold the transfer link. For testing purposes, you
+  could change the type attribute to "text", instead of "hidden".
+-->
+```
+
+This is just a bit of inline documentation, for the developers that don't care to read these docs.
+Feel free to remove these lines from your code base. Or follow the advise and make the input field visible, by changing it from `"hidden"` to `"text"`.
+
+---
+
+```html
 <input type="hidden" name="wt_embed_output" class="wt_embed_output" />
 ```
 
-This is the (hidden) input field for your form that holds the link to your transfer. It has a `name` attribute of `"wt_embed_output"`, meaning that it will be sent to your backend system, using that name. The `class` attribute is used (in this example) to connect embed to it.
+This is the input field for your form that holds the link to your transfer. It has a `name` attribute of `"wt_embed_output"`, meaning that it will be sent to your backend system, using that name. The `class` attribute is used (in this example) to connect embed to it.
 
 ## Examples
 
