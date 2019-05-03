@@ -36,3 +36,5 @@ bundle exec middleman build --no-clean
 ```
 
 This will output the static files in the `/docs` folder.
+
+For WeTransfer developers: The contents of the docs folder will be deployed on every release of the Public API portal.
