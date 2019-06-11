@@ -2,7 +2,7 @@
 
 WeTransfer Embed allows a way to receive files in a form on your website. Embed is not an API of its own, it is an integration using the (transfer) API.
 
-![Embed example image](images/EmbedInAForm.png)
+<img src="images/EmbedInAForm.png" class="embed-screenshot" alt="Embed example image">
 
 ## WeTransfer Embed enables you to receive big files
 
@@ -13,14 +13,14 @@ These forms can handle files, but they aren't very good at it. There are two mai
 
 1. Receiving multiple files is hard to do well.
 1. Receiving large (gigantic) files can be problematic. And by large, we mean anything bigger than
-  a picture from a phone camera.
+   a picture from a phone camera.
 
 Embed utilizes the power of WeTransfer to solve these problems.
 
 In order to make use of WeTransfer Embed, there are two prerequisites
 
-* You have a form that you want to receive files with
-* An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a>
+- You have a form that you want to receive files with
+- An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a>
 
 ### Prerequisites
 
@@ -71,12 +71,12 @@ With that setup, whenever a user fills out the form; a link to the uploaded mate
 Let's go over that code part by part, to see what it actually does.
 
 ```html
-<div data-widget-host="habitat" id="wt_embed">
+<div data-widget-host="habitat" id="wt_embed"></div>
 ```
 
 This line creates an element that will display the file selector.
 
-----
+---
 
 ```html
 <script type="text/props">
@@ -89,11 +89,10 @@ This line creates an element that will display the file selector.
 
 This chunk of code is the configuration of WeTransfer Embed.
 
-* The line that starts with `"wtEmbedKey"` holds the token that links the transfer to your account.
-* The next line tells Embed to which form input in your page the resulting link will be put. For geeks: Under the hood, Embed uses <a target="_top" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">`document.querySelector`</a> to get the element specified here.
+- The line that starts with `"wtEmbedKey"` holds the token that links the transfer to your account.
+- The next line tells Embed to which form input in your page the resulting link will be put. For geeks: Under the hood, Embed uses <a target="_top" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">`document.querySelector`</a> to get the element specified here.
 
 ---
-
 
 ```html
 </div>
@@ -133,9 +132,9 @@ This is the input field for your form that holds the link to your transfer. It h
 
 On <a target="_top" href="https://github.com/WeTransfer/EmbedExamples">github.com/WeTransfer/EmbedExamples</a>, we've collected some examples to help you get up to speed.
 
-There are examples for Netlify and Ruby on Rails*. Go over there to see either the end results, or the changes that focus just on adding embed to an existing form.
+There are examples for Netlify and Ruby on Rails\*. Go over there to see either the end results, or the changes that focus just on adding embed to an existing form.
 
-_* = With more to come if you add your examples!_
+_\* = With more to come if you add your examples!_
 
 ## Find us
 
