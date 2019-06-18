@@ -2,7 +2,7 @@
 
 WeTransfer Embed allows a way to receive files in a form on your website. Embed is not an API of its own, it is an integration using the (transfer) API.
 
-<img src="images/EmbedInAForm.png" class="embed-screenshot" alt="Embed example image">
+<img src="images/EmbedInFormAbstract.png" class="embed-screenshot" alt="Embed example image">
 
 ## WeTransfer Embed enables you to receive big files
 
