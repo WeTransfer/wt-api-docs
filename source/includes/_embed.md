@@ -12,8 +12,7 @@ Web forms are those things where your users fill in fields, like a form for thei
 These forms can handle files, but they aren't very good at it. There are two main problems:
 
 1. Receiving multiple files is hard to do well.
-1. Receiving large (gigantic) files can be problematic. And by large, we mean anything bigger than
-   a picture from a phone camera.
+1. Receiving large (gigantic) files can be problematic. And by large, we mean anything bigger than a picture from a phone camera.
 
 Embed utilizes the power of WeTransfer to solve these problems.
 
@@ -71,7 +70,7 @@ With that setup, whenever a user fills out the form; a link to the uploaded mate
 Let's go over that code part by part, to see what it actually does.
 
 ```html
-<div data-widget-host="habitat" id="wt_embed"></div>
+<div data-widget-host="habitat" id="wt_embed">
 ```
 
 This line creates an element that will display the file selector.
