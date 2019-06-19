@@ -1,12 +1,12 @@
 @charset "utf-8";
-@import 'variables';
-@import 'init/normalize';
-@import 'init/slate';
-@import 'init/fonts';
-@import 'init/typography';
+@import "variables";
+@import "init/normalize";
+@import "init/slate";
+@import "init/fonts";
+@import "init/typography";
 
-@import 'component/flow-diagram';
-@import 'component/sdks';
+@import "component/flow-diagram";
+@import "component/sdks";
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
@@ -86,7 +86,7 @@ body {
         position: relative;
 
         &:before {
-          content: '→';
+          content: "→";
           position: absolute;
           left: 0.5em;
           opacity: 0;
@@ -337,8 +337,19 @@ body {
 
   hr {
     margin: 2em 0;
-    border-top: 2px solid $examples-bg;
-    border-bottom: 2px solid $main-bg;
+    border: 0;
+    height: 2px;
+    display: block;
+    background: $gray-light;
+  }
+
+  ul,
+  ol {
+    padding-left: 30px;
+
+    li {
+      margin-bottom: 4px;
+    }
   }
 
   .table-wrapper {
@@ -413,6 +424,16 @@ body {
     @extend %code-font;
   }
 
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+    color: $gray-dark;
+
+    &:hover {
+      border-color: #111;
+    }
+  }
+
   pre > code {
     background-color: transparent;
     padding: 0;
@@ -452,6 +473,18 @@ body {
       display: block;
       margin: 0 0 0.6em;
     }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Embed Specific Styling
+////////////////////////////////////////////////////////////////////////////////
+
+.content {
+  .embed-screenshot {
+    display: block;
+    max-width: 502px;
+    margin: 40px auto 20px;
   }
 }
 
