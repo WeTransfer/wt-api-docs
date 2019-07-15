@@ -129,7 +129,7 @@ This is the input field for your form that holds the link to your transfer. It h
 
 ## Translations
 
-To display Embed in a different language, simple change the language parameter in the code snippet. Embed currently supports the following languages:
+To display Embed in a different language, simple change the `wtEmbedLanguage` parameter in the code snippet. Embed currently supports the following languages:
 
 | language | code |
 | -------- | ---- |
