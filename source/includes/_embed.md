@@ -70,7 +70,7 @@ With that setup, whenever a user fills out the form; a link to the uploaded mate
 Let's go over that code part by part, to see what it actually does.
 
 ```html
-<div data-widget-host="habitat" id="wt_embed"></div>
+<div data-widget-host="habitat" id="wt_embed">
 ```
 
 This line creates an element that will display the file selector.
