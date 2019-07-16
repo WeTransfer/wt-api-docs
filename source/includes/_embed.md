@@ -81,7 +81,8 @@ This line creates an element that will display the file selector.
 <script type="text/props">
   {
     "wtEmbedKey": "0a2b5190-8914-442d-a877-cbd68d571101",
-    "wtEmbedOutput": ".wt_embed_output"
+    "wtEmbedOutput": ".wt_embed_output",
+    "wtEmbedLanguage: "en"
   }
 </script>
 ```
@@ -126,6 +127,15 @@ Feel free to remove these lines from your code base. Or follow the advise and ma
 ```
 
 This is the input field for your form that holds the link to your transfer. It has a `name` attribute of `"wt_embed_output"`, meaning that it will be sent to your backend system, using that name. The `class` attribute is used (in this example) to connect embed to it.
+
+## Translations
+
+To display Embed in a different language, simple change the `wtEmbedLanguage` parameter in the code snippet. Embed currently supports the following languages:
+
+| language          | code |
+| ----------------- | ---- |
+| English (default) | `en` |
+| Dutch             | `nl` |
 
 ## Examples
 
