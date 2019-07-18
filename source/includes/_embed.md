@@ -135,6 +135,7 @@ To display Embed in a different language, simple change the `wtEmbedLanguage` pa
 | language          | code |
 | ----------------- | ---- |
 | English (default) | `en` |
+| Spanish           | `es` |
 | Dutch             | `nl` |
 
 ## Examples
