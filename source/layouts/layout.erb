@@ -38,6 +38,10 @@ under the License.
   </head>
 
   <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+  <div id="shutdown-banner">
+    <p> Unfortunately we no longer provide support for the WeTransfer API. <a href="https://wetransfer.zendesk.com/hc/en-us/categories/360000095523-API" target="_blank">Learn more</a></p>
+  </div>
+
     <a href="#" id="nav-button">
       <span>
         NAV

@@ -7,6 +7,7 @@
 
 @import "component/flow-diagram";
 @import "component/sdks";
+@import "component/shutdown-banner";
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
@@ -52,7 +53,7 @@ body {
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
+  top: $banner_height;
   left: -($nav-width);
   bottom: 0;
   width: $nav-width;
@@ -187,7 +188,7 @@ body {
   padding: 0 1.5em 5em 0; // increase touch size area
   display: block;
   position: fixed;
-  top: 0;
+  top: $banner_height;
   left: 0;
   z-index: 100;
   color: #000;
@@ -229,6 +230,7 @@ body {
   background: #fff;
   min-height: 100%;
   padding-bottom: 1px; // prevent margin overflow
+  padding-top: $banner_height;
 }
 
 .error_container {
@@ -484,8 +486,12 @@ body {
 .content {
   .embed-screenshot {
     display: block;
-    max-width: 502px;
+
     margin: 40px auto 20px;
+
+    @media (min-width: 769px ) {
+      max-width: 502px;
+    }
   }
 }
 
