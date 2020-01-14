@@ -15,4 +15,5 @@ jobs:
       rvm:
         - 2.6.5
       script:
+        - gem install bundler:2.1.4
         - bundle exec middleman build --clean
