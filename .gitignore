@@ -17,8 +17,6 @@
 node_modules
 /yarn-error.log
 
-Gemfile.lock
-
 # Ignore SimpleCov files
 coverage
 
