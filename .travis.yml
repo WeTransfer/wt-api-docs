@@ -15,4 +15,4 @@ jobs:
       rvm:
         - 2.6.5
       script:
-        - bundle exec middleman build --clean
+        - bundle exec middleman build --clean --show-exceptions --verbose
