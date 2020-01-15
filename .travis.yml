@@ -1,8 +1,8 @@
 dist: trusty
 sudo: false
 
-cache:
-  bundler: true
+# cache:
+#   bundler: true
 
 stages:
   - name: Build docs
@@ -15,5 +15,4 @@ jobs:
       rvm:
         - 2.6.5
       script:
-        - gem install bundler:2.1.4
-        - bundle exec middleman build --clean
+        - gem install --no-document bundler "bundler:~>1.17" && bundle exec middleman build --clean
