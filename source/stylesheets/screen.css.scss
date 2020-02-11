@@ -41,7 +41,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: $main-bg;
   height: 100%;
-  -webkit-text-size-adjust: none; /* Never autoresize text */
+  -webkit-text-size-adjust: none;
+  /* Never autoresize text */
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +69,7 @@ body {
     left: 0;
   }
 
-  #toc > li {
+  #toc>li {
     a {
       padding: 0.5em 15px;
 
@@ -175,6 +176,7 @@ body {
     color: $gray-dark;
     margin-right: 10px;
   }
+
   &__picker {
     font-size: 0.8em;
     padding: 4px;
@@ -236,6 +238,7 @@ body {
 .error_container {
   .error {
     margin-bottom: 20px;
+
     &__title {
       font-size: 18px;
       font-weight: 500;
@@ -254,6 +257,7 @@ body {
       span {
         font-weight: 500;
       }
+
       p {
         margin: 0;
       }
@@ -297,12 +301,12 @@ body {
     position: relative;
   }
 
-  h1 + p {
+  h1+p {
     @extend .intro;
   }
 
   h1:first-child,
-  div:first-child + h1 {
+  div:first-child+h1 {
     border-top-width: 0;
     margin-top: 0;
   }
@@ -313,7 +317,7 @@ body {
     margin-bottom: 20px;
   }
 
-  h1 + h2 {
+  h1+h2 {
     margin-top: 20px;
   }
 
@@ -386,11 +390,11 @@ body {
       font-weight: 500;
     }
 
-    tr:nth-child(odd) > td {
+    tr:nth-child(odd)>td {
       background-color: lighten($main-bg, 4.2%);
     }
 
-    tr:nth-child(even) > td {
+    tr:nth-child(even)>td {
       background-color: lighten($main-bg, 2.4%);
     }
   }
@@ -437,7 +441,7 @@ body {
     }
   }
 
-  pre > code {
+  pre>code {
     background-color: transparent;
     padding: 0;
     color: $gray-light;
@@ -489,7 +493,7 @@ body {
 
     margin: 40px auto 20px;
 
-    @media (min-width: 769px ) {
+    @media (min-width: 769px) {
       max-width: 502px;
     }
   }
@@ -501,13 +505,14 @@ body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
+
   pre,
   blockquote {
     background-color: none;
     color: #fff;
     margin: 0 0 20px;
 
-    & > p {
+    &>p {
       margin: 0;
     }
 
@@ -524,7 +529,7 @@ body {
   }
 
   blockquote {
-    & > p {
+    &>p {
       font-size: 0.8em;
       padding: $code-annotation-padding 30px;
       color: $gray-ultralight;
@@ -548,6 +553,7 @@ body {
   .content {
     padding: 0 60px 60px;
     max-width: $content-width;
+
     .two-col {
       display: flex;
       justify-content: space-between;
@@ -581,4 +587,12 @@ body {
 .highlight,
 .highlight .w {
   background-color: $code-bg;
+}
+
+.shutdown-text {
+  background: #3A66FF;
+  padding: 0.5em 10px;
+  margin-top: 1em;
+  text-align: center;
+  color: #e8e8e8;
 }

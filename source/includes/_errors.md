@@ -75,7 +75,7 @@ In working with the WeTransfer API you might come across some errors. Here are s
       </div>
       <div class="col">
         <span>Solution:</span>
-        <p>Try again but with fewer requests in a given time period, wait until tomorrow, or even better: email us (developers@wetransfer.com) and we can talk extending the limit.</p>
+        <p>Try again but with fewer requests in a given time period, wait until tomorrow.</p>
       </div>
     </div>
   </div>

@@ -83,5 +83,3 @@ These SDKs are **only** compatible with V1 of the API. As they are entirely comm
     <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="_blank">View on GitHub</a>
   </article>
 </section>
-
-<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and we will make it happen!</aside>

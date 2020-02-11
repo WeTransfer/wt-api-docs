@@ -19,16 +19,22 @@ Embed utilizes the power of WeTransfer to solve these problems.
 In order to make use of WeTransfer Embed, there are two prerequisites
 
 - You have a form that you want to receive files with
-- An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a>
+- <s>An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a></s>
+
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div>
 
 ### Prerequisites
 
-Create an account. From there, the creation of Embed will be straightforward.
+<s>Create an account.
+From there, the creation of Embed will be straightforward.
 
 Go to <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a> and click
 on <a target="_top" href="https://developers.wetransfer.com/sign-up">Sign in</a>. Create an account by
 using GitHub or Google. Once completed, this should present you with a link to
 the <a target="_top" href="https://developers.wetransfer.com/dashboard">dashboard</a>.
+</s>
+
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div>
 
 Using the dashboard you can create an Embed key, or an Apps key. To make sure
 you use Embed, click on
@@ -154,5 +160,8 @@ There are examples for Netlify and Ruby on Rails\*. Go over there to see either 
 _\* = With more to come if you add your examples!_
 
 ## Find us
+
+For new users:
+We know it is annoying that you cannot create an account. But there is nothing we can do to give you an account at this moment.
 
 Feel free to mail your questions, remarks, feedback or praises regarding Embed on [developers@wetransfer.com](mailto:developers@wetransfer.com).
