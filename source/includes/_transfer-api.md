@@ -2,7 +2,7 @@
 
 The Transfer API is classic WeTransfer. You might know it well (or you're about to). Use it to upload files, get the link and share magic. We've been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12" target="blank">macOS app</a> and our <a href="https://we.tl/wtclient" target="_blank">Command Line Client</a> and now we're opening it up to you and all your users.
 
-Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you'll need to store the transfer link somewhere - just like a web link transfer, there's no way to get the link back if it gets misplaced.
+Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Pro accounts, so you'll need to store the transfer link somewhere - just like a web link transfer, there's no way to get the link back if it gets misplaced.
 
 A transfer request consists of the endpoint itself, the headers, and the body, which can contain a message and must contain a list of file objects. The files themselves need a name and a size in bytes - you'll need to compute the size yourself. Most languages provide a way to do this.
 

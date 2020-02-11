@@ -196,12 +196,12 @@
 }
     </style>
 
-    <link href="/documentation/stylesheets/screen-5ded98fb.css" rel="stylesheet" media="screen" />
+    <link href="/documentation/stylesheets/screen-9a1d9559.css" rel="stylesheet" media="screen" />
   </head>
 
   <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;ruby&quot;,&quot;swift&quot;]">
   <div id="shutdown-banner">
-    <p> Unfortunately we no longer provide support for the WeTransfer API. <a href="https://wetransfer.zendesk.com/hc/en-us/categories/360000095523-API" target="_blank">Learn more</a></p>
+    <p> Unfortunately we no longer provide support for the WeTransfer API. <a href="https://wetransfer.zendesk.com/hc/en-us/articles/360038551772-We-ve-retired-our-Public-API" target="_blank">Learn more</a></p>
   </div>
 
     <a href="#" id="nav-button">
@@ -249,15 +249,21 @@ These forms can handle files, but they aren&#39;t very good at it. There are two
 
 <ul>
 <li>You have a form that you want to receive files with</li>
-<li>An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a></li>
+<li><s>An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a></s></li>
 </ul>
+
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div>
 <h3 id='prerequisites'>Prerequisites</h3>
-<p>Create an account. From there, the creation of Embed will be straightforward.</p>
+<p><s>Create an account.
+From there, the creation of Embed will be straightforward.</p>
 
 <p>Go to <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a> and click
 on <a target="_top" href="https://developers.wetransfer.com/sign-up">Sign in</a>. Create an account by
 using GitHub or Google. Once completed, this should present you with a link to
-the <a target="_top" href="https://developers.wetransfer.com/dashboard">dashboard</a>.</p>
+the <a target="_top" href="https://developers.wetransfer.com/dashboard">dashboard</a>.
+</s></p>
+
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div>
 
 <p>Using the dashboard you can create an Embed key, or an Apps key. To make sure
 you use Embed, click on
@@ -386,6 +392,9 @@ Feel free to remove these lines from your code base. Or follow the advise and ma
 
 <p><em>* = With more to come if you add your examples!</em></p>
 <h2 id='find-us'>Find us</h2>
+<p>For new users:
+We know it is annoying that you cannot create an account. But there is nothing we can do to give you an account at this moment.</p>
+
 <p>Feel free to mail your questions, remarks, feedback or praises regarding Embed on <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a>.</p>
 <h1 id='sdks'>SDKs</h1><h2 id='v2-and-v1-compatible-sdks'>V2 and V1 Compatible SDKs</h2>
 <section class="sdks">
@@ -467,11 +476,15 @@ Feel free to remove these lines from your code base. Or follow the advise and ma
     <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="_blank">View on GitHub</a>
   </article>
 </section>
-
-<aside>Have you made an SDK and would like to have it listed here? Email us at <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a> and we will make it happen!</aside>
 <h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
-<p>To use our APIs you must provide your API key with every request. Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Google account to login. Once you&#39;ve done so make sure you&#39;re on the
-dashboard page, and select &quot;Create new application&quot; to start generating an API key.</p>
+<p>To use our APIs you must provide your API key with every request.</p>
+
+<p><s>
+Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Google account to login.
+</s>
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div></p>
+
+<p>Once you&#39;ve done so make sure you&#39;re on the dashboard page, and select &quot;Create new application&quot; to start generating an API key.</p>
 
 <p>Once you have a key (or multiple keys), please make sure that you keep them in a secret place, and do not share them. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select &quot;Delete&quot; under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.</p>
 
@@ -614,7 +627,7 @@ The (optional) <code>user_identifier</code> attribute is very well suited to cre
 </span></code></pre><h1 id='transfer-api'>Transfer API</h1>
 <p>The Transfer API is classic WeTransfer. You might know it well (or you&#39;re about to). Use it to upload files, get the link and share magic. We&#39;ve been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12" target="blank">macOS app</a> and our <a href="https://we.tl/wtclient" target="_blank">Command Line Client</a> and now we&#39;re opening it up to you and all your users.</p>
 
-<p>Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Plus accounts, so you&#39;ll need to store the transfer link somewhere - just like a web link transfer, there&#39;s no way to get the link back if it gets misplaced.</p>
+<p>Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Pro accounts, so you&#39;ll need to store the transfer link somewhere - just like a web link transfer, there&#39;s no way to get the link back if it gets misplaced.</p>
 
 <p>A transfer request consists of the endpoint itself, the headers, and the body, which can contain a message and must contain a list of file objects. The files themselves need a name and a size in bytes - you&#39;ll need to compute the size yourself. Most languages provide a way to do this.</p>
 
@@ -1922,7 +1935,7 @@ The `url` field is where you get the link you will need to access the transfer!
       </div>
       <div class="col">
         <span>Solution:</span>
-        <p>Try again but with fewer requests in a given time period, wait until tomorrow, or even better: email us (developers@wetransfer.com) and we can talk extending the limit.</p>
+        <p>Try again but with fewer requests in a given time period, wait until tomorrow.</p>
       </div>
     </div>
   </div>
