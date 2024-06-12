@@ -1,0 +1,601 @@
+---
+---
+
+@charset "utf-8";
+@import "variables";
+@import "init/normalize";
+@import "init/slate";
+@import "init/fonts";
+@import "init/typography";
+
+@import "component/flow-diagram";
+@import "component/sdks";
+@import "component/shutdown-banner";
+
+/*
+Copyright 2008-2013 Concur Technologies, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License. You may obtain
+a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+// GENERAL STUFF
+////////////////////////////////////////////////////////////////////////////////
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  color: $main-text;
+  padding: 0;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $main-bg;
+  height: 100%;
+  -webkit-text-size-adjust: none;
+  /* Never autoresize text */
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// TABLE OF CONTENTS
+////////////////////////////////////////////////////////////////////////////////
+
+.toc-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  z-index: 30;
+  top: $banner_height;
+  left: -($nav-width);
+  bottom: 0;
+  width: $nav-width;
+  font-size: 1em;
+  // line-height: 1;
+  font-weight: 500;
+  border-right: 1px solid $gray-light;
+  transition: left 0.3s ease-in-out;
+  background: $white;
+
+  &.open {
+    left: 0;
+  }
+
+  #toc>li {
+    a {
+      padding: 0.5em 15px;
+
+      &:hover {
+        color: $gray-dark;
+      }
+    }
+
+    ul li {
+      line-height: 1.2em;
+
+      a {
+        padding: 0.2em 15px;
+        color: $gray-medium;
+        transition: padding 0.2s;
+        position: relative;
+
+        &:before {
+          content: "→";
+          position: absolute;
+          left: 0.5em;
+          top: 2px;
+          opacity: 0;
+          transition: 0.2s;
+        }
+
+        &.active {
+          font-weight: 500;
+          padding-left: 2em;
+          color: $gray-dark;
+
+          &:before {
+            opacity: 1;
+            left: 1em;
+          }
+        }
+      }
+    }
+  }
+
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    color: $nav-text;
+    transition: background 0.4s;
+    line-height: 1.2em;
+  }
+
+  .toc-h1 {
+    font-size: 1em;
+    color: $gray-dark;
+    border-right: 2px solid transparent;
+    transition: border 0.2s;
+
+    &.active,
+    &.active-parent {
+      border-right: 2px solid $gray-mediumlight;
+    }
+  }
+
+  .toc-list-h2 {
+    font-size: 0.9em;
+    font-weight: 400;
+    padding-bottom: 0.8em;
+    border-right: 2px solid transparent;
+    transition: border 0.2s;
+
+    &.active {
+      border-right: 2px solid $gray-mediumlight;
+    }
+  }
+}
+
+.toc-link,
+.toc-footer li {
+  padding: 0 $nav-padding;
+  display: block;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  color: $nav-text;
+  transition-property: background;
+  transition-timing-function: linear;
+  transition-duration: 130ms;
+}
+
+.lang-selector {
+  padding: 10px 15px;
+  border-bottom: 1px solid #d3d3d3;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &__title {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: $gray-dark;
+    margin-right: 10px;
+  }
+
+  &__picker {
+    font-size: 0.8em;
+    padding: 4px;
+    border: 1px solid $gray-light;
+    background: $white;
+  }
+}
+
+// button to show navigation on mobile devices
+#nav-button {
+  padding: 0 1.5em 5em 0; // increase touch size area
+  display: block;
+  position: fixed;
+  top: $banner_height;
+  left: 0;
+  z-index: 100;
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.8em;
+  line-height: 16px;
+  transition: left 0.3s ease-in-out;
+
+  span {
+    display: block;
+    padding: 0.3em;
+    background-color: #fff;
+    transform-origin: 0 0;
+    transform: rotate(-90deg) translate(-100%, 0);
+    box-shadow: -1px 1px 0 $gray-light;
+  }
+
+  img {
+    height: 16px;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &.open {
+    left: $nav-width;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// PAGE LAYOUT AND CODE SAMPLE BACKGROUND
+////////////////////////////////////////////////////////////////////////////////
+
+.page-wrapper {
+  z-index: 10;
+  background: #fff;
+  min-height: 100%;
+  padding-bottom: 1px; // prevent margin overflow
+  padding-top: $banner_height;
+}
+
+.error_container {
+  .error {
+    margin-bottom: 20px;
+
+    &__title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    &__code {
+      margin: 4px 0;
+      display: inline-block;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 0.8em;
+      background: none;
+      padding: 0;
+    }
+
+    .col {
+      span {
+        font-weight: 500;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// CONTENT STYLES
+////////////////////////////////////////////////////////////////////////////////
+// This is all the stuff with the light background in the left half of the page
+
+.v1-notice {
+  margin-top: -50px;
+  margin-left: -50px;
+  margin-bottom: 50px;
+  padding: 20px 25px;
+  border-bottom: 2px solid #e8e8e8;
+  background: #fffee6;
+  position: relative;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: #111;
+  }
+}
+
+.content {
+  z-index: 30;
+  min-height: calc(100vh - 42px);
+  padding: 25px;
+
+  h1 {
+    margin-top: 50px;
+    padding-top: 50px;
+    margin-bottom: 10px;
+    border-top: 2px solid $gray-light;
+    position: relative;
+  }
+
+  h1+p {
+    @extend .intro;
+  }
+
+  h1:first-child,
+  div:first-child+h1 {
+    border-top-width: 0;
+    margin-top: 0;
+  }
+
+  h2 {
+    margin-top: 40px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  h1+h2 {
+    margin-top: 20px;
+  }
+
+  h3.call {
+    padding: 10px 10px 10px 0;
+    white-space: nowrap;
+    overflow-x: scroll;
+    position: relative;
+
+    span {
+      @extend %code-font;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-block;
+      padding: 3px;
+      border: 1px solid #000;
+      line-height: 9px;
+      border-radius: 4px;
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  hr {
+    margin: 2em 0;
+    border: 0;
+    height: 2px;
+    display: block;
+    background: $gray-light;
+  }
+
+  ul,
+  ol {
+    padding-left: 30px;
+
+    li {
+      margin-bottom: 4px;
+    }
+  }
+
+  .table-wrapper {
+    overflow-x: scroll;
+  }
+
+  table {
+    margin-bottom: 1em;
+    overflow: auto;
+    width: 100%;
+
+    th,
+    td {
+      text-align: left;
+      padding: 5px 20px 5px 0;
+      border-bottom: 1px solid $gray-light;
+      font-size: 1em;
+
+      code {
+        white-space: nowrap;
+      }
+    }
+
+    tr td:last-child,
+    tr th:last-child {
+      padding-right: 0;
+    }
+
+    th {
+      vertical-align: bottom;
+      font-weight: 500;
+    }
+
+    tr:nth-child(odd)>td {
+      background-color: lighten($main-bg, 4.2%);
+    }
+
+    tr:nth-child(even)>td {
+      background-color: lighten($main-bg, 2.4%);
+    }
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 1em;
+  }
+
+  p,
+  li,
+  dt,
+  dd {
+    margin-top: 0;
+  }
+
+  strong {
+    font-weight: 500;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    background-color: $gray-light;
+    color: $gray-dark;
+    padding: 0 0.2em;
+    font-size: 0.9em;
+    @extend %break-words;
+    @extend %code-font;
+  }
+
+  a {
+    text-decoration: none;
+    border-bottom: 1px solid #ccc;
+    color: $gray-dark;
+
+    &:hover {
+      border-color: #111;
+    }
+  }
+
+  pre>code {
+    background-color: transparent;
+    padding: 0;
+    color: $gray-light;
+  }
+
+  aside {
+    margin: $main-padding 0;
+    padding: 0.5em 0 0.5em 1em;
+    border-left: 3px solid $aside-notice-bg;
+
+    &.warning {
+      border-color: $aside-warning-bg;
+    }
+
+    &.success {
+      border-color: $aside-success-bg;
+    }
+
+    code {
+      background-color: rgba(232, 232, 232, 0.4);
+      word-break: break-word;
+    }
+
+    a {
+      color: #111;
+    }
+  }
+
+  .two-col {
+    .col {
+      margin-bottom: 1.2em;
+    }
+
+    .two-col__title {
+      @extend h3;
+      display: block;
+      margin: 0 0 0.6em;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Embed Specific Styling
+////////////////////////////////////////////////////////////////////////////////
+
+.content {
+  .embed-screenshot {
+    display: block;
+
+    margin: 40px auto 20px;
+
+    @media (min-width: 769px) {
+      max-width: 502px;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// CODE SAMPLE STYLES
+////////////////////////////////////////////////////////////////////////////////
+// This is all the stuff that appears in the right half of the page
+
+.content {
+
+  pre,
+  blockquote {
+    background-color: none;
+    color: #fff;
+    margin: 0 0 20px;
+
+    &>p {
+      margin: 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: dashed 1px #ccc;
+    }
+  }
+
+  pre {
+    @extend %code-font;
+    padding: 1em;
+  }
+
+  blockquote {
+    &>p {
+      font-size: 0.8em;
+      padding: $code-annotation-padding 30px;
+      color: $gray-ultralight;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// RESPONSIVE DESIGN
+////////////////////////////////////////////////////////////////////////////////
+
+@media (min-width: $tablet-width) {
+  .page-wrapper {
+    margin-left: $nav-width;
+    background: $white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 50;
+  }
+
+  .content {
+    padding: 0 60px 60px;
+    max-width: $content-width;
+
+    .two-col {
+      display: flex;
+      justify-content: space-between;
+
+      .col {
+        width: 48%;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .toc-wrapper {
+    left: 0;
+    background-color: $main-bg;
+    border: 0;
+    padding-bottom: 1em;
+  }
+
+  #nav-button {
+    display: none;
+  }
+}
+
+.highlight .c,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs {
+  color: #909090;
+}
+
+.highlight,
+.highlight .w {
+  background-color: $code-bg;
+}
+
+.shutdown-text {
+  background: #3A66FF;
+  padding: 0.5em 10px;
+  margin-top: 1em;
+  text-align: center;
+  color: #e8e8e8;
+}

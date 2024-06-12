@@ -1,0 +1,2221 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>WeTransfer API Reference</title>
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+
+    <link href="/stylesheets/screen.css" rel="stylesheet" media="screen" />
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;ruby&quot;,&quot;swift&quot;]">
+  <div id="shutdown-banner">
+    <p> Unfortunately we no longer provide support for the WeTransfer API. <a href="https://wetransfer.zendesk.com/hc/en-us/articles/360038551772-We-ve-retired-our-Public-API" target="_blank">Learn more</a></p>
+  </div>
+
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="/images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+
+    <div class="page-wrapper">
+      <div class="content">
+        <h1 id='welcome-to-wetransfer-39-s-public-api'>Welcome to WeTransfer&#39;s public API!</h1>
+<p>You can use our API to share files, links and love all over the world.</p>
+<h2 id='our-apis'>Our APIs</h2>
+<p>Depending on what you want to make we have two main flavors: <strong>transfers</strong> and <strong>boards</strong>.</p>
+
+<div class="two-col">
+  <div class="col">
+    <span class="two-col__title">Transfer API</span>
+    <p>Built to get files from one place to the other, this is the classic WeTransfer experience. Send up to 2GB of files per transfer and we will handle it with ease, with a built-in 7 day expiry. Once a transfer has been finalized, that's it - it can't be changed.</p>
+  </div>
+  <div class="col">
+    <span class="two-col__title">Board API</span>
+    <p>Our Board API is similar to what you'll experience in our mobile app. It can store traditional files as well as links, and is flexible in how it displays your items. Additionally - boards do not have an expiry time as long as they receive activity, so you can add items as you see fit. If untouched, they expire after 3 months.</p>
+  </div>
+</div>
+<h1 id='embed'>Embed</h1>
+<p>WeTransfer Embed allows a way to receive files in a form on your website. Embed is not an API of its own, it is an integration using the (transfer) API.</p>
+
+<p><img src="/images/EmbedInFormAbstract.png" class="embed-screenshot" alt="Embed example image"></p>
+<h2 id='wetransfer-embed-enables-you-to-receive-big-files'>WeTransfer Embed enables you to receive big files</h2>
+<p><em>Or: Why you need Embed</em></p>
+
+<p>Web forms are those things where your users fill in fields, like a form for their name and address when they buy goods.
+These forms can handle files, but they aren&#39;t very good at it. There are two main problems:</p>
+
+<ol>
+<li>Receiving multiple files is hard to do well.</li>
+<li>Receiving large (gigantic) files can be problematic. And by large, we mean anything bigger than a picture from a phone camera.</li>
+</ol>
+
+<p>Embed utilizes the power of WeTransfer to solve these problems.</p>
+
+<p>In order to make use of WeTransfer Embed, there are two prerequisites</p>
+
+<ul>
+<li>You have a form that you want to receive files with</li>
+<li><s>An account on <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a></s></li>
+</ul>
+
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div>
+<h3 id='prerequisites'>Prerequisites</h3>
+<p><s>Create an account.
+From there, the creation of Embed will be straightforward.</p>
+
+<p>Go to <a target="_top" href="https://developers.wetransfer.com">developers.wetransfer.com</a> and click
+on <a target="_top" href="https://developers.wetransfer.com/sign-up">Sign in</a>. Create an account by
+using GitHub or Google. Once completed, this should present you with a link to
+the <a target="_top" href="https://developers.wetransfer.com/dashboard">dashboard</a>.
+</s></p>
+
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div>
+
+<p>Using the dashboard you can create an Embed key, or an Apps key. To make sure
+you use Embed, click on
+<a target="_top" href="https://developers.wetransfer.com/dashboard/embed_keys/new">Generate new code snippet</a>,
+just below the <strong>WeTransfer Embed</strong> heading.</p>
+
+<p>Fill out the form, and press &quot;Create&quot;.</p>
+
+<p>Now you are presented your embed snippet. Note that in the example below, the embed key is invalid.
+Please use this code as a reference only.</p>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/props"</span><span class="nt">&gt;</span>
+    <span class="p">{</span>
+      <span class="s2">"wtEmbedKey"</span><span class="p">:</span> <span class="s2">"0a2b5190-8914-442d-a877-cbd68d571101"</span><span class="p">,</span>
+      <span class="s2">"wtEmbedOutput"</span><span class="p">:</span> <span class="s2">".wt_embed_output"</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!--
+  The next input element will hold the transfer link. For testing purposes, you
+  could change the type attribute to "text", instead of "hidden".
+--&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
+</code></pre><h2 id='adding-embed-to-your-form'>Adding Embed to your form</h2>
+<p>That snippet is a piece of code you can place in your form. Open the html page that has your form in your favorite editor.</p>
+
+<p>Somewhere in between your form open and close tags (<code>&lt;form&gt;</code> and <code>&lt;/form&gt;</code>), paste this snippet.</p>
+
+<p>With that setup, whenever a user fills out the form; a link to the uploaded material will be submitted in a field with the name <code>wt_embed_output</code>.</p>
+<h3 id='in-depth'>In depth</h3>
+<p>Let&#39;s go over that code part by part, to see what it actually does.</p>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;div</span> <span class="na">data-widget-host=</span><span class="s">"habitat"</span> <span class="na">id=</span><span class="s">"wt_embed"</span><span class="nt">&gt;</span>
+</code></pre>
+<p>This line creates an element that will display the file selector.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/props"</span><span class="nt">&gt;</span>
+  <span class="p">{</span>
+    <span class="s2">"wtEmbedKey"</span><span class="p">:</span> <span class="s2">"0a2b5190-8914-442d-a877-cbd68d571101"</span><span class="p">,</span>
+    <span class="s2">"wtEmbedOutput"</span><span class="p">:</span> <span class="s2">".wt_embed_output"</span><span class="p">,</span>
+    <span class="s2">"wtEmbedLanguage: "</span><span class="nx">en</span><span class="err">"</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre>
+<p>This chunk of code is the configuration of WeTransfer Embed.</p>
+
+<ul>
+<li>The line that starts with <code>&quot;wtEmbedKey&quot;</code> holds the token that links the transfer to your account.</li>
+<li>The next line tells Embed to which form input in your page the resulting link will be put. For geeks: Under the hood, Embed uses <a target="_top" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector"><code>document.querySelector</code></a> to get the element specified here.</li>
+</ul>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;/div&gt;</span>
+</code></pre>
+<p>This closes the element created on the first line. Nothing important going on otherwise.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;script </span><span class="na">async</span> <span class="na">src=</span><span class="s">"https://prod-embed-cdn.wetransfer.net/v1/latest.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre>
+<p>This loads the script that has the code to make Embed do its magic.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="c">&lt;!--
+  The next input element will hold the transfer link. For testing purposes, you
+  could change the type attribute to "text", instead of "hidden".
+--&gt;</span>
+</code></pre>
+<p>This is just a bit of inline documentation, for the developers that don&#39;t care to read these docs.
+Feel free to remove these lines from your code base. Or follow the advise and make the input field visible, by changing it from <code>&quot;hidden&quot;</code> to <code>&quot;text&quot;</code>.</p>
+
+<hr>
+<pre class="highlight html tab-html"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"wt_embed_output"</span> <span class="na">class=</span><span class="s">"wt_embed_output"</span> <span class="nt">/&gt;</span>
+</code></pre>
+<p>This is the input field for your form that holds the link to your transfer. It has a <code>name</code> attribute of <code>&quot;wt_embed_output&quot;</code>, meaning that it will be sent to your backend system, using that name. The <code>class</code> attribute is used (in this example) to connect embed to it.</p>
+<h2 id='translations'>Translations</h2>
+<p>To display Embed in a different language, simple change the <code>wtEmbedLanguage</code> parameter in the code snippet. Embed currently supports the following languages:</p>
+<div class='table-wrapper'><table class='table'><thead><tr>
+<th>language</th>
+<th>code</th>
+</tr>
+</thead><tbody><tr>
+<td>Danish</td>
+<td><code>da</code></td>
+</tr>
+<tr>
+<td>Dutch</td>
+<td><code>nl</code></td>
+</tr>
+<tr>
+<td>English (default)</td>
+<td><code>en</code></td>
+</tr>
+<tr>
+<td>German</td>
+<td><code>de</code></td>
+</tr>
+<tr>
+<td>Italian</td>
+<td><code>it</code></td>
+</tr>
+<tr>
+<td>Norwegian Bokmål</td>
+<td><code>nb</code></td>
+</tr>
+<tr>
+<td>Portugese</td>
+<td><code>pt</code></td>
+</tr>
+<tr>
+<td>Spanish</td>
+<td><code>es</code></td>
+</tr>
+<tr>
+<td>Swedish</td>
+<td><code>sv</code></td>
+</tr>
+<tr>
+<td>Turkish</td>
+<td><code>tr</code></td>
+</tr>
+</tbody></table></div><h2 id='examples'>Examples</h2>
+<p>On <a target="_top" href="https://github.com/WeTransfer/EmbedExamples">github.com/WeTransfer/EmbedExamples</a>, we&#39;ve collected some examples to help you get up to speed.</p>
+
+<p>There are examples for Netlify and Ruby on Rails*. Go over there to see either the end results, or the changes that focus just on adding embed to an existing form.</p>
+
+<p><em>* = With more to come if you add your examples!</em></p>
+<h2 id='find-us'>Find us</h2>
+<p>For new users:
+We know it is annoying that you cannot create an account. But there is nothing we can do to give you an account at this moment.</p>
+
+<p>Feel free to mail your questions, remarks, feedback or praises regarding Embed on <a href="mailto:developers@wetransfer.com">developers@wetransfer.com</a>.</p>
+<h1 id='sdks'>SDKs</h1><h2 id='v2-and-v1-compatible-sdks'>V2 and V1 Compatible SDKs</h2>
+<section class="sdks">
+  <article class="sdk sdk-node">
+    <img src="/images/sdks/node-js.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Node.js</h4>
+      <p>Created and maintained by WeTransfer</p>
+    </div>
+    <a href="https://github.com/WeTransfer/wt-js-sdk" class="button" target="_blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-ruby">
+    <img src="/images/sdks/ruby.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Ruby (beta)</h4>
+      <p>Created and maintained by WeTransfer</p>
+    </div>
+    <a href="https://github.com/WeTransfer/wetransfer_ruby_sdk" class="button" target="_blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-swift">
+    <img src="/images/sdks/swift.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Swift</h4>
+      <p>Created and maintained by WeTransfer</p>
+    </div>
+    <a href="https://github.com/WeTransfer/WeTransfer-Swift-SDK" class="button" target="_blank">View on Github</a>
+  </article>
+  <article class="sdk sdk-python">
+    <img src="/images/sdks/python.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Python 3</h4>
+      <p>Created and maintained by Francois Liot</p>
+    </div>
+    <a href="https://github.com/fliot/py3wetransfer" class="button" target="_blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-c-sharp">
+    <img src="/images/sdks/c-sharp.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">C#</h4>
+      <p>Created and maintained by André Steffens</p>
+    </div>
+    <a href="https://github.com/Steffens-Bridgemate/WeTransfer-C-wrapper/" class="button" target="_blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-rust">
+    <img src="/images/sdks/rust.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Rust</h4>
+      <p>Created and maintained by Sergio</p>
+    </div>
+    <a href="https://github.com/tehAnswer/wetransfer" class="button" target="_blank">View on GitHub</a>
+  </article>
+</section>
+<h2 id='v1-compatible-sdks'>V1 compatible SDKs</h2>
+<p>These SDKs are <strong>only</strong> compatible with V1 of the API. As they are entirely community-created, feel free to lend a hand and help them become compatible with <strong>V2</strong> of the WeTransfer API as well!</p>
+
+<section class="sdks">
+  <article class="sdk sdk-php">
+    <img src="/images/sdks/php.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">PHP</h4>
+      <p>Created and maintained by Arkaitz Garro</p>
+    </div>
+    <a href="https://github.com/arkaitzgarro/wetransfer-php-sdk" class="button" target="_blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-r">
+    <img src="/images/sdks/r.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">R</h4>
+      <p>Created and maintained by Tim Faber</p>
+    </div>
+    <a href="https://github.com/tfaber/wetransfeR" class="button" target="_blank">View on GitHub</a>
+  </article>
+  <article class="sdk sdk-python">
+    <img src="/images/sdks/python.svg" class="sdk__logo">
+    <div class="info">
+      <h4 class="sdk__title">Python 2</h4>
+      <p>Created and maintained by Andreas Strikos</p>
+    </div>
+    <a href="https://github.com/astrikos/wetransfer-python-sdk" class="button" target="_blank">View on GitHub</a>
+  </article>
+</section>
+<h1 id='authorization'>Authorization</h1><h3 id='api-keys-where-and-how'>API keys - where and how</h3>
+<p>To use our APIs you must provide your API key with every request.</p>
+
+<p><s>
+Create an API key on our <a href="https://developers.wetransfer.com/" target="_blank">developers portal</a> - currently we require you to have a GitHub or Google account to login.
+</s>
+<div class="shutdown-text">Unfortunately, the public API is closed. New accounts cannot be created</div></p>
+
+<p>Once you&#39;ve done so make sure you&#39;re on the dashboard page, and select &quot;Create new application&quot; to start generating an API key.</p>
+
+<p>Once you have a key (or multiple keys), please make sure that you keep them in a secret place, and do not share them. If you need to delete and recreate your key (for whatever reason) click on the key in your dashboard, and select &quot;Delete&quot; under actions. NOTE: This will destroy your currently existing key, so you may want to create a new application / key and add the new key to any running systems before deleting the old one.</p>
+
+<aside class="notice">
+In all of our examples remember to replace `your_api_key` with your own API key. Also, we require a <code>Content-Type: application/json</code> header on every POST and PUT request, otherwise you will receive an "Unsupported Content-Type" error.
+</aside>
+
+<p>When you or a user starts your app / script / etc, it/they will need to authorize using the endpoint below.</p>
+<h3 id='key-limits'>Key Limits</h3>
+<p>Any API key is limited to 1000 requests per 24 hours. All requests to the public API count towards this limit.</p>
+
+<h3 id="send-request" class="call"><span>POST</span> /authorize</h3>
+
+<p>Besides the API Key and the Content-Type header, a JSON Web Token (JWT) must be included on all requests <strong>other than the authorize request</strong>. You may want to submit an authorization request per-user of your application, containing a unique user identifier. We recommend making these user identifiers random and non-sequential, so long as they mean something to your application or internal systems.</p>
+
+<p>These JWTs can be used to interact with the API, and will identify the user to our backend systems. Do not allow (unless your application depends on this functionality) different users to share a unique_identifier, as this will mean that user Alice can access user Bob&#39;s transfers. If you do not include the identifier, anyone using your application can potentially access any other transfers and boards created by your application.</p>
+
+<p>Where the API key can be seen as the key to the front door of a house, the <code>user_identifier</code> can be used to create an isolated room within that house.</p>
+
+<p>If you don&#39;t use a user identifier when authenticating, you can interact with all boards and transfers you create for your API key. On the other hand, if Alice and Bob are two users using the same API key, but using different <code>user_identifier</code>s, they can interact with their <em>own</em> boards and transfers only, <em>not</em> with the other boards and transfers created with the same API key, for other users.</p>
+
+<p>To retrieve a JWT, send a request including your API key to the following endpoint:</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X POST <span class="s2">"https://dev.wetransfer.com/v2/authorize"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: YOUR PRIVATE API KEY GOES HERE"</span> <span class="se">\</span>
+  -d <span class="s1">'{"user_identifier":"5eb6b98e-ddaa-4f5b-9d03-7bd4d91aa05f"}'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">createWTClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'@wetransfer/js-sdk'</span><span class="p">);</span>
+
+<span class="c1">// Please keep in mind that authorization is performed when the client is initialized.</span>
+<span class="kr">const</span> <span class="nx">wtClient</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">createWTClient</span><span class="p">(</span><span class="s1">'/* YOUR PRIVATE API KEY GOES HERE */'</span><span class="p">);</span>
+
+<span class="c1">// When using the SDK, there is no need to call authorize manually.</span>
+<span class="c1">// The method is available though, in case you need to access the JWT.</span>
+<span class="kr">const</span> <span class="nx">auth</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">authorize</span><span class="p">();</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># Using the WeTransfer Ruby SDK...</span>
+<span class="nb">require</span> <span class="s1">'we_transfer_client'</span>
+
+<span class="c1"># Create a WeTransfer client that authorizes requests on your api_key</span>
+<span class="n">client</span> <span class="o">=</span> <span class="no">WeTransfer</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">api_key: </span><span class="s1">'YOUR PRIVATE API KEY GOES HERE'</span><span class="p">)</span>
+
+<span class="c1"># Or, by hand.</span>
+<span class="c1"># If you aren't using the WeTransfer gem, you could POST yourself:</span>
+<span class="nb">require</span> <span class="s1">'faraday'</span>
+
+<span class="n">faraday</span> <span class="o">=</span> <span class="no">Faraday</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'https://dev.wetransfer.com'</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">faraday</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span>
+  <span class="s1">'/v2/authorize'</span><span class="p">,</span>
+  <span class="s1">'{}'</span><span class="p">,</span>
+  <span class="p">{</span>
+    <span class="s1">'Content-Type'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+    <span class="s1">'x-api-key'</span> <span class="o">=&gt;</span> <span class="s1">'YOUR PRIVATE API KEY GOES HERE'</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// The client is configured with your private API key</span>
+<span class="c1">// The SDK performs the authorize request once, right before the actual transfer or board creation request</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">configure</span><span class="p">(</span><span class="nv">with</span><span class="p">:</span> <span class="kt">WeTransfer</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="nv">apiKey</span><span class="p">:</span> <span class="s">"YOUR PRIVATE API KEY GOES HERE"</span><span class="p">))</span>
+</code></pre><h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='body'>Body</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>user_identifier</code></td>
+<td>String</td>
+<td>No</td>
+<td>A unique (per user of your application) identifier</td>
+</tr>
+</tbody></table></div><h4 id='response'>Response</h4><h5 id='200-ok'>200 (OK)</h5>
+<p>If you successfully authenticate, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqdXN0IGEgc2FtcGxlIHRva2VuLCB0aGUgYWN0dWFsIG9uZSB3aWxsIGhhdmUgZGlmZmVyZW50IGNvbnRlbnQiLCJuYW1lIjoiQW5nZWxhIEJlbm5ldHQiLCJpYXQiOjE1MTYyMzkwMjJ9.fd14EeU1vbj40WtHIYaDwpCOE972DKnrrP8mffioEdg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The token returned here must be sent with subsequent requests. It is not recommended to share this token across clients - if your app is installed on a new device it should at the very least re-authorize on startup.
+The (optional) <code>user_identifier</code> attribute is very well suited to create different tokens for different clients, using the same API key.</p>
+<h5 id='403-forbidden'>403 (Forbidden)</h5>
+<p>If you send an API key that is invalid, or you don&#39;t send an API key at all, this endpoint will return an HTTP response with a status code of <code>403</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Forbidden: invalid API Key. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='file-names'>File names</h1>
+<p>Both the <a href="#transfer-api">transfer API</a> and the <a href="#board-api">board API</a> have the ability to work with files. No matter which API you&#39;re using, there are constraints that apply to file names.</p>
+<h2 id='removal-of-characters'>Removal of characters</h2>
+<p>Some characters in file names don&#39;t interact well with our systems or in some cases with the systems of the receiver. Therefore we will remove them from the file name. This does not alter the <em>content</em> of the file, only the <em>name</em> of the file.</p>
+<h3 id='emojis'>Emojis</h3>
+<p>Emojis will be removed from a file name. That means that a file with the name <code>the-weather-is-☀️.jpg</code> will be converted into <code>the-weather-is-.jpg</code>.</p>
+<h3 id='special-file-system-characters'>Special file system characters</h3>
+<p>We remove characters that have a special meaning to file systems. Think of the <code>/</code>, <code>\</code> (forward and backward slash), and the <code>:</code> (colon) character, to name a few. A file that has these characters in its name could potentially break a file system. That means that a file with the name <code>the-weather-is-:\.jpg</code> will be converted into <code>the-weather-is-.jpg</code>.</p>
+
+<p>You can use your preferred file names, but the API strips the kind of characters listed above. That means that the upload of an affected file will succeed, but it will end up with a different name than you might expect when it reaches its destination.</p>
+<h2 id='file-names-should-have-characters'>File names should have characters</h2>
+<p>A file with an empty name is not valid. Since the API removes problematic characters, you might hit this issue for files that have a name that consists solely of emojis and special characters. No judgement on your file naming scheme, but after we strip all those characters, we expect there to be something left. If the resulting file name is empty, the API will return an error. See below for an example</p>
+
+<p>If you create a transfer for a file with an empty name, the API responds with an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">transfer.files.name</span><span class="se">\"</span><span class="s2"> is not allowed to be empty"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you create a board for a file with an empty name, the API responds with an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.name</span><span class="se">\"</span><span class="s2"> is not allowed to be empty"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='unique-names'>Unique names</h2>
+<p>Your file names should be unique within your board or transfer. If you want to store two files with the same name, we will return an error. In the API we consider file names to be case sensitive. That means that the files <code>polish.txt</code> and <code>Polish.txt</code> are treated as two different files.</p>
+
+<p>If you create a transfer with duplicate file names, the API will return an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">transfer.files</span><span class="se">\"</span><span class="s2"> position 1 contains a duplicate value"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you create a board with duplicate file names, the API will return an HTTP status code <code>400 Bad Request</code>, and this body:</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files</span><span class="se">\"</span><span class="s2"> position 1 contains a duplicate value"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='transfer-api'>Transfer API</h1>
+<p>The Transfer API is classic WeTransfer. You might know it well (or you&#39;re about to). Use it to upload files, get the link and share magic. We&#39;ve been using this behind the scenes for ages (an internal version of it powers our <a href="https://itunes.apple.com/app/wetransfer/id1114922065?ls=1&mt=12" target="blank">macOS app</a> and our <a href="https://we.tl/wtclient" target="_blank">Command Line Client</a> and now we&#39;re opening it up to you and all your users.</p>
+
+<p>Transfers created through the APIs stick around for 7 days and then vanish forever. They also have a 2GB limit. For now the Transfer API is not connected to Pro accounts, so you&#39;ll need to store the transfer link somewhere - just like a web link transfer, there&#39;s no way to get the link back if it gets misplaced.</p>
+
+<p>A transfer request consists of the endpoint itself, the headers, and the body, which can contain a message and must contain a list of file objects. The files themselves need a name and a size in bytes - you&#39;ll need to compute the size yourself. Most languages provide a way to do this.</p>
+
+<p>Transfers must be created with files. Once the transfer has been created and finalized, the transfer is locked and cannot be further modified.</p>
+<h2 id='create-a-new-transfer'>Create a new transfer</h2>
+<p>When you create a transfer, you must include at least one file in the transfer create request.</p>
+
+<p>Creating a transfer is to inform the API that you want to create a transfer (with at least one file), but you aren&#39;t sending the files already.</p>
+
+<p>What you are sending is the <code>message</code>, a property that describes what this transfer is about, and a collection of file <code>name</code>s and their <code>size</code>. This allows the API to set up a place where your files can be uploaded to in a later state. Make sure the size of the file is accurate. Please don&#39;t lie to us; we will not be able to handle your files in a later stage...</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X POST <span class="s2">"https://dev.wetransfer.com/v2/transfers"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: REPLACE_WITH_YOUR_API_KEY"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer REPLACE_WITH_YOUR_TOKEN"</span> <span class="se">\</span>
+  -d <span class="s1">'
+    {
+      "message":"My very first transfer!",
+      "files":[
+        {
+          "name":"big-bobis.jpg",
+          "size":195906
+        },
+        {
+          "name":"kitty.jpg",
+          "size":369785
+        }
+      ]
+    }'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">transfer</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">message</span><span class="p">:</span> <span class="s1">'My very first transfer!'</span><span class="p">,</span>
+  <span class="na">files</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s1">'big-bobis.jpg'</span><span class="p">,</span>
+      <span class="na">size</span><span class="p">:</span> <span class="mi">195906</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="na">name</span><span class="p">:</span> <span class="s1">'kitty.jpg'</span><span class="p">,</span>
+      <span class="na">size</span><span class="p">:</span> <span class="mi">369785</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">});</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># In the current Ruby SDK (version 0.9.x), you can only create a transfer</span>
+<span class="c1"># and upload the files in one go. This behavior will be split in the upcoming</span>
+<span class="c1"># major (version 1.0) release.</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">WeTransfer</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">api_key: </span><span class="n">wetransfer_api_key</span><span class="p">)</span>
+
+<span class="n">client</span><span class="p">.</span><span class="nf">create_transfer_and_upload_files</span><span class="p">(</span><span class="ss">message: </span><span class="s1">'My very first transfer!'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
+  <span class="c1"># Add as many files as you need, using `add_file`, or `add_file_at`</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_file</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'big-bobis.jpg'</span><span class="p">,</span> <span class="ss">io: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s1">'/path/to/cat_image.jpg'</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">))</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_file_at</span><span class="p">(</span><span class="ss">path: </span><span class="s1">'/path/to/kitty.jpg'</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Access the transfer in your browser:</span>
+<span class="nb">puts</span> <span class="s2">"The transfer can be viewed on </span><span class="si">#{</span><span class="n">transfer</span><span class="p">.</span><span class="nf">url</span><span class="si">}</span><span class="s2">"</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="k">let</span> <span class="nv">files</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">createTransfer</span><span class="p">(</span><span class="nv">saying</span><span class="p">:</span> <span class="s">"My very first transfer!"</span><span class="p">,</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="n">files</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">transfer</span><span class="p">):</span>
+        <span class="c1">// Transfer created</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Error creating transfer</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id="transfer-create-object" class="call"><span>POST</span> /transfers</h3>
+<h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>message</code></td>
+<td>String</td>
+<td>No</td>
+<td>Something about cats or coffee, most probably. Defaults to an empty string</td>
+</tr>
+<tr>
+<td><code>files</code></td>
+<td>Array</td>
+<td>Yes</td>
+<td>A list of file objects to be added to the transfer</td>
+</tr>
+</tbody></table></div><h4 id='file-object'>File object</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The name of the file you want to show on items list</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td>File size in bytes. <strong>Must</strong> be accurate. No fooling. Don&#39;t let us down!</td>
+</tr>
+</tbody></table></div><h4 id='response'>Response</h4><h5 id='201-created'>201 (Created)</h5>
+<p>After a successful request where a transfer has been created, this endpoint will return an HTTP response with a status code of <code>201</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"32a6ef6003f1429be0cf1674dd8fbdef20181019143517"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"My very first transfer!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"uploading"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"size"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"c964caf6c54343f3b6e9610cb4ac5ea220181019143517"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">369785</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"size"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">369785</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"e7f74773661f2be2bec90e6322864abd20181019143517"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"kitty.jpg"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='400-bad-request'>400 (Bad Request)</h5>
+<p>If the body in the request to this endpoint is not valid json, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unexpected token ! in JSON at position 0. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>It will list the actual error in the JSON, the above result is just a response to a json string that starts with an exclamation point.</p>
+
+<p>If you set the message for your transfer to something other than a string, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">transfer.message</span><span class="se">\"</span><span class="s2"> must be a string. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you forget to send the <code>files</code> in the JSON of your request, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">transfer.files</span><span class="se">\"</span><span class="s2"> must contain at least 1 items. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='request-upload-urls'>Request upload URLs</h2>
+<p>If you look at that response above, you see some pointers that are needed now. All files should be uploaded to a specific place. You just have to get the place from our API. To do that, you ask the API based on the <code>transfer.id</code>, each and every <code>file.id</code>, and for each part (based on the <code>file.multipart.part_numbers</code> property).</p>
+
+<p>To be able to upload a file, it must be split into parts and then each part will be uploaded to pre-signed AWS S3 URLs.</p>
+
+<p>This endpoint can be used to get pre-signed upload URLS for each of a file&#39;s parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. NOTE: They are valid for an <strong>hour</strong> and must be re-requested if they expire.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">transfer</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="k">for</span> <span class="p">(</span>
+  <span class="kd">let</span> <span class="nx">partNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nx">partNumber</span> <span class="o">&lt;</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">part_numbers</span><span class="p">;</span>
+  <span class="nx">partNumber</span><span class="o">++</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Get the upload url for the chunk we want to upload</span>
+  <span class="kr">const</span> <span class="nx">uploadURL</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">getFileUploadURL</span><span class="p">(</span>
+    <span class="nx">transfer</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="p">);</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right before uploading each file</span>
+</code></pre>
+<h3 id="transfer-request-upload-url" class="call"><span>GET</span> /transfers/{transfer_id}/files/{file_id}/upload-url/{part_number}</h3>
+
+<p>Transfer chunks must be 5 megabytes (or more specifically: 5242880 bytes) in size, except for the very last chunk, which can be smaller. Sending too much or too little data will result in a <code>400 Bad Request</code> error when you finalize the file.</p>
+<h4 id='headers-2'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-2'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>transfer_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the transfer</td>
+</tr>
+<tr>
+<td><code>file_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the file to upload, returned the transfer was created</td>
+</tr>
+<tr>
+<td><code>part_number</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td>Which part number of the file you want to upload. It will be limited to the maximum <code>multipart.part_numbers</code> response</td>
+</tr>
+</tbody></table></div><h4 id='response-2'>Response</h4><h5 id='200-ok'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://presigned-s3-put-url"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The Response Body contains the pre-signed S3 upload <code>url</code>.</p>
+<h5 id='404-not-found'>404 (Not found)</h5>
+<p>If you try to request an upload URL for a file that is not in the transfers,, this endpoint will return an HTTP response with a status code of <code>404</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid transfer or file id. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='417-expectation-failed'>417 (Expectation Failed)</h5>
+<p>The API starts counting chunks from number <code>1</code>, not <code>0</code>. If you request to upload part <code>0</code>, this endpoint will return an HTTP response with a status code of <code>417</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Chunk numbers are 1-based. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="transfer-file-upload">File Upload</h2>
+
+<h3 id="transfer-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
+
+<p>Time to actually upload (chunks of) your file. With the pre-signed-upload-url you retrieved in the previous step, you can start uploading!</p>
+
+<p>You will interact directly with Amazon S3. As such, we have no control over the messages sent by S3.</p>
+
+<p>Important: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS&#39; <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -T <span class="s2">"./path/to/big-bobis.jpg"</span> <span class="s2">"https://signed-s3-upload-url"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'axios'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">transfer</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">fileContent</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">'/path/to/file'</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span>
+  <span class="kd">let</span> <span class="nx">partNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nx">partNumber</span> <span class="o">&lt;</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">part_numbers</span><span class="p">;</span>
+  <span class="nx">partNumber</span><span class="o">++</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">chunkStart</span> <span class="o">=</span> <span class="nx">partNumber</span> <span class="o">*</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">chunk_size</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">chunkEnd</span> <span class="o">=</span> <span class="p">(</span><span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">chunk_size</span><span class="p">;</span>
+
+  <span class="c1">// Get the upload url for the chunk we want to upload</span>
+  <span class="kr">const</span> <span class="nx">uploadURL</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">getFileUploadURL</span><span class="p">(</span>
+    <span class="nx">transfer</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="p">);</span>
+
+  <span class="c1">// Use whichever JavaScript library you prefer to upload the chunk:</span>
+  <span class="c1">// axios, request, fetch, XMLHttpRequest, etc.</span>
+  <span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+    <span class="na">method</span><span class="p">:</span> <span class="s1">'put'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">fileContent</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">chunkStart</span><span class="p">,</span> <span class="nx">chunkEnd</span><span class="p">),</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// To immediately create a transfer and upload its files</span>
+<span class="k">let</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">uploadTransfer</span><span class="p">(</span><span class="nv">saying</span><span class="p">:</span> <span class="err">'</span><span class="kt">My</span> <span class="n">very</span> <span class="n">first</span> <span class="n">transfer</span><span class="o">!</span><span class="err">'</span><span class="p">,</span> <span class="nv">containing</span><span class="p">:</span> <span class="n">fileURLS</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">created</span><span class="p">(</span><span class="k">let</span> <span class="nv">transfer</span><span class="p">):</span>
+        <span class="c1">// Transfer created on the server</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">):</span>
+        <span class="c1">// Use the progress object to track the total file upload progress</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+        <span class="c1">// Transfer is complete</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Creating transfer or uploading files failed</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Or use the transfer object from the `createTransfer` call</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">upload</span><span class="p">(</span><span class="n">transfer</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">):</span>
+        <span class="c1">// Use the progress object to track the total file upload progress</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+        <span class="c1">// Transfer is complete</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Uploading transfer failed</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id="transfer-complete-file-upload">Complete a file upload</h2>
+
+<p>In the previous step, you&#39;ve uploaded your file (potentially in parts) directly to S3. The WeTransfer API has no idea when that is complete. This call informs your transfer object that all the uploading for your file is done.</p>
+
+<p>Again, to inform the API about this event, you need both the transfer id and the file id. Not only that, you currently also have to inform this endpoint on the amount of part numbers.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X PUT <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}/files/{file_id}/upload-complete"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
+  -d <span class="s1">'{"part_numbers":1}'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">completeFileUpload</span><span class="p">(</span><span class="nx">transfer</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.</span>
+</code></pre>
+<h3 id="transfer-complete-upload" class="call"><span>PUT</span> /transfers/{transfer_id}/files/{file_id}/upload-complete</h3>
+<h4 id='headers-3'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-3'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>transfer_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the transfer</td>
+</tr>
+<tr>
+<td><code>file_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the file to upload, returned the transfer was created</td>
+</tr>
+<tr>
+<td><code>part_numbers</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Total number of parts uploaded. It must be the same as <code>multipart.part_numbers</code> response</td>
+</tr>
+</tbody></table></div><h4 id='response-3'>Response</h4><h5 id='200-ok-2'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"retries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">5242880</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='417'>417</h5>
+<p>If you try to finalize a file, but didn&#39;t actually upload all chunks, this endpoint will return an HTTP response with a status code of <code>417</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chunks 1 are still missing. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="finalize-a-transfer">Finalize a transfer</h2>
+
+<p>After all files are uploaded and finalized, you can close the transfer for modification, and make it available for download.</p>
+
+<p>You do that by calling this endpoint. It informs the API that everything has been completely uploaded.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X PUT <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}/finalize"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// Finalize transfer</span>
+<span class="kr">const</span> <span class="nx">finalTransfer</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">transfer</span><span class="p">.</span><span class="nx">finalize</span><span class="p">(</span><span class="nx">transfer</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">finalTransfer</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right after all files have been successfully uploaded.</span>
+</code></pre>
+<h3 id="transfer-finalize" class="call"><span>PUT</span> /transfers/{transfer_id}/finalize</h3>
+<h4 id='headers-4'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-4'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>transfer_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the transfer where you added the files</td>
+</tr>
+</tbody></table></div><h4 id='response-4'>Response</h4><h5 id='200-ok-3'>200 (OK)</h5>
+<p>If all went well, the API sends you a lot of data. One of them being the <code>url</code>. That is the thing you will use to access the transfer in a browser.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My first transfer!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/t-12344657"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="notice">
+The `url` field is where you get the link you will need to access the transfer!
+</aside>
+
+<h2 id="retrieve-transfer-information"class="call">Retrieve transfer information</h2>
+
+<p>Once you&#39;re done, you might want to know about your transfer and all of its files. You can use your <code>transfer_id</code> and this endpoint to retrieve that information.</p>
+
+<h3 id="get-transfer" class="call"><span>GET</span> /transfers/{transfer_id}</h3>
+<pre class="highlight shell tab-shell"><code>curl -iX GET <span class="s2">"https://dev.wetransfer.com/v2/transfers/{transfer_id}"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><h4 id='headers-5'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table></div><h4 id='parameters-5'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>transfer_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The ID of the transfer you&#39;ve finalized</td>
+</tr>
+</tbody></table></div><h4 id='response-5'>Response</h4><h5 id='200-ok-4'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My very first transfer!"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"downloadable"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/t-ABcdEFgHi12"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"another-random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='404-not-found-2'>404 (Not Found)</h5>
+<p>When you try to get information from a transfer we cannot find, or that you don&#39;t have access to, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Couldn't find Transfer. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='board-api'>Board API</h1>
+<p>The Board API is the latest addition to our Public API. It was originally built with our <a href="https://itunes.apple.com/app/apple-store/id765359021?pt=10422800&ct=wetransfer-developer-portal&mt=8" target="_blank">iOS</a> and , <a href="https://play.google.com/store/apps/details?id=com.wetransfer.app.live&referrer=utm_source%3Dwetransfer%26utm_medium%3Ddeveloper-portal" target="_blank">Android</a> apps in mind, but it&#39;s also suitable for web/desktop users. It is designed for collecting content rather than transmitting content from A to B (though it can do that, too). It supports both files and links. Boards can be changed - if you hold on to the board&#39;s public ID you are able to add and remove items from a board as long as it is live.</p>
+
+<p>Note that boards are &quot;live&quot; indefinitely, so long as they are being viewed. If a board is not accessed for 90 days it is deleted!</p>
+<h2 id='create-a-new-board'>Create a new board</h2>
+<p>Boards are created without items. One the board has been created, items can be added at any time. If you don&#39;t add any items, the API will create an empty board.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X POST <span class="s2">"https://dev.wetransfer.com/v2/boards"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
+  -d <span class="s1">'{"name": "Little kittens"}'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">board</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'Little kittens'</span>
+<span class="p">});</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># In the current Ruby SDK (version 0.9.x), you can only create a board</span>
+<span class="c1"># and upload the items in one go. This behavior will be split in the upcoming</span>
+<span class="c1"># major (version 1.0) release.</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">WeTransfer</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">api_key: </span><span class="s1">'YOUR PRIVATE API KEY GOES HERE'</span><span class="p">)</span>
+
+<span class="n">board</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="nf">create_board_and_upload_items</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Little kittens'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">builder</span><span class="o">|</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_file</span><span class="p">(</span>
+    <span class="ss">name: </span><span class="s1">'bobis.jpg'</span><span class="p">,</span>
+    <span class="ss">io: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s1">'/path/to/kitty.jpg'</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span>
+  <span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_file_at</span><span class="p">(</span><span class="ss">path: </span><span class="s1">'/path/to/kitty.jpg'</span><span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="nf">add_web_url</span><span class="p">(</span>
+    <span class="ss">url: </span><span class="s1">'http://www.wetransfer.com'</span><span class="p">,</span>
+    <span class="ss">title: </span><span class="s1">'the title that defaults to the url'</span>
+  <span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Access the board in your browser:</span>
+<span class="nb">puts</span> <span class="s2">"The board can be viewed on </span><span class="si">#{</span><span class="n">board</span><span class="p">.</span><span class="nf">url</span><span class="si">}</span><span class="s2">"</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This does not create the board server-side, yet. The request is performed</span>
+<span class="c1">// when files are added to the board for the first time</span>
+<span class="c1">// (adding links will be supported in the SDK version 2.1)</span>
+<span class="k">let</span> <span class="nv">board</span> <span class="o">=</span> <span class="kt">Board</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Little kittens"</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+</code></pre>
+<h3 id="board-create-object" class="call"><span>POST</span> /boards</h3>
+<h4 id='headers'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>A name or title for your board</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>String</td>
+<td>No</td>
+<td>A description of your board, if you want it</td>
+</tr>
+</tbody></table></div><h4 id='response'>Response</h4><h5 id='200-ok'>200 (OK)</h5>
+<p>If everything goes fine, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little kittens"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"downloadable"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/b-random-hash"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<aside class="warning">**Note**: The `url` in the response is the URL you will use to access the board you created. It is not returned at the end of the upload flow, rather only right now when you create the (empty) board.</aside>
+
+<p>Later you&#39;ll want to interact with your board. Add files and links to it. In order to do that, make sure to note the value of the <code>id</code> property.</p>
+<h5 id='400-bad-request'>400 (Bad Request)</h5>
+<p>If you forget to set a name for the board, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.name</span><span class="se">\"</span><span class="s2"> is required. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you don&#39;t send any request body (that holds a board), this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board</span><span class="se">\"</span><span class="s2"> must be an object. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='add-links-to-a-board'>Add links to a board</h2>
+<p>A board can hold files <em>and</em> URLs. Lets have a look at how you can add URLs to your board. For that you need the <code>id</code> of the board you created earlier, unless your SDK will handle that for you.</p>
+
+<p>Once a board has been created you can add links like below:</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X POST <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}/links"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
+  -d <span class="s1">'[{"url": "https://wetransfer.com/", "title": "WeTransfer"}]'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">linkItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">addLinks</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span> <span class="p">[{</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s1">'https://wetransfer.com/'</span>
+<span class="p">}]);</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight plaintext"><code>// Adding links is currently not supported in the SDK but will be added in the SDK version 2.1
+</code></pre>
+<h3 id="board-send-links" class="call"><span>POST</span> /boards/{board_id}/links</h3>
+<h4 id='headers-2'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='request-body'>Request Body</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td>Array</td>
+<td>Yes</td>
+<td>A list of link objects(see below) to add to an existing board</td>
+</tr>
+</tbody></table></div><h4 id='link-object'>Link object</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>url</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The complete URL of the link. <em>Must</em> be less than 2000 characters!</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>String</td>
+<td>No</td>
+<td>The title of the page, defaults to the url. <em>Must</em> be less than 2980 characters!</td>
+</tr>
+</tbody></table></div><h4 id='response-2'>Response</h4><h5 id='200-ok-2'>200 (OK)</h5>
+<p>If you successfully add a link and a board, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://wetransfer.com/"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WeTransfer"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"link"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre><h5 id='400-bad-request-2'>400 (Bad Request)</h5>
+<p>If you don&#39;t send any request body (that holds the link), this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.links</span><span class="se">\"</span><span class="s2"> must be an array. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If the <code>url</code> of the link is longer that 2000 characters, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.links.url</span><span class="se">\"</span><span class="s2"> length must be less than or equal to 2000 characters long. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If the <code>title</code> of the link is longer that 2980 characters, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.links.title</span><span class="se">\"</span><span class="s2"> length must be less than or equal to 2980 characters long. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='404-not-found'>404 (Not Found)</h5>
+<p>If you try to add links to a board that we cannot find, or that doesn&#39;t belong to you, this endpoint will return an HTTP response with a status code of <code>404</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="s2">"This board does not exist. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If you forget the fill the board_id in the request, this endpoint will return an HTTP response with a status code of <code>404</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"use correct endpoint. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h2 id='add-files-to-a-board'>Add files to a board</h2>
+<p>Note that files need a name and a size in bytes - you&#39;ll need to compute the size yourself. Most languages provide a way to do this.</p>
+
+<p>Once a board has been created you can add files like so:</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X POST <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}/files"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span> <span class="se">\</span>
+  -d <span class="s1">'[{"name": "big-bobis.jpg", "size": 195906}]'</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">fileItems</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">addFiles</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span> <span class="p">[{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">'kittie.gif'</span><span class="p">,</span>
+  <span class="na">size</span><span class="p">:</span> <span class="mi">1024</span>
+<span class="p">}]);</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="k">let</span> <span class="nv">board</span> <span class="o">=</span> <span class="kt">Board</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Little kittens"</span><span class="p">,</span> <span class="nv">discription</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="k">let</span> <span class="nv">files</span><span class="p">:</span> <span class="p">[</span><span class="kt">File</span><span class="p">]</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="c1">// Create a File object for each URL.</span>
+    <span class="c1">// When initialization fails, an error will be thrown</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="k">try</span> <span class="n">fileURLs</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="k">try</span> <span class="kt">File</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="nv">$0</span><span class="p">)</span> <span class="p">})</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="c1">// Please handle thrown errors gracefully</span>
+<span class="p">}</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="n">board</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="c1">// Handle result success or failure</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id="board-send-files" class="call"><span>POST</span> /boards/{board_id}/files</h3>
+<h4 id='headers-3'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-2'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>files</code></td>
+<td>Yes</td>
+<td>A list of file objects to send to an existing board (see below)</td>
+</tr>
+</tbody></table></div><h4 id='file-object'>File object</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>name</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The name of the file you want to show on items list. <em>Must</em> be less than 255 characters.</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td>File size in bytes. Must be accurate. No fooling. Don&#39;t let us down!</td>
+</tr>
+</tbody></table></div><h4 id='response-3'>Response</h4><h5 id='200-ok-3'>200 (OK)</h5>
+<p>If you add one file (or many files) that have a valid name and a size, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"big-bobis.jpg"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"some random id"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>After this successful request, this endpoint will return an JSON holding an object for each file you want to add to the board. That object is helpful in the next step when we want to request a place where we can upload our file.</p>
+
+<p>The important parts in the response are the <code>id</code> of the file, the <code>id</code> of the multipart object, together with its <code>part_numbers</code>.</p>
+<h5 id='400-bad-request-3'>400 (Bad Request)</h5>
+<p>If the request does not have a properly formatted file list in the body of the request, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files</span><span class="se">\"</span><span class="s2"> must be an array. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>In case you send a file with a <strong>size of <code>0</code></strong> (zero), this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.size</span><span class="se">\"</span><span class="s2"> must be greater than 1. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>In case you send a file with an <strong>empty name</strong>, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.name</span><span class="se">\"</span><span class="s2"> is not allowed to be empty. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If case you forget to send the file <strong>name</strong> property key and value altogether, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.name</span><span class="se">\"</span><span class="s2"> is required. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If case you forget to send the file <strong>size</strong> property key and value altogether, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.size</span><span class="se">\"</span><span class="s2"> is required. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>If case you use a file name that is longer than 255 characters, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\"</span><span class="s2">board.files.name</span><span class="se">\"</span><span class="s2"> length must be less than or equal to 255 characters long. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="board-request-upload-url">Request upload URL</h2>
+
+<p>Now that you&#39;ve informed us about the file(s) you want to upload, it is time to request upload URLs. Each chunk of the file has its own upload url.</p>
+
+<h3 class="call"><span>GET</span> /boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}</h3>
+
+<p>To be able to upload a file, it must be split into chunks, and uploaded to different pre-signed URLs. This endpoint can be used to get pre-signed upload URLs for each of a file&#39;s parts. These upload URLs are essentially limited access to a storage bucket hosted with Amazon. They are valid for an hour and must be re-requested if they expire.</p>
+
+<p>Use the fields from the previous response; now you need the <code>id</code> of the file, the <code>id</code> of the multipart, and you must request a upload-url for all of your <code>part_numbers</code>.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-url/{part_number}/{multipart_upload_id}"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">fileItems</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+<span class="k">for</span> <span class="p">(</span>
+  <span class="kd">let</span> <span class="nx">partNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nx">partNumber</span> <span class="o">&lt;</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">part_numbers</span><span class="p">;</span>
+  <span class="nx">partNumber</span><span class="o">++</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Get the upload url for the chunk we want to upload</span>
+  <span class="kr">const</span> <span class="nx">uploadURL</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">getFileUploadURL</span><span class="p">(</span>
+    <span class="nx">board</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="p">);</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right before uploading each file</span>
+</code></pre><h4 id='headers-4'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table></div><h4 id='parameters-3'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>board_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the board where you added the files</td>
+</tr>
+<tr>
+<td><code>file_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the file to upload, returned when adding items</td>
+</tr>
+<tr>
+<td><code>part_number</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td>Which part number of the file you want to upload. It will be limited to the maximum <code>multipart.part_numbers</code> response</td>
+</tr>
+<tr>
+<td><code>multipart_upload_id</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td>The upload ID issued by AWS S3, which is available at <code>multipart.id</code></td>
+</tr>
+</tbody></table></div><h4 id='response-4'>Response</h4><h5 id='200-ok-4'>200 (OK)</h5>
+<p>If you successfully request an upload-url, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://a-very-long-pre-signed-s3-put-url"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p><strong>Important</strong></p>
+
+<p>Files on a board <em>must</em> have a chunk size of 6 megabytes (or more precisely 6291456 bytes), except for the very last chunk, which can be smaller. Sending too much or too little data will result in a <code>400 Bad Request</code> error when you finalize the file. As with transfers: Do not let us down.</p>
+
+<p>The response body contains the pre-signed S3 upload <code>url</code>. You will use that in the next step when you upload the contents.</p>
+<h5 id='400-bad-request-4'>400 (Bad request)</h5>
+<p>If a request is made for a part, but no <code>multipart_upload_id</code> is provided, this endpoint will return an HTTP response with a status code of <code>400</code>.</p>
+<h5 id='401-unauthorized'>401 (Unauthorized)</h5>
+<p>If you try to request an upload URL for a file that is not in one of your boards, this endpoint will return an HTTP response with a status code of <code>401</code>.</p>
+<h5 id='404-not-found-2'>404 (Not Found)</h5>
+<p>If you try to request an upload URL for a file, but you provide an invalid file id, this endpoint will return an HTTP response with a status code of <code>404</code>.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File not found. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="board-file-upload">File Upload</h2>
+
+<h3 id="board-upload-part" class="call"><span>PUT</span> {signed_url}</h3>
+
+<p>You&#39;re communicating directly with Amazons&#39; S3, not with our API. Please note: errors returned from S3 will be sent as XML, not JSON. If your response parser is expecting a JSON response it may throw an error here. Please see AWS&#39; <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">S3 documentation</a> for more details about specific responses.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -T <span class="s2">"./path/to/big-bobis.jpg"</span> <span class="s2">"https://signed-s3-upload-url"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'axios'</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">fileItems</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kr">const</span> <span class="nx">fileContent</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">'/path/to/file'</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span>
+  <span class="kd">let</span> <span class="nx">partNumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="nx">partNumber</span> <span class="o">&lt;</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">part_numbers</span><span class="p">;</span>
+  <span class="nx">partNumber</span><span class="o">++</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">chunkStart</span> <span class="o">=</span> <span class="nx">partNumber</span> <span class="o">*</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">chunk_size</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">chunkEnd</span> <span class="o">=</span> <span class="p">(</span><span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">chunk_size</span><span class="p">;</span>
+
+  <span class="c1">// Get the upload url for the chunk we want to upload</span>
+  <span class="kr">const</span> <span class="nx">uploadURL</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">getFileUploadURL</span><span class="p">(</span>
+    <span class="nx">board</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+    <span class="nx">partNumber</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">file</span><span class="p">.</span><span class="nx">multipart</span><span class="p">.</span><span class="nx">id</span>
+  <span class="p">);</span>
+
+  <span class="c1">// Use whichever JavaScript library you prefer to upload the chunk:</span>
+  <span class="c1">// axios, request, fetch, XMLHttpRequest, etc.</span>
+  <span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span> <span class="nx">uploadURL</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span>
+    <span class="na">method</span><span class="p">:</span> <span class="s1">'put'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">fileContent</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">chunkStart</span><span class="p">,</span> <span class="nx">chunkEnd</span><span class="p">),</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// To immediately create a board and upload files</span>
+<span class="k">let</span> <span class="nv">fileURLs</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">..</span><span class="p">]</span> <span class="c1">// URLs pointing to local files</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">uploadBoard</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"Little Kittens"</span><span class="p">,</span> <span class="nv">description</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">containing</span><span class="p">:</span> <span class="n">fileURLs</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">created</span><span class="p">(</span><span class="k">let</span> <span class="nv">board</span><span class="p">):</span>
+          <span class="c1">// Board created, public URL available</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">)</span>
+          <span class="c1">// Use the progress object to track the total file upload progress</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+          <span class="c1">// All files in board have completed uploading</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+          <span class="c1">// Either creating the board or uploading files has failed</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Or use an existing board with files added to it that aren't yet uploaded</span>
+<span class="kt">WeTransfer</span><span class="o">.</span><span class="nf">upload</span><span class="p">(</span><span class="n">board</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">state</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">uploading</span><span class="p">(</span><span class="k">let</span> <span class="nv">progress</span><span class="p">):</span>
+        <span class="c1">// Use the progress object to track the total file upload progress</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">completed</span><span class="p">:</span>
+        <span class="c1">// File upload is complete</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Uploading files failed</span>
+    <span class="k">default</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id="board-complete-file-upload">Complete a file upload</h2>
+
+<p>After all of the file parts have been uploaded, the file must be marked as complete.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X PUT <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}/files/{file_id}/upload-complete"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="nx">await</span> <span class="nx">wtClient</span><span class="p">.</span><span class="nx">board</span><span class="p">.</span><span class="nx">completeFileUpload</span><span class="p">(</span><span class="nx">board</span><span class="p">,</span> <span class="nx">file</span><span class="p">);</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="c1"># This functionality is currently not enabled in the SDK.</span>
+</code></pre><pre class="highlight swift tab-swift"><code><span class="c1">// This step is not necessary as the request is performed by the SDK right after all chunks have been uploaded.</span>
+</code></pre>
+<h3 id="board-complete-upload" class="call"><span>PUT</span> /boards/{board_id}/files/{file_id}/upload-complete</h3>
+<h4 id='headers-5'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+<tr>
+<td><code>Content-Type</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>must be application/json</td>
+</tr>
+</tbody></table></div><h4 id='parameters-4'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>board_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the board where you added the files</td>
+</tr>
+<tr>
+<td><code>file_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the file to upload, returned when adding items</td>
+</tr>
+</tbody></table></div><h4 id='response-5'>Response</h4><h5 id='200-ok-5'>200 (OK)</h5>
+<p>Assuming you&#39;ve uploaded all chunks of the file to the signed link(s) provided by the previous request, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File is marked as complete."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='400-bad-request-5'>400 (Bad Request)</h5>
+<p>If you call this endpoint before you&#39;ve uploaded all chunks of the file to the signed link(s) provided by the previous request, this endpoint will return an HTTP response with a status code of <code>400</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"expected at least 1 part. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='404-not-found-3'>404 (Not Found)</h5>
+<p>If you call this endpoint but use an invalid <code>file_id</code> in the URL, this endpoint will return an HTTP response with a status code of <code>404</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"File not found. See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<h2 id="retrieve-boards-information">Retrieve a board's information</h2>
+
+<h3 id="get-board" class="call"><span>GET</span> /boards/{board_id}</h3>
+
+<p>Retrieve information about an existing board.</p>
+<pre class="highlight shell tab-shell"><code>curl -i -X GET <span class="s2">"https://dev.wetransfer.com/v2/boards/{board_id}"</span> <span class="se">\</span>
+  -H <span class="s2">"x-api-key: your_api_key"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer jwt_token"</span>
+</code></pre><pre class="highlight plaintext"><code>// Retrieving board information is currently not supported in the SDK but will be added in the SDK version 2.1
+</code></pre><h4 id='headers-6'>Headers</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>x-api-key</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Private API key</td>
+</tr>
+<tr>
+<td><code>Authorization</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>Bearer JWT authorization token</td>
+</tr>
+</tbody></table></div><h4 id='parameters-5'>Parameters</h4><div class='table-wrapper'><table class='table'><thead><tr>
+<th>name</th>
+<th>type</th>
+<th>required</th>
+<th>description</th>
+</tr>
+</thead><tbody><tr>
+<td><code>board_id</code></td>
+<td>String</td>
+<td>Yes</td>
+<td>The public ID of the board where you added the files</td>
+</tr>
+</tbody></table></div><h4 id='response-6'>Response</h4>
+<p>If you request a board that is yours, this endpoint will return an HTTP response with a status code of <code>200</code> and a body as below.</p>
+<h5 id='200-ok-6'>200 (OK)</h5><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"board-id"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://we.tl/b-the-boards-url"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Little kittens"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kittie.gif"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"multipart"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"part_numbers"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"chunk_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">195906</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"different-random-hash"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://wetransfer.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"WeTransfer"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"link"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h5 id='403-forbidden'>403 (Forbidden)</h5>
+<p>If you try to request info from a board that is not yours, this endpoint will return an HTTP response with a status code of <code>403</code> and a body as below.</p>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You'</span><span class="se">\'</span><span class="s2">'re not a member of this board (123456). See https://developers.wetransfer.com"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h1 id='errors'>Errors</h1>
+<p>In working with the WeTransfer API you might come across some errors. Here are some of the most common, and what you can do about them.</p>
+<h2 id='most-common-errors'>Most common errors</h2>
+<section class="error_container">
+  <div class="error">
+    <div class="error__title">401 Unauthorized</div>
+    <code class="error__code">{"message":"Unauthorized"}</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation:</span>
+        <p>You've forgotten to send us your API key, or it's being improperly sent.</p>
+      </div>
+      <div class="col">
+        <span>Solution:</span>
+        <p>Make sure that you're sending your API key with each request - see the example code, or add a header like so: <code>`x-api-key: your_api_key`</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <div class="error__title">404 Resource not found</div>
+    <code class="error__code">{"message":"Resource not found"}</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation</span>
+        <p>The endpoint you are trying to hit doesn't exist.</p>
+      </div>
+      <div class="col">
+        <span>Solution</span>
+        <p>Check that you've spelled the endpoint correctly, and remember that our API is versioned - dev.wetransfer.com/authorize won't work, but dev.wetransfer.com/v2/authorize will. Also make sure that you're using the correct version of the API - dev.wetransfer.com/v1/boards won't work!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <div class="error__title">415 Unsupported Content-Type header</div>
+    <code class="error__code">{"message":"Unsupported Content-Type header. Please set Content-Type to 'application/json'."</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation:</span>
+        <p>You've sent a request to the API without a `Content-Type` set, or incorrectly set.</p>
+      </div>
+      <div class="col">
+        <span>Solution:</span>
+        <p>Make sure that you're sending a <code>Content-Type: application/json</code> header with each request.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <div class="error__title">405 Unsupported HTTP Method</div>
+    <code class="error__code">{"message":"The HTTP method or resources may not be supported."}</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation:</span>
+        <p>You've sent a request to an endpoint using the wrong HTTP method. For example, you've sent a POST request to an endpoint that expects a GET.</p>
+      </div>
+      <div class="col">
+        <span>Solution:</span>
+        <p>Make sure that you're using the correct HTTP verb for each endpoint.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <div class="error__title">429 API Rate Limit</div>
+    <code class="error__code">{"message":"Limit Exceeded Exception"} or 429 response</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation:</span>
+        <p>You've exceeded your rate limit.</p>
+      </div>
+      <div class="col">
+        <span>Solution:</span>
+        <p>Try again but with fewer requests in a given time period, wait until tomorrow.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="error">
+    <div class="error__title">400 Expected X to be Y</div>
+    <code class="error__code">{"message":"Expected 1200 to be 3243214"}</code>
+    <div class="two-col">
+      <div class="col">
+        <span>Explanation:</span>
+        <p>If the size of the file you send does not match the size of the file you told us to expect, you'll see this message when you send a /complete request.</p>
+      </div>
+      <div class="col">
+        <span>Solution:</span>
+        <p>Check that you're properly computing the size of the file, or that you're uploading all the required chunks (before sending the complete call).</p>
+      </div>
+    </div>
+  </div>
+</section>
+<h2 id='a-note-about-file-upload-errors'>A note about file upload errors</h2>
+<p>Because file uploads go directly to S3, any errors during this step of the process will be returned in XML. Please see the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html" target="_blank">official S3 documentation</a> for details of individual AWS S3 responses.</p>
+<h2 id='error-codes'>Error codes</h2>
+<p>The WeTransfer API uses the following conventional error codes:</p>
+<div class='table-wrapper'><table class='table'><thead><tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody><tr>
+<td><code>400</code></td>
+<td>Bad Request -- Your request is invalid.</td>
+</tr>
+<tr>
+<td><code>403</code></td>
+<td>Forbidden -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td><code>404</code></td>
+<td>Not Found -- The specified resource could not be found.</td>
+</tr>
+<tr>
+<td><code>405</code></td>
+<td>Method Not Allowed -- You tried to access a transfer or board using the wrong HTTP verb.</td>
+</tr>
+<tr>
+<td><code>406</code></td>
+<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td><code>410</code></td>
+<td>Gone -- The transfer or board requested has been removed from our servers.</td>
+</tr>
+<tr>
+<td><code>418</code></td>
+<td>I&#39;m a teapot.</td>
+</tr>
+<tr>
+<td><code>429</code></td>
+<td>Too Many Requests -- You&#39;re requesting too many things! Slow down!</td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td><code>503</code></td>
+<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table></div><h1 id='changelog'>Changelog</h1><div class='table-wrapper'><table class='table'><thead><tr>
+<th>date</th>
+<th>Changes made</th>
+<th>Product affected</th>
+</tr>
+</thead><tbody><tr>
+<td>2018-10-29</td>
+<td>Add Swift code snippets</td>
+<td>Documentation</td>
+</tr>
+<tr>
+<td>2018-10-24</td>
+<td>Updated V2 and V1 with character limits for link &amp; file listings</td>
+<td>APIs / Docs</td>
+</tr>
+<tr>
+<td>2018-09-25</td>
+<td>Release of V2 of the API with Transfers and Boards!</td>
+<td>All</td>
+</tr>
+<tr>
+<td>2018-07-25</td>
+<td>Clarify shortened_url, copy fixes</td>
+<td>Documentation</td>
+</tr>
+<tr>
+<td>2018-07-24</td>
+<td>Add PHP code snippets</td>
+<td>Documentation</td>
+</tr>
+<tr>
+<td>2018-07-18</td>
+<td>Clarify a couple of required params and add errors documentation</td>
+<td>Documentation</td>
+</tr>
+<tr>
+<td>2018-07-10</td>
+<td>Deprecate TLS 1.0 and 1.1 on Developers Portal</td>
+<td>Portal</td>
+</tr>
+<tr>
+<td>2018-07-06</td>
+<td>Add changelog to documentation</td>
+<td>Documentation</td>
+</tr>
+<tr>
+<td>2018-06-22</td>
+<td>Add ability for users to create multiple keys</td>
+<td>Portal</td>
+</tr>
+<tr>
+<td>2018-05-30</td>
+<td>Add HSTS header to API endpoints</td>
+<td>API and Portal</td>
+</tr>
+<tr>
+<td>2018-05-14</td>
+<td>Release initial version of API to the world</td>
+<td>All</td>
+</tr>
+</tbody></table></div>
+      </div>
+    </div>
+
+    <div class="toc-wrapper">
+        <div class="lang-selector">
+          <span class="lang-selector__title">Syntax shown</span>
+
+          <select id="language_switcher" class="lang-selector__picker">
+                <option data-language-name="shell">shell</option>
+                <option data-language-name="javascript">javascript</option>
+                <option data-language-name="ruby">ruby</option>
+                <option data-language-name="swift">swift</option>
+            </select>
+
+        </div>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#welcome-to-wetransfer-39-s-public-api" class="toc-h1 toc-link" data-title="welcome-to-wetransfer-s-public-api">Welcome to WeTransfer's public API!</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#our-apis" class="toc-h2 toc-link" data-title="our-apis">Our APIs</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#embed" class="toc-h1 toc-link" data-title="embed">Embed</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#wetransfer-embed-enables-you-to-receive-big-files" class="toc-h2 toc-link" data-title="wetransfer-embed-enables-you-to-receive-big-files">WeTransfer Embed enables you to receive big files</a>
+                  </li>
+                  <li>
+                    <a href="#adding-embed-to-your-form" class="toc-h2 toc-link" data-title="adding-embed-to-your-form">Adding Embed to your form</a>
+                  </li>
+                  <li>
+                    <a href="#translations" class="toc-h2 toc-link" data-title="translations">Translations</a>
+                  </li>
+                  <li>
+                    <a href="#examples" class="toc-h2 toc-link" data-title="examples">Examples</a>
+                  </li>
+                  <li>
+                    <a href="#find-us" class="toc-h2 toc-link" data-title="find-us">Find us</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#sdks" class="toc-h1 toc-link" data-title="sdks">SDKs</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#v2-and-v1-compatible-sdks" class="toc-h2 toc-link" data-title="v2-and-v1-compatible-sdks">V2 and V1 Compatible SDKs</a>
+                  </li>
+                  <li>
+                    <a href="#v1-compatible-sdks" class="toc-h2 toc-link" data-title="v1-compatible-sdks">V1 compatible SDKs</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#authorization" class="toc-h1 toc-link" data-title="authorization">Authorization</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#api-keys-where-and-how" class="toc-h2 toc-link" data-title="api-keys-where-and-how">API keys - where and how</a>
+                  </li>
+                  <li>
+                    <a href="#key-limits" class="toc-h2 toc-link" data-title="key-limits">Key Limits</a>
+                  </li>
+                  <li>
+                    <a href="#send-request" class="toc-h2 toc-link" data-title="span-post-span-authorize"><span>POST</span> /authorize</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#file-names" class="toc-h1 toc-link" data-title="file-names">File names</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#removal-of-characters" class="toc-h2 toc-link" data-title="removal-of-characters">Removal of characters</a>
+                  </li>
+                  <li>
+                    <a href="#file-names-should-have-characters" class="toc-h2 toc-link" data-title="file-names-should-have-characters">File names should have characters</a>
+                  </li>
+                  <li>
+                    <a href="#unique-names" class="toc-h2 toc-link" data-title="unique-names">Unique names</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#transfer-api" class="toc-h1 toc-link" data-title="transfer-api">Transfer API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-new-transfer" class="toc-h2 toc-link" data-title="create-a-new-transfer">Create a new transfer</a>
+                  </li>
+                  <li>
+                    <a href="#request-upload-urls" class="toc-h2 toc-link" data-title="request-upload-urls">Request upload URLs</a>
+                  </li>
+                  <li>
+                    <a href="#transfer-file-upload" class="toc-h2 toc-link" data-title="file-upload">File Upload</a>
+                  </li>
+                  <li>
+                    <a href="#transfer-complete-file-upload" class="toc-h2 toc-link" data-title="complete-a-file-upload">Complete a file upload</a>
+                  </li>
+                  <li>
+                    <a href="#finalize-a-transfer" class="toc-h2 toc-link" data-title="finalize-a-transfer">Finalize a transfer</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-transfer-information" class="toc-h2 toc-link" data-title="retrieve-transfer-information">Retrieve transfer information</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#board-api" class="toc-h1 toc-link" data-title="board-api">Board API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-new-board" class="toc-h2 toc-link" data-title="create-a-new-board">Create a new board</a>
+                  </li>
+                  <li>
+                    <a href="#add-links-to-a-board" class="toc-h2 toc-link" data-title="add-links-to-a-board">Add links to a board</a>
+                  </li>
+                  <li>
+                    <a href="#add-files-to-a-board" class="toc-h2 toc-link" data-title="add-files-to-a-board">Add files to a board</a>
+                  </li>
+                  <li>
+                    <a href="#board-request-upload-url" class="toc-h2 toc-link" data-title="request-upload-url">Request upload URL</a>
+                  </li>
+                  <li>
+                    <a href="#board-file-upload" class="toc-h2 toc-link" data-title="file-upload">File Upload</a>
+                  </li>
+                  <li>
+                    <a href="#board-complete-file-upload" class="toc-h2 toc-link" data-title="complete-a-file-upload">Complete a file upload</a>
+                  </li>
+                  <li>
+                    <a href="#retrieve-boards-information" class="toc-h2 toc-link" data-title="retrieve-a-board-s-information">Retrieve a board's information</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#most-common-errors" class="toc-h2 toc-link" data-title="most-common-errors">Most common errors</a>
+                  </li>
+                  <li>
+                    <a href="#a-note-about-file-upload-errors" class="toc-h2 toc-link" data-title="a-note-about-file-upload-errors">A note about file upload errors</a>
+                  </li>
+                  <li>
+                    <a href="#error-codes" class="toc-h2 toc-link" data-title="error-codes">Error codes</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#changelog" class="toc-h1 toc-link" data-title="changelog">Changelog</a>
+          </li>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+      <script src="/javascripts/all_nosearch.js"></script>
+  </body>
+</html>
