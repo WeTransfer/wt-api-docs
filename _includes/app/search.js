@@ -1,4 +1,4 @@
-//= require ../lib/_lunr
+{% include lib/lunr.js %}
 ;(function () {
   'use strict';
 
