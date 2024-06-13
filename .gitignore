@@ -35,3 +35,4 @@ coverage
 # Just in case remove ruby version file
 .ruby-version
 _site/*
+docs/_site/*
