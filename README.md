@@ -22,19 +22,7 @@ Initialize and start the docs:
 
 ```shell
 bundle install
-bundle exec middleman server
+bundle exec jekyll serve
 ```
 
-You can now see the docs at http://localhost:4567. Whoa! That was fast!
-
-## Building static files
-
-To create an exportable set of files, run the following command:
-
-```shell
-bundle exec middleman build --no-clean
-```
-
-This will output the static files in the `/docs` folder.
-
-For WeTransfer developers: The contents of the docs folder will be deployed on every release of the Public API portal.
+You can now see the docs at http://localhost:4000. Whoa! That was fast!

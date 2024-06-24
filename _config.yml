@@ -1,0 +1,92 @@
+title: "WeTransfer API Reference"
+source: docs
+sass:
+  style: compressed
+
+navigation:
+  - id: welcome-to-wetranfers-public-api
+    content: Welcome to WeTransfer's public API!
+    children:
+      - id: our-apis
+        content: Our APIs
+  - id: embed
+    content: Embed
+    children:
+      - id: wetransfer-embed-enables-you-to-receive-big-files
+        content: WeTransfer Embed enables you to receive big files
+      - id: adding-embed-to-your-form
+        content: Adding Embed to your form
+      - id: translations
+        content: Translations
+      - id: examples
+        content: Examples
+      - id: find-us
+        content: Find us
+  - id: sdks
+    content: SDKs
+    children:
+      - id: v2-and-v1-compatible-sdks
+        content: V2 and V1 Compatible SDKs
+      - id: v1-compatible-sdks
+        content: V1 compatible SDKs
+  - id: authorization
+    content: Authorization
+    children:
+      - id: api-keys-where-and-how
+        content: API keys - where and how
+      - id: key-limits
+        content: Key Limits
+      - id: send-request
+        content: "<span>POST</span> /authorize"
+  - id: file-names
+    content: File names
+    children:
+      - id: removal-of-characters
+        content: Removal of characters
+      - id: file-names-should-have-characters
+        content: File names should have characters
+      - id: unique-names
+        content: Unique names
+  - id: transfer-api
+    content: Transfer API
+    children:
+      - id: create-a-new-transfer
+        content: Create a new transfer
+      - id: request-upload-urls
+        content: Request upload URLs
+      - id: transfer-file-upload
+        content: File Upload
+      - id: transfer-complete-file-upload
+        content: Complete a file upload
+      - id: finalize-a-transfer
+        content: Finalize a transfer
+      - id: retrieve-transfer-information
+        content: Retrieve transfer information
+  - id: board-api
+    content: Board API
+    children:
+      - id: create-a-new-board
+        content: Create a new board
+      - id: add-links-to-a-board
+        content: Add links to a board
+      - id: add-files-to-a-board
+        content: Add files to a board
+      - id: board-request-upload-url
+        content: Request upload URL
+      - id: board-file-upload
+        content: File Upload
+      - id: board-complete-file-upload
+        content: Complete a file upload
+      - id: retrieve-boards-information
+        content: Retrieve a board's information
+  - id: errors
+    content: Errors
+    children:
+      - id: most-common-errors
+        content: Most common errors
+      - id: a-note-about-file-upload-errors
+        content: A note about file upload errors
+      - id: error-codes
+        content: Error codes
+  - id: changelog
+    content: Changelog
