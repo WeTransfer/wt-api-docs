@@ -22,7 +22,7 @@ Initialize and start the docs:
 
 ```shell
 bundle install
-bundle exec jekyll serve
+bundle exec jekyll serve --config docs/_config.yml
 ```
 
 You can now see the docs at http://localhost:4000. Whoa! That was fast!
